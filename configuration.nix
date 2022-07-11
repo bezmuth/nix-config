@@ -7,8 +7,21 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./cachix.nix 
+      # ./cachix.nix
     ];
+  # Point nix path to the home dir
+  nix.nixPath = ["nixos-config=/home/bezmuth/nix-config/configuration.nix" 
+                 "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" ];
+
+  # dirty cachix import, when hte public key changes this will break
+  nix = {
+    binaryCaches = [
+      "https://nix-community.cachix.org"
+    ];
+    binaryCachePublicKeys = [
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
 
 
   # Bootloader.
