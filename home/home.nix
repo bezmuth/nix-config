@@ -14,6 +14,7 @@
     discord
     protonvpn-gui
     pandoc # emacs
+    nixfmt # emacs
   ];
 
   services.syncthing.enable = true;
