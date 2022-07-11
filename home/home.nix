@@ -6,6 +6,22 @@
   home.username = "bezmuth";
   home.homeDirectory = "/home/bezmuth";
 
+  home.shellAliases = {
+    nr = "sudo nixos-rebuild switch --flake /home/bezmuth/nix-config/.";
+  };
+
+  programs.zsh = {
+    enable = true; # Your zsh config
+    oh-my-zsh = {
+      enable = true;
+      plugins = [ "git" "direnv" ];
+      theme = "af-magic";
+    };
+  };
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [ 
     syncthing
@@ -15,6 +31,7 @@
     protonvpn-gui
     pandoc # emacs
     nixfmt # emacs
+    lorri
   ];
 
   services.syncthing.enable = true;
@@ -32,5 +49,4 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
-  programs.bash.enable = true;
 }

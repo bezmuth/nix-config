@@ -10,10 +10,16 @@
       # ./cachix.nix
     ];
   # Point nix path to the home dir
+  #
+  # The simplest way to bootstrap this would be to use a symbolic link initially
   nix.nixPath = ["nixos-config=/home/bezmuth/nix-config/configuration.nix" 
                  "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" ];
 
-  # dirty cachix import, when hte public key changes this will break
+  # Dirty cachix import. The cachix command line tool doesnt understand that my
+  # configuration.nix is in a different place
+  #
+  # Can't do import cachix.nix as the cachix folder won't be copied to the build
+  # enviroment for some reason.
   nix = {
     binaryCaches = [
       "https://nix-community.cachix.org"
@@ -84,6 +90,9 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  # set default shell
+  users.defaultUserShell = pkgs.zsh;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bezmuth = {
     isNormalUser = true;
@@ -116,7 +125,7 @@
 
 
   # Enable automatic login for the user.
-  services.xserver.displayManager.autoLogin.enable = true;
+  services.xserver.displayManager.autoLogin.enable = false;
   services.xserver.displayManager.autoLogin.user = "bezmuth";
 
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
@@ -132,7 +141,6 @@
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
-    tailscale
     gnomeExtensions.appindicator
     gnomeExtensions.runcat
     gnomeExtensions.gsconnect
