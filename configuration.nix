@@ -148,6 +148,9 @@
     gnomeExtensions.syncthing-indicator
   ];
 
+  programs.kdeconnect.enable = true;
+  programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
+
 
   # Needed for gnome extensions
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];

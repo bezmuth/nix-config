@@ -32,6 +32,10 @@
     pandoc # emacs
     nixfmt # emacs
     lorri
+    element-desktop
+    nheko
+    polymc
+    nodejs
   ];
 
   services.syncthing.enable = true;
