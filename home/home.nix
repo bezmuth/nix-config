@@ -34,7 +34,6 @@
     nixfmt # emacs
     lorri
     element-desktop
-    nheko
     polymc
     nodejs
   ];
