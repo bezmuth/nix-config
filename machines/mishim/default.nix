@@ -97,6 +97,7 @@
     gnomeExtensions.nasa-apod
     gnomeExtensions.syncthing-indicator
   ];
+  networking.firewall.checkReversePath = "loose";
   services.tailscale.enable = true;
   services.openssh.enable = true;
 
@@ -125,7 +126,7 @@
       fi
 
       # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey ${config.age.secrets.tskey.path}
+      ${tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tskey.path}
     '';
   };
 
