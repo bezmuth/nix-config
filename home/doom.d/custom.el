@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/home/bezmuth/org/roam/20220411210146-2022_exam_plan.org" "/home/bezmuth/org/JESUSPUTTHISINAORGFILE.org"))
+   '("/home/bezmuth/org/roam/20221018165744-planner.org"))
  '(package-selected-packages '(chess)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -34,6 +34,3 @@
  '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 
-(setenv "PATH" (concat (getenv "PATH") ":" (expand-file-name "~/.cargo/bin")))
-(setq exec-path (append exec-path (list (expand-file-name "~/.cargo/bin"))))
-(setq lsp-rust-analyzer-server-display-inlay-hints t)

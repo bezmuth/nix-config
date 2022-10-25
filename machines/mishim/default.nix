@@ -41,6 +41,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
+  boot.kernelPackages = pkgs.linuxPackages_5_19;
+
   networking.hostName = "Mishim"; # Define your hostname.
   networking.networkmanager.enable = true;
   time.timeZone = "Europe/London";
@@ -65,7 +67,7 @@
   };
 
   # set default shell
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.bash;
 
   users.users.bezmuth = {
     isNormalUser = true;
@@ -96,10 +98,23 @@
     gnomeExtensions.gsconnect
     gnomeExtensions.nasa-apod
     gnomeExtensions.syncthing-indicator
+    webcamoid
   ];
   networking.firewall.checkReversePath = "loose";
   services.tailscale.enable = true;
   services.openssh.enable = true;
+  services.power-profiles-daemon.enable = false;
+  services.tlp.enable = true;
+  services.auto-cpufreq.enable = true;
+
+  systemd.services.mouse-reset = {
+    description = "reset trackpad when leaving sleep";
+    wantedBy = [ "basic.target" "suspend.target" "hibernate.target" "hybrid-sleep.target" "suspend-then-hibernate.target"];
+    path = with pkgs; [ bash kmod ];
+    script = ''
+        modprobe -r psmouse && modprobe psmouse
+      '';
+  };
 
   # load tskey secret
   age.secrets.tskey.file = ../../secrets/tskey.age;
@@ -130,10 +145,10 @@
     '';
   };
 
-
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
   programs.adb.enable = true;
+  programs.steam.enable = true;
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 

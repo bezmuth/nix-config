@@ -16,9 +16,10 @@
 (unpin! irony)
 (package! irony :recipe
   (:host github :repo "Sarcasm/irony-mode")) ; ensures latest version of irony
-(package! direnv)
 (package! zen-mode)
 (package! org-modern)
+(package! rainbow-delimiters)
+(package! cheat-sh)
 
 
 

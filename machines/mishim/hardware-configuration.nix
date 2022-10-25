@@ -10,9 +10,12 @@
 
   boot.initrd.availableKernelModules = [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
+  boot.kernelModules = [ "kvm-amd" "amd-pstate" ];
+  boot.kernelParams = [
+    "amd_pstate.shared_mem=1"
+  ];
+  powerManagement.cpuFreqGovernor = "powersave";
   boot.extraModulePackages = [ ];
-
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/14e33c0e-ba23-4004-a681-7d41276eb0b3";
       fsType = "ext4";

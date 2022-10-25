@@ -14,7 +14,7 @@
     enable = true; # Your zsh config
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "direnv" ];
+      plugins = [ "git" "direnv"];
       theme = "af-magic";
     };
   };
@@ -36,6 +36,16 @@
     element-desktop
     polymc
     nodejs
+    bat
+    qbittorrent
+    vlc
+    libreoffice
+    scrcpy
+    rsync
+    nixfmt
+    anki-bin
+    tribler
+    plantuml
   ];
 
   services.syncthing.enable = true;
