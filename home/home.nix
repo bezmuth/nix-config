@@ -21,6 +21,11 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  dconf.settings = {
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ];
+    };
+  };
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -34,7 +39,7 @@
     nixfmt # emacs
     lorri
     element-desktop
-    polymc
+    prismlauncher
     nodejs
     bat
     qbittorrent
