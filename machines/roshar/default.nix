@@ -37,7 +37,7 @@
     '';
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_5_19;
+  boot.kernelPackages = pkgs.linuxPackages_6_0;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -66,7 +66,6 @@
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.xfce.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
