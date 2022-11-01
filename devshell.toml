@@ -7,3 +7,4 @@ help = "Per project developer environments"
 help = "Rebuilds nixos system."
 name = "rebuild"
 command = "sudo nixos-rebuild switch --flake flake.nix #.$HOSTNAME"
+
