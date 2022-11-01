@@ -1,3 +1,5 @@
+# common config between "all" (roshar and mishim) devices
+
 { config, pkgs, ... }:
 
 {

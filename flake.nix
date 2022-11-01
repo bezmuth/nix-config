@@ -52,7 +52,7 @@
       };
       Salas = nixpkgs.lib.nixosSystem {
         system = "aarch64-linux";
-        modules = baseModules ++ [./machines/salas];
+        modules = [./machines/salas];
       };
     };
   };
