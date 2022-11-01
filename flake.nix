@@ -18,6 +18,22 @@
         inherit system;
         overlays = [devshell.overlay];
       };
+      baseModules = [
+        agenix.nixosModule
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.bezmuth =  { pkgs, ... }: {
+            imports = [ nix-doom-emacs.hmModule ./home/home.nix ];
+            programs.doom-emacs = {
+              enable = true;
+              doomPrivateDir = ./home/doom.d;
+              emacsPackage = pkgs.emacsNativeComp;
+            };
+          };
+        }
+      ];
     in
     {
     devShells."${system}".default =
@@ -28,75 +44,16 @@
     nixosConfigurations = {
       Mishim = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          ./machines/mishim
-          agenix.nixosModule
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.bezmuth =  { pkgs, ... }: {
-              imports = [ nix-doom-emacs.hmModule ./home/home.nix ];
-              programs.doom-emacs = {
-                enable = true;
-                doomPrivateDir = ./home/doom.d;
-                emacsPackage = pkgs.emacsNativeComp;
-              };
-            };
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+        modules = baseModules ++ [./machines/mishim ./common.nix];
       };
-      
       Roshar = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          ./machines/roshar
-          agenix.nixosModule
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.bezmuth =  { pkgs, ... }: {
-              imports = [ nix-doom-emacs.hmModule ./home/home.nix ];
-              programs.doom-emacs = {
-                enable = true;
-                doomPrivateDir = ./home/doom.d;
-                emacsPackage = pkgs.emacsNativeComp;
-              };
-            };
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+        modules = baseModules ++ [./machines/roshar ./common.nix];
       };
-
       Salas = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./machines/salas
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.bezmuth =  { pkgs, ... }: {
-              imports = [ nix-doom-emacs.hmModule ./home/home.nix ];
-              programs.doom-emacs = {
-                enable = true;
-                doomPrivateDir = ./home/doom.d;
-                emacsPackage = pkgs.emacsNativeComp;
-              };
-            };
-
-            # Optionally, use home-manager.extraSpecialArgs to pass
-            # arguments to home.nix
-          }
-        ];
+        system = "aarch64-linux";
+        modules = baseModules ++ [./machines/salas];
       };
-
     };
   };
 }
