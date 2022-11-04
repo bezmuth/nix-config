@@ -38,6 +38,7 @@
   environment.systemPackages = [
     pkgs.vim
     pkgs.tailscale
+    pkgs.git
   ];
   services.tailscale.enable = true;
 
@@ -63,7 +64,7 @@
         exit 0
       fi
 
-      # otherwise authenticate with tailscale
+      # otherwise authenticate with tailscale, this key is invalid btw
       ${tailscale}/bin/tailscale up -authkey tskey-kCsoJm4CNTRL-rfXJScx2xDQSKPq1nhBKY
     '';
   };

@@ -19,10 +19,6 @@
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils, devshell, agenix, ...}:
     let
-      pkgs = self.pkgs.x86_64-linux.nixpkgs;
-      shell = pkgs.devshell.mkShell {
-        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
-      };
       desktopModules = [./common.nix
                         home-manager.nixosModules.home-manager
                         {
@@ -51,9 +47,13 @@
       ];
 
       outputsBuilder = channels: with channels.nixpkgs;{
-        defaultPackage = shell;
+        defaultPackage = channels.nixpkgs.devshell.mkShell {
+          imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+        };
 
-        devShell = shell;
+        devShell = channels.nixpkgs.devshell.mkShell {
+          imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+        };
       };
 
 
