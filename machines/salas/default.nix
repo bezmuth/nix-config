@@ -26,7 +26,6 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_0;
 
-
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 80 443 ];
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];

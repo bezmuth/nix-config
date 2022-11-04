@@ -44,6 +44,7 @@
       hosts.Mishim.modules = [./machines/mishim] ++ desktopModules;
       hosts.Roshar.modules = [./machines/roshar] ++ desktopModules;
       hosts.Salas.modules  = [./machines/salas];
+      hosts.Salas.system = "aarch64-linux";
 
       hostDefaults.modules = [
         agenix.nixosModule
