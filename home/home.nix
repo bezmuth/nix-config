@@ -57,6 +57,7 @@
     anki-bin
     tribler
     plantuml
+    texlive.combined.scheme-full
   ];
 
   services.syncthing.enable = true;
