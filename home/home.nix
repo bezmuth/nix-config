@@ -57,7 +57,10 @@
     anki-bin
     tribler
     plantuml
+<<<<<<< HEAD
     texlive.combined.scheme-full
+=======
+>>>>>>> e7d35f1 (Fixed some salas stuff)
     tor-browser-bundle-bin
   ];
 
