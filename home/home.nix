@@ -10,6 +10,12 @@
     nr = "sudo nixos-rebuild switch --flake /home/bezmuth/nix-config/.";
   };
 
+  programs.doom-emacs = {
+    enable = true;
+    doomPrivateDir = ./doom.d;
+    emacsPackage = pkgs.emacsNativeComp;
+  };
+
   programs.zsh = {
     enable = true; # Your zsh config
     oh-my-zsh = {
@@ -44,7 +50,7 @@
     bat
     qbittorrent
     vlc
-    libreoffice
+    libreoffice-fresh
     scrcpy
     rsync
     nixfmt
