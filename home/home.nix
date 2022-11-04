@@ -58,6 +58,7 @@
     tribler
     plantuml
     texlive.combined.scheme-full
+    tor-browser-bundle-bin
   ];
 
   services.syncthing.enable = true;
