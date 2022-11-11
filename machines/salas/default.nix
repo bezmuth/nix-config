@@ -46,6 +46,7 @@
     enable = true;
     configureNginx = true;
     localDomain = "femboy.rehab";
+    smtp.authenticate = false;
   };
 
   systemd.services.tailscale-autoconnect = {
