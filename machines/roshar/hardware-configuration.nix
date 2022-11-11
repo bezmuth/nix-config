@@ -22,11 +22,6 @@
     { device = "/dev/disk/by-uuid/5433-7A66";
       fsType = "vfat";
     };
-  fileSystems."/run/media/hard-drive" =
-    { device = "/dev/disk/by-uuid/0268255E5E4E1D58";
-      fsType = "ntfs3";
-      options = [ "rw" "uid=1000"];
-    };
 
   swapDevices = [ ];
 

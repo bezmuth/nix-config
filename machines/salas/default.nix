@@ -39,6 +39,7 @@
     pkgs.vim
     pkgs.tailscale
     pkgs.git
+    pkgs.mastadon
   ];
   services.tailscale.enable = true;
 
