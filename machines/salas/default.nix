@@ -39,9 +39,14 @@
     pkgs.vim
     pkgs.tailscale
     pkgs.git
-    pkgs.mastodon
   ];
   services.tailscale.enable = true;
+
+  services.mastodon = {
+    enable = true;
+    configureNginx = true;
+    localDomain = "femboy.rehab";
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -71,23 +76,23 @@
   };
 
 
-  services.nginx = {
-    enable = true;
-    # Use recommended settings
-    recommendedGzipSettings = true;
-    recommendedOptimisation = true;
-    recommendedProxySettings = true;
-    recommendedTlsSettings = true;
+  # services.nginx = {
+  #   enable = true;
+  #   # Use recommended settings
+  #   recommendedGzipSettings = true;
+  #   recommendedOptimisation = true;
+  #   recommendedProxySettings = true;
+  #   recommendedTlsSettings = true;
 
-    # Only allow PFS-enabled ciphers with AES256
-    sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
+  #   # Only allow PFS-enabled ciphers with AES256
+  #   sslCiphers = "AES256+EECDH:AES256+EDH:!aNULL";
 
-    virtualHosts."femboy.rehab" = {
-      addSSL = true;
-      enableACME = true;
-      root = "/var/www/femboy.rehab";
-    };
-  };
+  #   virtualHosts."femboy.rehab" = {
+  #     addSSL = true;
+  #     enableACME = true;
+  #     root = "/var/www/femboy.rehab";
+  #   };
+  # };
 
   security.acme.certs = {
     "femboy.rehab".email = "benkel97@protonmail.com";
