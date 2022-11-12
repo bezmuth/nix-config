@@ -31,7 +31,7 @@
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts =
     ''
-      130.162.189.151 femboy.rehab
+      130.162.189.151 propaganda.lol
     '';
 
   environment.systemPackages = [
@@ -41,12 +41,12 @@
   ];
   services.tailscale.enable = true;
 
-  services.mastodon = {
-    enable = true;
-    configureNginx = true;
-    localDomain = "femboy.rehab";
-    smtp.fromAddress = "admin@propaganda.lol";
-  };
+  # services.mastodon = {
+  #   enable = true;
+  #   configureNginx = true;
+  #   localDomain = "propaganda.lol";
+  #   smtp.fromAddress = "admin@propaganda.lol";
+  # };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -95,7 +95,7 @@
   # };
 
   security.acme.certs = {
-    "femboy.rehab".email = "benkel97@protonmail.com";
+    "propaganda.lol".email = "benkel97@protonmail.com";
   };
   security.acme.acceptTerms = true;
 }
