@@ -31,8 +31,6 @@
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts =
     ''
-      130.162.189.151 femboy.rehab
-      130.162.189.151 test.femboy.rehab
       130.162.189.151 propaganda.lol
     '';
 
