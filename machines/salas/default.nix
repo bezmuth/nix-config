@@ -94,8 +94,8 @@
   #   };
   # };
 
-  security.acme.certs = {
-    "propaganda.lol".email = "benkel97@protonmail.com";
-  };
-  security.acme.acceptTerms = true;
+  # security.acme.certs = {
+  #   "propaganda.lol".email = "benkel97@protonmail.com";
+  # };
+  # security.acme.acceptTerms = true;
 }
