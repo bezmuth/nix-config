@@ -27,12 +27,13 @@
   boot.kernelPackages = pkgs.linuxPackages_6_0;
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 80 443 ];
+  networking.firewall.allowedTCPPorts = [ 22 80 443 25 ];
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts =
     ''
       130.162.189.151 femboy.rehab
       130.162.189.151 test.femboy.rehab
+      130.162.189.151 propaganda.lol
     '';
 
   environment.systemPackages = [
@@ -45,8 +46,8 @@
   services.mastodon = {
     enable = true;
     configureNginx = true;
-    localDomain = "femboy.rehab";
-    smtp.fromAddress = "admin@femboy.rehab";
+    localDomain = "propaganda.lol";
+    smtp.fromAddress = "admin@propaganda.lol";
   };
 
   systemd.services.tailscale-autoconnect = {
@@ -96,7 +97,7 @@
   # };
 
   security.acme.certs = {
-    "femboy.rehab".email = "benkel97@protonmail.com";
+    "propaganda.lol".email = "benkel97@protonmail.com";
   };
   security.acme.acceptTerms = true;
 }
