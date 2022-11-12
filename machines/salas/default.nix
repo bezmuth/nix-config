@@ -41,12 +41,12 @@
   ];
   services.tailscale.enable = true;
 
-  # services.mastodon = {
-  #   enable = true;
-  #   configureNginx = true;
-  #   localDomain = "propaganda.lol";
-  #   smtp.fromAddress = "admin@propaganda.lol";
-  # };
+  services.mastodon = {
+    enable = true;
+    configureNginx = true;
+    localDomain = "propaganda.lol";
+    smtp.fromAddress = "admin@propaganda.lol";
+  };
 
   systemd.services.tailscale-autoconnect = {
     description = "Automatic connection to Tailscale";
@@ -94,8 +94,8 @@
   #   };
   # };
 
-  # security.acme.certs = {
-  #   "propaganda.lol".email = "benkel97@protonmail.com";
-  # };
-  # security.acme.acceptTerms = true;
+  security.acme.certs = {
+    "propaganda.lol".email = "benkel97@protonmail.com";
+  };
+  security.acme.acceptTerms = true;
 }
