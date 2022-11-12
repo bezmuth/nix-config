@@ -31,7 +31,7 @@
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts =
     ''
-      130.162.189.151 propaganda.lol
+      130.162.189.151 femboy.rehab
     '';
 
   environment.systemPackages = [
@@ -44,7 +44,7 @@
   services.mastodon = {
     enable = true;
     configureNginx = true;
-    localDomain = "propaganda.lol";
+    localDomain = "femboy.rehab";
     smtp.fromAddress = "admin@propaganda.lol";
   };
 
@@ -95,7 +95,7 @@
   # };
 
   security.acme.certs = {
-    "propaganda.lol".email = "benkel97@protonmail.com";
+    "femboy.rehab".email = "benkel97@protonmail.com";
   };
   security.acme.acceptTerms = true;
 }
