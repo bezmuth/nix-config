@@ -43,7 +43,7 @@
   services.tailscale.enable = true;
 
   services.mastodon = {
-    enable = false;
+    enable = true;
     configureNginx = true;
     localDomain = "propaganda.lol";
     smtp.fromAddress = "admin@propaganda.lol";
@@ -95,8 +95,8 @@
   #   };
   # };
 
-  # security.acme.certs = {
-  #   "propaganda.lol".email = "benkel97@protonmail.com";
-  # };
-  # security.acme.acceptTerms = true;
+  security.acme.certs = {
+    "propaganda.lol".email = "benkel97@protonmail.com";
+  };
+  security.acme.acceptTerms = true;
 }
