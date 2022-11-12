@@ -31,6 +31,7 @@
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts =
     ''
+      130.162.189.151 femboy.rehab
       130.162.189.151 propaganda.lol
     '';
 
@@ -42,7 +43,7 @@
   services.tailscale.enable = true;
 
   services.mastodon = {
-    enable = true;
+    enable = false;
     configureNginx = true;
     localDomain = "propaganda.lol";
     smtp.fromAddress = "admin@propaganda.lol";
@@ -94,8 +95,8 @@
   #   };
   # };
 
-  security.acme.certs = {
-    "propaganda.lol".email = "benkel97@protonmail.com";
-  };
-  security.acme.acceptTerms = true;
+  # security.acme.certs = {
+  #   "propaganda.lol".email = "benkel97@protonmail.com";
+  # };
+  # security.acme.acceptTerms = true;
 }
