@@ -188,3 +188,9 @@
 
 (rainbow-delimiters-mode)
 ;(treemacs)
+
+(use-package! mastodon
+  :ensure t
+  :config
+  (setq mastodon-instance-url "https://propaganda.lol")
+  (setq mastodon-active-user "Bezmuth"))

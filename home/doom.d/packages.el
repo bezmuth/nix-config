@@ -20,6 +20,7 @@
 (package! org-modern)
 (package! rainbow-delimiters)
 (package! cheat-sh)
+(package! mastodon)
 
 
 

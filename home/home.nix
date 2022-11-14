@@ -57,8 +57,10 @@
     anki-bin
     tribler
     plantuml
+    graphviz
     texlive.combined.scheme-full
     tor-browser-bundle-bin
+    tootle
   ];
 
   services.syncthing.enable = true;

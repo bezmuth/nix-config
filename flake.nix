@@ -35,6 +35,7 @@
 
       sharedOverlays = [
         devshell.overlay
+        (import ./pkgs)
       ];
 
       hosts.Mishim.modules = [./machines/mishim] ++ desktopModules;
