@@ -20,10 +20,6 @@
     ];
   };
 
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = true;
-
   boot.kernelPackages = pkgs.linuxPackages_6_0;
 
   networking.firewall.enable = true;
