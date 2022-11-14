@@ -3,7 +3,7 @@
   src = fetchgit {
     url = "https://github.com/bezmuth/glitch-soc-prop-lol.git";
     rev = "0751ef7e29edda37973cb7d27764c007dc9d1d9c";
-    sha256 = "1ah34pc6v4qkld16393wzid8l0pyc81w2lzh1hk9r3anncpp87dx";
+    hash = "sha256-cVBhn9vBjfxzrL0d5mqRzk34OhFp30PP8WSS0mGBvYs=";
   };
 in applyPatches {
   inherit src;
