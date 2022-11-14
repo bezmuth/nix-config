@@ -1,1 +1,1 @@
-stolen from https://git.xirion.net/0x76/nixos-configs/src/branch/main/pkgs/glitch-soc
+stolen from https://git.0x76.dev/v/infrastructure
