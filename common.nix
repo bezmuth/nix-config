@@ -39,6 +39,11 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.extraHosts = ''
+  127.0.0.1 youtube.com
+  127.0.0.1 twitter.com
+  127.0.0.1 twitter.com
+  '';
 
   # Set your time zone.
   time.timeZone = "Europe/London";

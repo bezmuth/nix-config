@@ -51,12 +51,9 @@
         defaultPackage = channels.nixpkgs.devshell.mkShell {
           imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
         };
-
         devShell = channels.nixpkgs.devshell.mkShell {
           imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
         };
       };
-
-
     };
 }
