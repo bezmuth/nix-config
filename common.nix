@@ -30,6 +30,7 @@
 
   boot.kernelPackages = pkgs.linuxPackages_6_0;
 
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -139,6 +140,7 @@
   #   '';
   };
 
+  documentation.dev.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -158,6 +160,8 @@
     gnomeExtensions.nasa-apod
     gnomeExtensions.syncthing-indicator
     webcamoid
+    man-pages
+    man-pages-posix
     #  thunderbird
   ];
 }

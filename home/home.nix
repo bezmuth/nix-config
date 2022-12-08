@@ -61,6 +61,7 @@
     texlive.combined.scheme-full
     tor-browser-bundle-bin
     tootle
+    veracrypt
   ];
 
   services.syncthing.enable = true;
