@@ -42,7 +42,7 @@
   networking.extraHosts = ''
   127.0.0.1 youtube.com
   127.0.0.1 twitter.com
-  127.0.0.1 twitter.com
+  127.0.0.1 reddit.com
   '';
 
   # Set your time zone.
