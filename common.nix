@@ -2,6 +2,46 @@
 
 { config, pkgs, ... }:
 
+
+let
+  # bash script to let dbus know about important env variables and
+  # propagate them to relevent services run at the end of sway config
+  # see
+  # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/"It-doesn't-work"-Troubleshooting-Checklist
+  # note: this is pretty much the same as  /etc/sway/config.d/nixos.conf but also restarts
+  # some user services to make sure they have the correct environment variables
+  dbus-sway-environment = pkgs.writeTextFile {
+    name = "dbus-sway-environment";
+    destination = "/bin/dbus-sway-environment";
+    executable = true;
+
+    text = ''
+  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+  systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+  systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      '';
+  };
+
+  # currently, there is some friction between sway and gtk:
+  # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
+  # the suggested way to set gtk settings is with gsettings
+  # for gsettings to work, we need to tell it where the schemas are
+  # using the XDG_DATA_DIR environment variable
+  # run at the end of sway config
+  configure-gtk = pkgs.writeTextFile {
+      name = "configure-gtk";
+      destination = "/bin/configure-gtk";
+      executable = true;
+      text = let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        gnome_schema=org.gnome.desktop.interface
+        gsettings set $gnome_schema gtk-theme 'Dracula'
+        '';
+  };
+in
 {
   # Point nix path to the home dir
   nix = {
@@ -28,8 +68,7 @@
     '';
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_0;
-
+  boot.kernelPackages = pkgs.linuxPackages_zen;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -92,18 +131,24 @@
   };
 
   boot.cleanTmpDir = true;
+  #boot.plymouth.enable = true;
 
   users.defaultUserShell = pkgs.bash;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bezmuth = {
     isNormalUser = true;
     description = "Bezmuth";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "video" ];
     packages = with pkgs; [];
+
   };
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+
+  # Enable virtualbox
+  virtualisation.virtualbox.host.enable = true;
+  virtualisation.virtualbox.host.enableExtensionPack = true;
 
   programs.kdeconnect.enable = true;
   programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
@@ -112,46 +157,72 @@
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   services.fwupd.enable = true;
+  services.ratbagd.enable = true;
 
   networking.firewall.checkReversePath = "loose";
   services.tailscale.enable = true;
   services.openssh.enable = true;
   # load tskey secret
   age.secrets.tskey.file = ./secrets/tskey.age;
-  systemd.services.tailscale-autoconnect = {
-    description = "Automatic connection to Tailscale";
+  #systemd.services.tailscale-autoconnect = {
+  #  description = "Automatic connection to Tailscale";
+  #
+  #   # make sure tailscale is running before trying to connect to tailscale
+  #  after = [ "network-pre.target" "tailscale.service" ];
+  # wants = [ "network-pre.target" "tailscale.service" ];
+  # # wantedBy = [ "multi-user.target" ];
 
-    # make sure tailscale is running before trying to connect to tailscale
-    after = [ "network-pre.target" "tailscale.service" ];
-    wants = [ "network-pre.target" "tailscale.service" ];
-    wantedBy = [ "multi-user.target" ];
-
-    # set this service as a oneshot job
-    serviceConfig.Type = "oneshot";
+  # # set this service as a oneshot job
+  #  serviceConfig.Type = "oneshot";
 
     # have the job run this shell script
-    script = with pkgs; ''
-      # wait for tailscaled to settle
-      sleep 2
+    #script = with pkgs; ''
+    #  # wait for tailscaled to settle
+    #  sleep 2
 
       # check if we are already authenticated to tailscale
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then # if so, then do nothing
-        exit 0
-      fi
+     # status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+      #if [ $status = "Running" ]; then # if so, then do nothing
+       # exit 0
+    #fi
 
-      # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tskey.path}
+     # # otherwise authenticate with tailscale
+     # ${tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tskey.path}
   #   '';
+  #};
+  #
+
+  security.polkit.enable = true;
+  programs.light.enable = true;
+  # kanshi systemd service
+  systemd.user.services.kanshi = {
+    description = "kanshi daemon";
+    serviceConfig = {
+      Type = "simple";
+      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c /home/bezmuth/.config/kanshi/config'';
+    };
   };
+  services.dbus.enable = true;
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    # gtk portal needed to make gtk apps happy
+    # extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
+
+  # enable sway window manager
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
+
 
   documentation.dev.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
+    kanshi
     firefox
     keepassxc
     vim
@@ -164,9 +235,27 @@
     gnomeExtensions.gsconnect
     gnomeExtensions.nasa-apod
     gnomeExtensions.syncthing-indicator
+    gnomeExtensions.blur-my-shell
     webcamoid
     man-pages
     man-pages-posix
+
+    alacritty # gpu accelerated terminal
+    sway
+    dbus-sway-environment
+    configure-gtk
+    wayland
+    xdg-utils # for openning default programms when clicking links
+    glib # gsettings
+    dracula-theme # gtk theme
+    gnome3.adwaita-icon-theme  # default gnome cursors
+    swaylock
+    swayidle
+    grim # screenshot functionality
+    slurp # screenshot functionality
+    wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
+    bemenu # wayland clone of dmenu
+    mako # notification system developed by swaywm maintainer
     #  thunderbird
   ];
 }

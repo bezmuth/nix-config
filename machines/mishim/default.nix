@@ -10,11 +10,20 @@
     ];
 
   networking.hostName = "Mishim"; # Define your hostname.
+  #
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [ 9999 ];
+  networking.firewall.allowedUDPPorts = [ config.services.tailscale.port 9999 ];
+
 
   services.openssh.enable = true;
-  services.power-profiles-daemon.enable = false;
-  services.tlp.enable = true;
+  services.power-profiles-daemon.enable = true;
+  services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
+
+  services.fprintd.enable = true;
+  security.pam.services.login.fprintAuth = true;
+  security.pam.services.xscreensaver.fprintAuth = true;
 
   systemd.services.mouse-reset = {
     description = "reset trackpad when leaving sleep";
@@ -24,7 +33,6 @@
         modprobe -r psmouse && modprobe psmouse
       '';
   };
-
 
   system.stateVersion = "22.05"; # Did you read the comment?
 }

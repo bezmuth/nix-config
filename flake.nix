@@ -2,14 +2,16 @@
   description = "Ben's Nixos configuration, here be dragons";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    agenix.url = "github:ryantm/agenix";
+    nixpkgs.url = github:nixos/nixpkgs/nixos-unstable;
+    nix-doom-emacs.url = github:nix-community/nix-doom-emacs;
+    agenix.url = github:ryantm/agenix;
     utils.url = github:gytis-ivaskevicius/flake-utils-plus;
 
     devshell.url = github:numtide/devshell;
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     devshell.inputs.flake-utils.follows = "utils";
+
+    nur.url = github:nix-community/NUR;
 
     home-manager = {
       url = github:nix-community/home-manager;
@@ -17,16 +19,27 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils, devshell, agenix, ...}:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils, devshell, agenix, nur, ...}:
     let
-      desktopModules = [./common.nix
-                        home-manager.nixosModules.home-manager
-                        {
-                          home-manager.useGlobalPkgs = true;
-                          home-manager.useUserPackages = true;
-                          home-manager.users.bezmuth.imports = [ inputs.nix-doom-emacs.hmModule ./home/home.nix ]; # i have no fucking clue why this works
-                        }
-                       ];
+      desktopModules = [
+        # This adds a nur configuration option.
+        # Use `config.nur` for packages like this:
+        # ({ config, ... }: {
+        #   environment.systemPackages = [ config.nur.repos.mic92.hello-nur ];
+        # })
+        nur.nixosModules.nur
+        ./common.nix
+        home-manager.nixosModules.home-manager
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.bezmuth.imports = [
+            inputs.nix-doom-emacs.hmModule  # i have no fucking clue why this works
+            ./home/home.nix
+          ];
+        }
+      ];
+
     in
     utils.lib.mkFlake{
       inherit self inputs;

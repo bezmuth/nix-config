@@ -21,6 +21,8 @@
 (package! rainbow-delimiters)
 (package! cheat-sh)
 (package! mastodon)
+(package! autothemer)
+(package! catppuccin-theme)
 
 
 
