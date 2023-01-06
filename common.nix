@@ -2,7 +2,6 @@
 
 { config, pkgs, ... }:
 
-
 let
   # bash script to let dbus know about important env variables and
   # propagate them to relevent services run at the end of sway config
@@ -16,10 +15,10 @@ let
     executable = true;
 
     text = ''
-  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-  systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-  systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      '';
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+    '';
   };
 
   # currently, there is some friction between sway and gtk:
@@ -29,29 +28,28 @@ let
   # using the XDG_DATA_DIR environment variable
   # run at the end of sway config
   configure-gtk = pkgs.writeTextFile {
-      name = "configure-gtk";
-      destination = "/bin/configure-gtk";
-      executable = true;
-      text = let
-        schema = pkgs.gsettings-desktop-schemas;
-        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
-      in ''
-        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
-        gnome_schema=org.gnome.desktop.interface
-        gsettings set $gnome_schema gtk-theme 'Dracula'
-        '';
+    name = "configure-gtk";
+    destination = "/bin/configure-gtk";
+    executable = true;
+    text = let
+      schema = pkgs.gsettings-desktop-schemas;
+      datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+    in ''
+      export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+      gnome_schema=org.gnome.desktop.interface
+      gsettings set $gnome_schema gtk-theme 'Dracula'
+    '';
   };
-in
-{
+in {
   # Point nix path to the home dir
   nix = {
     # set nix path properly
-    nixPath = ["nixos-config=/home/bezmuth/nix-config/flake.nix"
-               "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos" ];
+    nixPath = [
+      "nixos-config=/home/bezmuth/nix-config/flake.nix"
+      "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
+    ];
     settings = {
-      substituters = [
-        "https://nix-community.cachix.org"
-      ];
+      substituters = [ "https://nix-community.cachix.org" ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
@@ -79,9 +77,9 @@ in
   # Enable networking
   networking.networkmanager.enable = true;
   networking.extraHosts = ''
-  127.0.0.1 youtube.com
-  127.0.0.1 twitter.com
-  127.0.0.1 reddit.com
+    127.0.0.1 youtube.com
+    127.0.0.1 twitter.com
+    127.0.0.1 reddit.com
   '';
 
   # Set your time zone.
@@ -102,7 +100,7 @@ in
     layout = "gb";
     xkbVariant = "";
   };
-  
+
   hardware.opengl.enable = true;
   programs.xwayland.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
@@ -130,6 +128,8 @@ in
     #media-session.enable = true;
   };
 
+  services.blueman.enable = true;
+
   boot.cleanTmpDir = true;
   #boot.plymouth.enable = true;
 
@@ -139,7 +139,7 @@ in
     isNormalUser = true;
     description = "Bezmuth";
     extraGroups = [ "networkmanager" "wheel" "adbusers" "video" ];
-    packages = with pkgs; [];
+    packages = with pkgs; [ ];
 
   };
 
@@ -151,7 +151,7 @@ in
   virtualisation.virtualbox.host.enableExtensionPack = true;
 
   programs.kdeconnect.enable = true;
-  programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
+  # programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
   programs.adb.enable = true;
   programs.steam.enable = true;
 
@@ -175,19 +175,19 @@ in
   # # set this service as a oneshot job
   #  serviceConfig.Type = "oneshot";
 
-    # have the job run this shell script
-    #script = with pkgs; ''
-    #  # wait for tailscaled to settle
-    #  sleep 2
+  # have the job run this shell script
+  #script = with pkgs; ''
+  #  # wait for tailscaled to settle
+  #  sleep 2
 
-      # check if we are already authenticated to tailscale
-     # status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      #if [ $status = "Running" ]; then # if so, then do nothing
-       # exit 0
-    #fi
+  # check if we are already authenticated to tailscale
+  # status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+  #if [ $status = "Running" ]; then # if so, then do nothing
+  # exit 0
+  #fi
 
-     # # otherwise authenticate with tailscale
-     # ${tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tskey.path}
+  # # otherwise authenticate with tailscale
+  # ${tailscale}/bin/tailscale up -authkey file:${config.age.secrets.tskey.path}
   #   '';
   #};
   #
@@ -199,7 +199,8 @@ in
     description = "kanshi daemon";
     serviceConfig = {
       Type = "simple";
-      ExecStart = ''${pkgs.kanshi}/bin/kanshi -c /home/bezmuth/.config/kanshi/config'';
+      ExecStart =
+        "${pkgs.kanshi}/bin/kanshi -c /home/bezmuth/.config/kanshi/config";
     };
   };
   services.dbus.enable = true;
@@ -215,7 +216,6 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
   };
-
 
   documentation.dev.enable = true;
 
@@ -248,14 +248,14 @@ in
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
     dracula-theme # gtk theme
-    gnome3.adwaita-icon-theme  # default gnome cursors
+    gnome3.adwaita-icon-theme # default gnome cursors
     swaylock
     swayidle
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
     bemenu # wayland clone of dmenu
-    mako # notification system developed by swaywm maintainer
+    #mako # notification system developed by swaywm maintainer
     #  thunderbird
   ];
 }

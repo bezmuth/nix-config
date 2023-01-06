@@ -13,14 +13,14 @@
   programs.doom-emacs = {
     enable = true;
     doomPrivateDir = ./doom.d;
-    emacsPackage = pkgs.emacsNativeComp;
+    emacsPackage = pkgs.emacsUnstable;
   };
 
   programs.zsh = {
     enable = true; # Your zsh config
     oh-my-zsh = {
       enable = true;
-      plugins = [ "git" "direnv"];
+      plugins = [ "git" "direnv" ];
       theme = "af-magic";
     };
   };
@@ -68,9 +68,9 @@
     sway
     grim
     mitmproxy
+    font-awesome
+    playerctl
   ];
-
-  services.blueman-applet.enable = true;
 
   programs.alacritty = {
     enable = true;
@@ -116,26 +116,185 @@
     };
   };
 
+  programs.waybar = {
+    enable = true;
+    systemd.enable = true;
+    # mocha
+    style = ''
+      ${builtins.readFile "${pkgs.waybar}/etc/xdg/waybar/style.css"}
+      @define-color base   #1e1e2e;
+      @define-color mantle #181825;
+      @define-color crust  #11111b;
+
+      @define-color text     #cdd6f4;
+      @define-color subtext0 #a6adc8;
+      @define-color subtext1 #bac2de;
+
+      @define-color surface0 #313244;
+      @define-color surface1 #45475a;
+      @define-color surface2 #585b70;
+
+      @define-color overlay0 #6c7086;
+      @define-color overlay1 #7f849c;
+      @define-color overlay2 #9399b2;
+
+      @define-color blue      #89b4fa;
+      @define-color lavender  #b4befe;
+      @define-color sapphire  #74c7ec;
+      @define-color sky       #89dceb;
+      @define-color teal      #94e2d5;
+      @define-color green     #a6e3a1;
+      @define-color yellow    #f9e2af;
+      @define-color peach     #fab387;
+      @define-color maroon    #eba0ac;
+      @define-color red       #f38ba8;
+      @define-color mauve     #cba6f7;
+      @define-color pink      #f5c2e7;
+      @define-color flamingo  #f2cdcd;
+      @define-color rosewater #f5e0dc;
+
+      window#waybar {
+        background-color: @base;
+        border-bottom: @surface1;
+        color: #ffffff;
+        transition-property: background-color;
+        transition-duration: .5s;
+      }
+      #workspaces button.focused {
+        background-color: @surface0;
+        box-shadow: inset 0 -3px @surface1;
+      }
+      #clock {
+        background-color: @surface0;
+        color: @text;
+      }
+      #battery {
+          background-color: @green;
+          color: @base;
+      }
+      #temperature {
+          background-color: @maroon;
+          color: @base;
+      }
+      #memory {
+          background-color: @sky;
+          color: @base;
+      }
+      #network {
+          background-color: @blue;
+          color: @base;
+      }
+      #tray {
+          background-color: @peach;
+          color: @base;
+      }
+      #cpu {
+          background-color: @pink;
+          color: @base;
+      }
+
+    '';
+    settings = [{
+      height = 20;
+      layer = "bottom";
+      position = "top";
+      tray = { spacing = 10; };
+      mode = "dock";
+      modules-center = [ "clock" ];
+      modules-left = [ "sway/workspaces" "sway/mode" ];
+      modules-right =
+        [ "tray" "network" "cpu" "memory" "temperature" "battery" ];
+      battery = {
+        format = "{capacity}% {icon}";
+        format-alt = "{time} {icon}";
+        format-charging = "{capacity}% ";
+        format-icons = [ "" "" "" "" "" ];
+        format-plugged = "{capacity}% ";
+        states = {
+          critical = 15;
+          warning = 30;
+        };
+      };
+      clock = {
+        format = "{:%Y-%m-%d | %H:%M}";
+        format-alt = "{:%Y-%m-%d}";
+        tooltip-format = "{:%Y-%m-%d | %H:%M}";
+      };
+      cpu = {
+        interval = 2;
+        format = " {usage}%";
+        tooltip = false;
+      };
+      memory = { format = " {}%"; };
+      network = {
+        interval = 1;
+        format-alt = "{ifname}: {ipaddr}/{cidr}";
+        format-disconnected = "Disconnected ⚠";
+        format-ethernet =
+          "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+        format-linked = "{ifname} (No IP) ";
+        format-wifi = "{essid} ({signalStrength}%) ";
+      };
+      pulseaudio = {
+        format = "{volume}% {icon} {format_source}";
+        format-bluetooth = "{volume}% {icon} {format_source}";
+        format-bluetooth-muted = " {icon} {format_source}";
+        format-icons = {
+          car = "";
+          default = [ "" "" "" ];
+          handsfree = "";
+          headphones = "";
+          headset = "";
+          phone = "";
+          portable = "";
+        };
+        format-muted = " {format_source}";
+        format-source = "{volume}% ";
+        format-source-muted = "";
+        on-click = "pavucontrol";
+      };
+      "sway/mode" = { format = ''<span style="italic">{}</span>''; };
+      temperature = {
+        critical-threshold = 80;
+        format = " {temperatureC}°C";
+        format-icons = [ "" ];
+      };
+    }];
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     config = rec {
+      colors.focused = {
+        background = "#89dceb";
+        border = "#89dceb";
+        childBorder = "#89dceb";
+        indicator = "#89dceb";
+        text = "#000000";
+      };
+      bars = [ ];
+      startup = [{
+        command =
+          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY && blueman-applet";
+      }];
       modifier = "Mod4";
-      # Use kitty as default terminal
       terminal = "alacritty";
-      keybindings = let
-        m = config.wayland.windowManager.sway.config.modifier;
-      in
-        lib.mkOptionDefault {
-          "${m}+Return" = "exec ${config.wayland.windowManager.sway.config.terminal}";
-          "${m}+space" = "exec dmenu_run";
-          "${m}+t" = "split toggle";
-          "XF86MonBrightnessDown" = "exec light -U 10";
-          "XF86MonBrightnessUp" = "exec light -A 10";
+      menu = "dmenu_run";
+      keybindings = let m = config.wayland.windowManager.sway.config.modifier;
+      in lib.mkOptionDefault {
+        "${m}+Return" = "exec ${terminal}";
+        "${m}+space" = "exec ${menu}";
+        "${m}+t" = "split toggle";
+        "${m}+bracketright" = "exec playerctl next";
+        "${m}+bracketleft" = "exec playerctl play-pause";
+        "${m}+p" = "exec playerctl previous";
+        "XF86MonBrightnessDown" = "exec light -U 10";
+        "XF86MonBrightnessUp" = "exec light -A 10";
 
-          # screenshots
-          "Print" = "exec ''grim -g \"$(slurp)\" - | wl-copy -t image/png''";
-          "Alt+Print" = "exec ''grim - | wl-copy -t image/png''";
-        };
+        # screenshots
+        "Print" = "exec ''grim -g \"$(slurp)\" - | wl-copy -t image/png''";
+        "Alt+Print" = "exec ''grim - | wl-copy -t image/png''";
+      };
 
       gaps = {
         smartBorders = "on";
@@ -145,16 +304,14 @@
 
       input = {
         "type:keyboard" = {
-            xkb_layout = "gb";
-            xkb_options = "caps:escape";
+          xkb_layout = "gb";
+          xkb_options = "caps:escape";
         };
         "type:pointer" = {
           accel_profile = "flat";
           pointer_accel = "0";
         };
-        "type:touchpad" = {
-          tap = "enabled";
-        };
+        "type:touchpad" = { tap = "enabled"; };
       };
 
       output."*".bg = "~/Pictures/GeminidoverBluemoonvalley-2000.jpg fill";
@@ -162,7 +319,7 @@
     };
   };
 
-  services.syncthing.enable = true;
+  #services.syncthing.enable = true;
 
   home.stateVersion = "22.05";
 

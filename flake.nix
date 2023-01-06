@@ -13,13 +13,15 @@
 
     nur.url = github:nix-community/NUR;
 
+    emacs-overlay.url = github:nix-community/emacs-overlay;
+
     home-manager = {
       url = github:nix-community/home-manager;
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils, devshell, agenix, nur, ...}:
+  outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils, devshell, agenix, nur, emacs-overlay, ...}:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -49,6 +51,7 @@
       sharedOverlays = [
         devshell.overlay
         (import ./pkgs)
+        emacs-overlay.overlay
       ];
 
       hosts.Mishim.modules = [./machines/mishim] ++ desktopModules;

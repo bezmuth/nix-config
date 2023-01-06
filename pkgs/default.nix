@@ -3,6 +3,4 @@ self: super: {
   v = {
     glitch-soc = super.callPackage ./glitch-soc { };
   };
-
-
 }
