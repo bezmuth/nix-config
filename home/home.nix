@@ -70,7 +70,14 @@
     mitmproxy
     font-awesome
     playerctl
+    zathura
+    ranger
+    tmux
+    pavucontrol
+    pulseaudio
   ];
+
+  programs.bash.bashrcExtra = "tmux";
 
   programs.alacritty = {
     enable = true;
@@ -192,6 +199,14 @@
           background-color: @pink;
           color: @base;
       }
+      #pulseaudio {
+          background-color: @rosewater;
+          color: @base;
+      }
+      #pulseaudio.muted {
+          background-color: @base;
+          color: @rosewater;
+      }
 
     '';
     settings = [{
@@ -202,8 +217,15 @@
       mode = "dock";
       modules-center = [ "clock" ];
       modules-left = [ "sway/workspaces" "sway/mode" ];
-      modules-right =
-        [ "tray" "network" "cpu" "memory" "temperature" "battery" ];
+      modules-right = [
+        "tray"
+        "pulseaudio"
+        "network"
+        "cpu"
+        "memory"
+        "temperature"
+        "battery"
+      ];
       battery = {
         format = "{capacity}% {icon}";
         format-alt = "{time} {icon}";
@@ -238,7 +260,7 @@
       pulseaudio = {
         format = "{volume}% {icon} {format_source}";
         format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
+        format-bluetooth-muted = " {icon} {format_source}";
         format-icons = {
           car = "";
           default = [ "" "" "" ];
@@ -248,7 +270,7 @@
           phone = "";
           portable = "";
         };
-        format-muted = " {format_source}";
+        format-muted = " {format_source}";
         format-source = "{volume}% ";
         format-source-muted = "";
         on-click = "pavucontrol";
@@ -288,8 +310,17 @@
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
         "${m}+p" = "exec playerctl previous";
+
+        # function keys
         "XF86MonBrightnessDown" = "exec light -U 10";
         "XF86MonBrightnessUp" = "exec light -A 10";
+        "XF86AudioRaiseVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
+        "XF86AudioLowerVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
+        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMicMute" =
+          "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
         # screenshots
         "Print" = "exec ''grim -g \"$(slurp)\" - | wl-copy -t image/png''";
@@ -313,6 +344,10 @@
         };
         "type:touchpad" = { tap = "enabled"; };
       };
+
+      seat."*".hide_cursor = "3000";
+
+      focus.forceWrapping = true;
 
       output."*".bg = "~/Pictures/GeminidoverBluemoonvalley-2000.jpg fill";
 
