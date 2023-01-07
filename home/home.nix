@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "bezmuth";
@@ -38,7 +39,6 @@
     firefox
     syncthing
     keepassxc
-    spotify
     discord
     protonvpn-gui
     pandoc # emacs
@@ -76,22 +76,57 @@
     pavucontrol
     pulseaudio
     networkmanagerapplet
+    nerdfonts
   ];
+
+  fonts.fontconfig.enable = true;
 
   gtk.iconTheme.package = pkgs.papirus-icon-theme;
   gtk.iconTheme.name = "EPapirus";
 
   programs.bash.bashrcExtra = "tmux";
 
+  programs.spicetify = {
+    enable = true;
+    theme =
+      inputs.spicetify-nix.packages.${pkgs.system}.default.themes.catppuccin-mocha;
+    colorScheme = "flamingo";
+
+    enabledExtensions =
+      with inputs.spicetify-nix.packages.${pkgs.system}.default.extensions; [
+        fullAppDisplay
+        shuffle # shuffle+ (special characters are sanitized out of ext names)
+        keyboardShortcut
+        popupLyrics
+        playlistIcons
+        genre
+        playNext
+        volumePercentage
+      ];
+  };
+
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi-wayland.override {
+      plugins = [ pkgs.rofi-emoji pkgs.rofi-power-menu ];
+    };
     extraConfig = {
-      modi = "dmenu";
+      modi =
+        "run,drun,emoji,power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
       kb-primary-paste = "Control+V,Shift+Insert";
       kb-secondary-paste = "Control+v,Insert";
+      show-icons = true;
+      icon-theme = "Papirus";
+      terminal = "alacritty";
+      drun-display-format = "{icon} {name}";
+      disable-history = false;
+      hide-scrollbar = true;
+      display-drun = "  Apps ";
+      display-run = "  Run ";
+      display-emoji = "  Emoji";
+      display-Power-menu = "  Power";
+      sidebar-mode = true;
     };
-    plugins = [ pkgs.rofimoji pkgs.rofi-vpn ];
     theme = ./rofi-catppuccin.rasi;
   };
 
@@ -208,7 +243,7 @@
           color: @base;
       }
       #tray {
-          background-color: @peach;
+          background-color: @surface0;
           color: @base;
       }
       #cpu {
@@ -220,7 +255,7 @@
           color: @base;
       }
       #pulseaudio.muted {
-          background-color: @base;
+          background-color: @surface0;
           color: @rosewater;
       }
 
