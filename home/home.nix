@@ -75,9 +75,25 @@
     tmux
     pavucontrol
     pulseaudio
+    networkmanagerapplet
   ];
 
+  gtk.iconTheme.package = pkgs.papirus-icon-theme;
+  gtk.iconTheme.name = "EPapirus";
+
   programs.bash.bashrcExtra = "tmux";
+
+  programs.rofi = {
+    enable = true;
+    package = pkgs.rofi-wayland;
+    extraConfig = {
+      modi = "dmenu";
+      kb-primary-paste = "Control+V,Shift+Insert";
+      kb-secondary-paste = "Control+v,Insert";
+    };
+    plugins = [ pkgs.rofimoji pkgs.rofi-vpn ];
+    theme = ./rofi-catppuccin.rasi;
+  };
 
   programs.alacritty = {
     enable = true;
@@ -217,15 +233,8 @@
       mode = "dock";
       modules-center = [ "clock" ];
       modules-left = [ "sway/workspaces" "sway/mode" ];
-      modules-right = [
-        "tray"
-        "pulseaudio"
-        "network"
-        "cpu"
-        "memory"
-        "temperature"
-        "battery"
-      ];
+      modules-right =
+        [ "tray" "pulseaudio" "cpu" "memory" "temperature" "battery" ];
       battery = {
         format = "{capacity}% {icon}";
         format-alt = "{time} {icon}";
@@ -260,7 +269,7 @@
       pulseaudio = {
         format = "{volume}% {icon} {format_source}";
         format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
+        format-bluetooth-muted = " {icon} {format_source}";
         format-icons = {
           car = "";
           default = [ "" "" "" ];
@@ -270,7 +279,7 @@
           phone = "";
           portable = "";
         };
-        format-muted = " {format_source}";
+        format-muted = " {format_source}";
         format-source = "{volume}% ";
         format-source-muted = "";
         on-click = "pavucontrol";
@@ -284,8 +293,25 @@
     }];
   };
 
-  wayland.windowManager.sway = {
+  wayland.windowManager.sway = let
+    gsettings = "${pkgs.glib}/bin/gsettings";
+    gnomeSchema = "org.gnome.desktop.interface";
+    importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
+      config="/home/alternateved/.config/gtk-3.0/settings.ini"
+      if [ ! -f "$config" ]; then exit 1; fi
+      gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
+      font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
+      ${gsettings} set ${gnomeSchema} gtk-theme "$gtk_theme"
+      ${gsettings} set ${gnomeSchema} icon-theme "$icon_theme"
+      ${gsettings} set ${gnomeSchema} cursor-theme "$cursor_theme"
+      ${gsettings} set ${gnomeSchema} font-name "$font_name"
+    '';
+  in {
     enable = true;
+    xwayland = true;
+    systemdIntegration = true;
     config = rec {
       colors.focused = {
         background = "#89dceb";
@@ -295,17 +321,23 @@
         text = "#000000";
       };
       bars = [ ];
-      startup = [{
-        command =
-          "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY && blueman-applet";
-      }];
+      startup = [
+        {
+          command =
+            "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
+        }
+        { command = "${importGsettings}"; }
+        { command = "blueman-applet"; }
+        { command = "nm-applet --indicator"; }
+        { command = "waybar"; }
+      ];
       modifier = "Mod4";
       terminal = "alacritty";
-      menu = "dmenu_run";
+      menu = "rofi";
       keybindings = let m = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${m}+Return" = "exec ${terminal}";
-        "${m}+space" = "exec ${menu}";
+        "${m}+space" = "exec '${menu} -show drun -show-icons'";
         "${m}+t" = "split toggle";
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
@@ -333,6 +365,20 @@
         inner = 5;
       };
 
+      window = {
+        border = 1;
+        commands = [
+          {
+            criteria = { title = "^(.*) Proton VPN ^(.*)"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { title = "Bluetooth Devices"; };
+            command = "floating enable";
+          }
+        ];
+      };
+
       input = {
         "type:keyboard" = {
           xkb_layout = "gb";
@@ -355,6 +401,8 @@
   };
 
   #services.syncthing.enable = true;
+
+  services.network-manager-applet.enable = true;
 
   home.stateVersion = "22.05";
 

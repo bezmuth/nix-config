@@ -47,6 +47,6 @@ in {
   };
   v6 = font-awesome {
     version = "6.2.1";
-    sha256 = "sha256-BjK1PJQFWtKDvfQ2Vh7BoOPqYucyvOG+2Pu/Kh+JpAA=";
+    sha256 = "sha256-+tKJGijdhq7pGm9NpKjkH+wAvbBZytz/1kGGuhVkGzA=";
   };
 }
