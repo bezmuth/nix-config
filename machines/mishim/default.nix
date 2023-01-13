@@ -9,7 +9,7 @@
   #
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 9999 ];
-  networking.firewall.allowedUDPPorts = [ config.services.tailscale.port 9999 ];
+  networking.firewall.allowedUDPPorts = [ 9999 ];
 
   services.openssh.enable = true;
   services.power-profiles-daemon.enable = true;

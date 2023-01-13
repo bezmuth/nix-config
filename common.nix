@@ -66,7 +66,9 @@ in {
     '';
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_zen;
+  #boot.kernelPackages = pkgs.linuxPackages_zen; #migth cause crashes with vlc
+  #
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -160,7 +162,7 @@ in {
   services.ratbagd.enable = true;
 
   networking.firewall.checkReversePath = "loose";
-  services.tailscale.enable = true;
+  #services.tailscale.enable = true;
   services.openssh.enable = true;
   # load tskey secret
   age.secrets.tskey.file = ./secrets/tskey.age;

@@ -48,7 +48,6 @@
     prismlauncher
     nodejs
     bat
-    qbittorrent
     vlc
     libreoffice-fresh
     scrcpy
@@ -70,21 +69,74 @@
     mitmproxy
     font-awesome
     playerctl
-    zathura
     ranger
     tmux
     pavucontrol
     pulseaudio
     networkmanagerapplet
     nerdfonts
+    catppuccin-gtk
+    catppuccin-cursors
+    i2p
+    transmission-gtk
+    gnome.nautilus
   ];
 
   fonts.fontconfig.enable = true;
 
-  gtk.iconTheme.package = pkgs.papirus-icon-theme;
-  gtk.iconTheme.name = "EPapirus";
+  home.pointerCursor = {
+    package = pkgs.catppuccin-cursors;
+    name = "mochaLite";
+    gtk.enable = true;
+  };
+
+  gtk = {
+    iconTheme.package = pkgs.papirus-icon-theme;
+    iconTheme.name = "EPapirus";
+    theme.package = pkgs.catppuccin-gtk;
+    theme.name = "Catppuccin-Dark";
+  };
 
   programs.bash.bashrcExtra = "tmux";
+
+  programs.zathura = {
+    enable = true;
+    extraConfig = ''
+      set default-fg                 "#CDD6F4"
+      set default-bg                 "#1E1E2E"
+      set completion-bg              "#313244"
+      set completion-fg              "#CDD6F4"
+      set completion-highlight-bg    "#575268"
+      set completion-highlight-fg    "#CDD6F4"
+      set completion-group-bg        "#313244"
+      set completion-group-fg        "#89B4FA"
+      set statusbar-fg               "#CDD6F4"
+      set statusbar-bg               "#313244"
+      set notification-bg            "#313244"
+      set notification-fg            "#CDD6F4"
+      set notification-error-bg      "#313244"
+      set notification-error-fg      "#F38BA8"
+      set notification-warning-bg    "#313244"
+      set notification-warning-fg    "#FAE3B0"
+      set inputbar-fg                "#CDD6F4"
+      set inputbar-bg                "#313244"
+      set recolor-lightcolor         "#1E1E2E"
+      set recolor-darkcolor          "#CDD6F4"
+      set index-fg                   "#CDD6F4"
+      set index-bg                   "#1E1E2E"
+      set index-active-fg            "#CDD6F4"
+      set index-active-bg            "#313244"
+      set render-loading-bg          "#1E1E2E"
+      set render-loading-fg          "#CDD6F4"
+      set highlight-color            "#575268"
+      set highlight-fg               "#F5C2E7"
+      set highlight-active-color     "#F5C2E7"
+
+      set recolor "true"
+      set recolor-reverse-video "true"
+      set recolor-keephue "true"
+    '';
+  };
 
   programs.spicetify = {
     enable = true;
@@ -364,7 +416,9 @@
         { command = "${importGsettings}"; }
         { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
-        { command = "waybar"; }
+        { command = "kdeconnect-indicator"; }
+        { command = "keepassxc"; }
+        { command = "i2prouter-plain"; }
       ];
       modifier = "Mod4";
       terminal = "alacritty";
@@ -395,6 +449,7 @@
       };
 
       gaps = {
+        smartGaps = true;
         smartBorders = "on";
         outer = 5;
         inner = 5;
@@ -430,12 +485,14 @@
 
       focus.forceWrapping = true;
 
-      output."*".bg = "~/Pictures/GeminidoverBluemoonvalley-2000.jpg fill";
+      output."*".bg = "~/Pictures/background.png fill";
 
     };
   };
 
   #services.syncthing.enable = true;
+  #
+  services.mpris-proxy.enable = true;
 
   services.network-manager-applet.enable = true;
 
