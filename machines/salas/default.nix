@@ -37,6 +37,9 @@
     configureNginx = true;
     localDomain = "propaganda.lol";
     smtp.fromAddress = "admin@propaganda.lol";
+    mediaAutoRemove.enable = true;
+    mediaAutoRemove.olderThanDays = 1;
+    mediaAutoRemove.startAt = "daily";
   };
 
   systemd.services.tailscale-autoconnect = {
@@ -87,23 +90,4 @@
   security.acme.certs = { "propaganda.lol".email = "benkel97@protonmail.com"; };
   security.acme.acceptTerms = true;
 
-  systemd.timers."clear-images" = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnBootSec = "12h";
-      OnUnitActiveSec = "12h";
-      Unit = "clear-images.service";
-    };
-  };
-
-  systemd.services."clear-images" = {
-    script = ''
-      set -eu
-      ${pkgs.v.glitch-soc}/bin/mastodon-env  ${pkgs.v.glitch-soc}/bin/tootctl "media remove"
-    '';
-    serviceConfig = {
-      Type = "oneshot";
-      User = "mastodon";
-    };
-  };
 }
