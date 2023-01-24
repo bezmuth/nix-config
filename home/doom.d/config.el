@@ -92,4 +92,5 @@
 )
 (rainbow-delimiters-mode)
 
-(load-theme 'catppuccin-mocha t)
+(setq catppuccin-flavor 'mocha)
+(setq doom-theme 'catppuccin)
