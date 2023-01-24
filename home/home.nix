@@ -78,6 +78,7 @@
     i2p
     transmission-gtk
     gnome.nautilus
+    haruna
   ];
 
   fonts.fontconfig.enable = true;
@@ -464,6 +465,10 @@
             criteria = { title = "Bluetooth Devices"; };
             command = "floating enable";
           }
+          {
+            criteria = { title = "Image Occlusion Enhanced - Add Mode"; };
+            command = "floating enable";
+          }
         ];
       };
 
@@ -476,7 +481,10 @@
           accel_profile = "flat";
           pointer_accel = "0";
         };
-        "type:touchpad" = { tap = "enabled"; };
+        "type:touchpad" = {
+          tap = "enabled";
+          dwt = "false";
+        };
       };
 
       seat."*".hide_cursor = "3000";
