@@ -54,7 +54,6 @@
     rsync
     nixfmt
     anki-bin
-    tribler
     plantuml
     graphviz
     texlive.combined.scheme-full
@@ -64,7 +63,6 @@
     piper
     gnome-feeds
     calibre
-    sway
     grim
     mitmproxy
     font-awesome
