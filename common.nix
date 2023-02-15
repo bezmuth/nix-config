@@ -241,6 +241,7 @@ in {
     webcamoid
     man-pages
     man-pages-posix
+    veracrypt
 
     alacritty # gpu accelerated terminal
     sway

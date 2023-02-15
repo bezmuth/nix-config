@@ -59,7 +59,6 @@
     texlive.combined.scheme-full
     tor-browser-bundle-bin
     tootle
-    veracrypt
     piper
     gnome-feeds
     calibre
@@ -79,6 +78,8 @@
     transmission-gtk
     gnome.nautilus
     haruna
+    gqrx
+    kiwix
   ];
 
   fonts.fontconfig.enable = true;
@@ -496,7 +497,7 @@
     };
   };
 
-  #services.syncthing.enable = true;
+  services.syncthing.enable = true;
   #
   services.mpris-proxy.enable = true;
 
