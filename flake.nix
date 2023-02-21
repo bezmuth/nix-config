@@ -43,7 +43,7 @@
             inputs.spicetify-nix.homeManagerModule
             ./home/home.nix
           ];
-          home-manager.extraSpecialArgs = {inherit inputs self;};
+          home-manager.extraSpecialArgs = { inherit inputs self; };
         }
       ];
 
@@ -60,7 +60,7 @@
       hosts.Salas.modules = [ ./machines/salas ];
       hosts.Salas.system = "aarch64-linux";
 
-      hostDefaults.modules = [ agenix.nixosModule ];
+      hostDefaults.modules = [ agenix.nixosModules.default ];
 
       outputsBuilder = channels:
         with channels.nixpkgs; {

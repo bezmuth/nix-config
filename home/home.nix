@@ -431,6 +431,8 @@
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
         "${m}+p" = "exec playerctl previous";
+        "grave" = "scratchpad show";
+        "Shift+grave" = "move scratchpad";
 
         # function keys
         "XF86MonBrightnessDown" = "exec light -U 10";
