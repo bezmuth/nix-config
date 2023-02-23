@@ -107,6 +107,8 @@ in {
   programs.xwayland.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
 
+  programs.wireshark.enable = true;
+
   # Configure console keymap
   console.keyMap = "uk";
 
@@ -261,5 +263,6 @@ in {
     bemenu # wayland clone of dmenu
     #mako # notification system developed by swaywm maintainer
     #  thunderbird
+    wireshark
   ];
 }
