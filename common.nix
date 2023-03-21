@@ -142,7 +142,8 @@ in {
   users.users.bezmuth = {
     isNormalUser = true;
     description = "Bezmuth";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "video" "libvirtd" ];
+    extraGroups =
+      [ "networkmanager" "wheel" "adbusers" "video" "wireshark" "libvirtd" ];
     packages = with pkgs; [ ];
 
   };
