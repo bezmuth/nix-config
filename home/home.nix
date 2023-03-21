@@ -80,6 +80,8 @@
     haruna
     gqrx
     kiwix
+    picom
+    htop
   ];
 
   fonts.fontconfig.enable = true;
@@ -380,6 +382,88 @@
     }];
   };
 
+  xsession.windowManager.i3 = {
+    enable = true;
+    config = rec {
+      colors.focused = {
+        background = "#89dceb";
+        border = "#89dceb";
+        childBorder = "#89dceb";
+        indicator = "#89dceb";
+        text = "#000000";
+      };
+      modifier = "Mod4";
+      terminal = "alacritty";
+      menu = "rofi";
+      bars = [{
+        position = "top";
+        trayOutput = "DP-0";
+        statusCommand = "i3status";
+      }];
+      gaps = {
+        smartGaps = true;
+        smartBorders = "on";
+        outer = 5;
+        inner = 5;
+      };
+      window = {
+        border = 1;
+        commands = [
+          {
+            criteria = { title = "^(.*) Proton VPN ^(.*)"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { title = "Bluetooth Devices"; };
+            command = "floating enable";
+          }
+          {
+            criteria = { title = "Image Occlusion Enhanced - Add Mode"; };
+            command = "floating enable";
+          }
+        ];
+      };
+      keybindings = let m = config.xsession.windowManager.i3.config.modifier;
+      in lib.mkOptionDefault {
+        "${m}+Return" = "exec ${terminal}";
+        "${m}+space" = "exec ${menu} -show drun -show-icons";
+        "${m}+t" = "split toggle";
+        "${m}+bracketright" = "exec playerctl next";
+        "${m}+bracketleft" = "exec playerctl play-pause";
+        "${m}+p" = "exec playerctl previous";
+        "grave" = "scratchpad show";
+        "Shift+grave" = "move scratchpad";
+
+        "${m}+h" = "focus left";
+        "${m}+j" = "focus down";
+        "${m}+k" = "focus up";
+        "${m}+l" = "focus right";
+
+        # function keys
+        "XF86MonBrightnessDown" = "exec light -U 10";
+        "XF86MonBrightnessUp" = "exec light -A 10";
+        "XF86AudioRaiseVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
+        "XF86AudioLowerVolume" =
+          "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
+        "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";
+        "XF86AudioMicMute" =
+          "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
+
+        # screenshots
+        "Print" = "exec ''grim -g \"$(slurp)\" - | wl-copy -t image/png''";
+        "Alt+Print" = "exec ''grim - | wl-copy -t image/png''";
+      };
+      startup = [
+        { command = "picom"; }
+        { command = "blueman-applet"; }
+        { command = "nm-applet --indicator"; }
+        { command = "kdeconnect-indicator"; }
+        { command = "keepassxc"; }
+      ];
+    };
+  };
+
   wayland.windowManager.sway = let
     gsettings = "${pkgs.glib}/bin/gsettings";
     gnomeSchema = "org.gnome.desktop.interface";
@@ -418,7 +502,6 @@
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
         { command = "keepassxc"; }
-        { command = "i2prouter-plain"; }
       ];
       modifier = "Mod4";
       terminal = "alacritty";

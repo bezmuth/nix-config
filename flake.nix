@@ -53,7 +53,7 @@
       channelsConfig.allowUnfree = true;
 
       sharedOverlays =
-        [ devshell.overlay (import ./pkgs) emacs-overlay.overlay ];
+        [ devshell.overlays.default (import ./pkgs) emacs-overlay.overlay ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
       hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;

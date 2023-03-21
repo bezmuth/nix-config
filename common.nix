@@ -195,7 +195,7 @@ in {
   #   '';
   #};
   #
-
+  services.xserver.windowManager.i3.enable = true;
   security.polkit.enable = true;
   programs.light.enable = true;
   # kanshi systemd service
@@ -246,6 +246,7 @@ in {
     veracrypt
 
     alacritty # gpu accelerated terminal
+    rofi
     sway
     dbus-sway-environment
     configure-gtk
