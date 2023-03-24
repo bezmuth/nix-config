@@ -142,7 +142,7 @@ in {
   users.users.bezmuth = {
     isNormalUser = true;
     description = "Bezmuth";
-    extraGroups = [ "networkmanager" "wheel" "adbusers" "video" ];
+    extraGroups = [ "networkmanager" "wheel" "adbusers" "video" "libvirtd" ];
     packages = with pkgs; [ ];
 
   };
@@ -151,8 +151,9 @@ in {
   nixpkgs.config.allowUnfree = true;
 
   # Enable virtualbox
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.virtualbox.host.enableExtensionPack = true;
+  #virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.enableExtensionPack = true;
+  virtualisation.libvirtd.enable = true;
 
   programs.kdeconnect.enable = true;
   # programs.kdeconnect.package = pkgs.gnomeExtensions.gsconnect;
@@ -198,6 +199,8 @@ in {
   services.xserver.windowManager.i3.enable = true;
   security.polkit.enable = true;
   programs.light.enable = true;
+
+  programs.dconf.enable = true;
   # kanshi systemd service
   systemd.user.services.kanshi = {
     description = "kanshi daemon";
@@ -265,5 +268,6 @@ in {
     #mako # notification system developed by swaywm maintainer
     #  thunderbird
     wireshark
+    virt-manager
   ];
 }
