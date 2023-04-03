@@ -136,7 +136,7 @@ in {
   boot.cleanTmpDir = true;
   #boot.plymouth.enable = true;
 
-  users.defaultUserShell = pkgs.bash;
+  users.defaultUserShell = pkgs.nushell;
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.bezmuth = {
     isNormalUser = true;
@@ -247,7 +247,7 @@ in {
     man-pages
     man-pages-posix
     veracrypt
-
+    sccache
     alacritty # gpu accelerated terminal
     rofi
     sway

@@ -94,3 +94,32 @@
 
 (setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
+
+(setq elfeed-feeds
+      '("http://www.chm.bris.ac.uk/motm/rss.xml"
+        "http://www.xn--hrdin-gra.se/feed/all.atom.xml"
+        "https://100r.co/links/rss.xml"
+        "https://asahilinux.org/blog/index.xml"
+        "https://blog.nelhage.com/atom.xml"
+        "https://buttondown.email/nelhage/rss"
+        "https://daniel.haxx.se/blog/feed/"
+        "https://drewdevault.com/blog/index.xml"
+        "https://dataswamp.org/~solene/rss.xml"
+        "https://emersion.fr/blog/atom.xml"
+        "https://grimgrains.com/links/rss.xml"
+        "https://herman.bearblog.dev/feed/"
+        "https://iliana.fyi/atom.xml"
+        "https://j3s.sh/feed.atom"
+        "https://mattstoller.substack.com/feed"
+        "https://memex.marginalia.nu/log/feed.xml"
+        "https://palant.info/rss.xml"
+        "https://pluralistic.net/feed/"
+        "https://solar.lowtechmagazine.com/feeds/all-en.atom.xml"
+        "https://sourcehut.org/blog/index.xml"
+        "https://webzine.nixos.cafe/atom.xml"
+        "https://thephd.dev/feed.xml"
+        "https://webzine.puffy.cafe/atom.xml"
+        "https://words.filippo.io/dispatches/rss/"
+        "https://xeiaso.net/blog.atom"
+        "https://xkcd.com/atom.xml"
+        "https://yuzu-emu.org/index.xml" ))

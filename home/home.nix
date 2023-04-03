@@ -7,10 +7,6 @@
   home.username = "bezmuth";
   home.homeDirectory = "/home/bezmuth";
 
-  home.shellAliases = {
-    nr = "sudo nixos-rebuild switch --flake /home/bezmuth/nix-config/.";
-  };
-
   programs.doom-emacs = {
     enable = true;
     doomPrivateDir = ./doom.d;
@@ -28,6 +24,41 @@
 
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
+  programs.direnv.enableNushellIntegration = true;
+
+  programs.nushell = {
+    enable = true;
+    configFile = {
+      text = ''
+        let $config = {
+          filesize_metric: false,
+          table_mode: rounded,
+          use_ls_colors: true,
+          show_banner: false,
+        }
+      '';
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    enableNushellIntegration = true;
+    settings = {
+      add_newline = false;
+      format = lib.concatStrings [
+        "$line_break"
+        "$package"
+        "$line_break"
+        "$character"
+      ];
+      scan_timeout = 10;
+      character = {
+        success_symbol = "➜(bold green)";
+        error_symbol = "➜(bold red)";
+      };
+    };
+  };
+
   dconf.settings = {
     "org/gnome/mutter" = {
       experimental-features = [ "scale-monitor-framebuffer" ];
@@ -82,6 +113,7 @@
     kiwix
     picom
     htop
+    snore
   ];
 
   fonts.fontconfig.enable = true;
@@ -403,8 +435,8 @@
       gaps = {
         smartGaps = true;
         smartBorders = "on";
-        outer = 5;
-        inner = 5;
+        outer = 0;
+        inner = 0;
       };
       window = {
         border = 1;
@@ -459,6 +491,7 @@
         { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
+        { command = "keepassxc"; }
         { command = "keepassxc"; }
       ];
     };
@@ -536,8 +569,8 @@
       gaps = {
         smartGaps = true;
         smartBorders = "on";
-        outer = 5;
-        inner = 5;
+        outer = 0;
+        inner = 0;
       };
 
       window = {
