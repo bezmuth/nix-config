@@ -269,5 +269,6 @@ in {
     #  thunderbird
     wireshark
     virt-manager
+    sniffnet
   ];
 }

@@ -493,6 +493,7 @@
         { command = "kdeconnect-indicator"; }
         { command = "keepassxc"; }
         { command = "keepassxc"; }
+        { command = "./home/bezmuth/Projects/rust/snore/target/release/snore"; }
       ];
     };
   };
