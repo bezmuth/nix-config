@@ -43,7 +43,7 @@
         error_symbol = "➜(bold red)";
       };
       git_branch = { ignore_branches = [ "master" "main" ]; };
-      Nix-shell = { format = "$[symbol(($name))]"; };
+      nix_shell = { format = "❄ [(($name))](bold blue) "; };
     };
   };
 
