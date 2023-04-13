@@ -28,16 +28,7 @@
 
   programs.nushell = {
     enable = true;
-    configFile = {
-      text = ''
-        let $config = {
-          filesize_metric: false,
-          table_mode: rounded,
-          use_ls_colors: true,
-          show_banner: false,
-        }
-      '';
-    };
+    configFile.source = ./nu.nu;
   };
 
   programs.starship = {
@@ -45,17 +36,14 @@
     enableNushellIntegration = true;
     settings = {
       add_newline = false;
-      format = lib.concatStrings [
-        "$line_break"
-        "$package"
-        "$line_break"
-        "$character"
-      ];
+      format = lib.concatStrings [ "$all" "$nix_shell" ];
       scan_timeout = 10;
       character = {
         success_symbol = "➜(bold green)";
         error_symbol = "➜(bold red)";
       };
+      git_branch = { ignore_branches = [ "master" "main" ]; };
+      Nix-shell = { format = "$[symbol(($name))]"; };
     };
   };
 
@@ -114,6 +102,9 @@
     picom
     htop
     snore
+    fortune
+    cowsay
+    lolcat
   ];
 
   fonts.fontconfig.enable = true;
@@ -617,6 +608,8 @@
   };
 
   services.syncthing.enable = true;
+
+  services.opensnitch-ui.enable = true;
   #
   services.mpris-proxy.enable = true;
 

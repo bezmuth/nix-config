@@ -167,6 +167,15 @@ in {
   networking.firewall.checkReversePath = "loose";
   #services.tailscale.enable = true;
   services.openssh.enable = true;
+  programs.firejail.enable = true;
+  networking.nftables.enable = true;
+  services.opensnitch = {
+    enable = true;
+    settings = {
+      Firewall = "nftables";
+      DefaultAction = "deny";
+    };
+  };
   # load tskey secret
   age.secrets.tskey.file = ./secrets/tskey.age;
   #systemd.services.tailscale-autoconnect = {

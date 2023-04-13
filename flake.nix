@@ -15,7 +15,8 @@
 
     nur.url = "github:nix-community/NUR";
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay.url =
+      "github:nix-community/emacs-overlay/c16be6de78ea878aedd0292aa5d4a1ee0a5da501"; # pinned for now, see: https://github.com/nix-community/nix-doom-emacs/issues/409
 
     home-manager = {
       url = "github:nix-community/home-manager";
