@@ -299,6 +299,18 @@
         background-color: @surface0;
         box-shadow: inset 0 -3px @surface1;
       }
+      #scratchpad {
+        background-color: @base;
+        color: @text;
+      }
+      #custom-spotify-metadata {
+        background-color: @surface0;
+        color: @text;
+      }
+      #custom-spotify-metadata.playing {
+        background-color: @green;
+        color: @base;
+      }
       #clock {
         background-color: @surface0;
         color: @text;
@@ -344,9 +356,21 @@
       tray = { spacing = 10; };
       mode = "dock";
       modules-center = [ "clock" ];
-      modules-left = [ "sway/workspaces" "sway/mode" ];
-      modules-right =
-        [ "tray" "pulseaudio" "cpu" "memory" "temperature" "battery" ];
+      modules-left = [ "sway/workspaces" "sway/scratchpad" "sway/mode" ];
+      modules-right = [
+        "custom/spotify-metadata"
+        "tray"
+        "pulseaudio"
+        "cpu"
+        "memory"
+        "temperature"
+        "battery"
+      ];
+      "sway/scratchpad" = {
+        format = "{icon}";
+        show-empty = false;
+        format-icons = [ "" "" ];
+      };
       battery = {
         format = "{capacity}% {icon}";
         format-alt = "{time} {icon}";
@@ -397,6 +421,38 @@
         on-click = "pavucontrol";
       };
       "sway/mode" = { format = ''<span style="italic">{}</span>''; };
+      "custom/spotify-metadata" = {
+        format = " {}   ";
+        max-length = 100;
+        interval = 1;
+        return-type = "json";
+        exec = pkgs.writeShellScript "metadata.sh" ''
+          status=$(playerctl -p spotify status)
+          artist=$(playerctl -p spotify metadata xesam:artist)
+          title=$(playerctl -p spotify metadata xesam:title)
+          album=$(playerctl -p spotify metadata xesam:album)
+          time=$(playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
+          if [[ -z $status ]]
+          then
+             # spotify is dead, we should die to.
+             exit
+          fi
+          if [[ $status == "Playing" ]]
+          then
+             echo "{\"class\": \"playing\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
+             pkill -RTMIN+5 waybar
+             exit
+          fi
+          if [[ $status == "Paused" ]]
+          then
+             echo "{\"class\": \"paused\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
+             pkill -RTMIN+5 waybar
+             exit
+          fi
+        '';
+        signal = 5;
+        smooth-scrolling-threshold = 1.0;
+      };
       temperature = {
         critical-threshold = 80;
         format = " {temperatureC}°C";
@@ -474,7 +530,7 @@
           "exec pactl set-source-mute @DEFAULT_SOURCE@ toggle";
 
         # screenshots
-        "Print" = "exec ''grim -g \"$(slurp)\" - | wl-copy -t image/png''";
+        "Print" = "exec flameshot gui";
         "Alt+Print" = "exec ''grim - | wl-copy -t image/png''";
       };
       startup = [

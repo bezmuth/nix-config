@@ -238,6 +238,7 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    ispell
     kanshi
     firefox
     keepassxc
@@ -270,6 +271,7 @@ in {
     #gnome3.adwaita-icon-theme # default gnome cursors
     swaylock
     swayidle
+    flameshot
     grim # screenshot functionality
     slurp # screenshot functionality
     wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout

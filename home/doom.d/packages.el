@@ -15,3 +15,6 @@
 (package! autothemer)
 (package! catppuccin-theme)
 (package! evil-tutor)
+(package! nyan-mode)
+(package! zone-nyan)
+;;; packages.el ends here

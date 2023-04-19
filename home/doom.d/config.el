@@ -31,6 +31,9 @@
 
 ;; modeline
 (setq doom-modeline-height 15)
+(setq doom-modeline-percent-position nil)
+(nyan-mode)
+(nyan-toggle-wavy-trail)
 
 ;; org config
 (setq org-roam-directory (file-truename "/home/bezmuth/org/roam/"))
@@ -81,6 +84,8 @@
    :desc "Open notes.org" "n" #'org-notes-open))
  )
 
+(map! :map ivy-minibuffer-map :prefix "S" "return" #'ivy-immediate-done)
+
 ;;(elcord-mode)
 (setq irony-server-install-prefix "/run/current-system/sw/")
 
@@ -94,6 +99,9 @@
 
 (setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
+
+(require 'zone)
+(zone-when-idle 120)
 
 (setq elfeed-feeds
       '("http://www.chm.bris.ac.uk/motm/rss.xml"

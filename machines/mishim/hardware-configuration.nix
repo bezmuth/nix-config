@@ -7,6 +7,7 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   # for pstate info see this: https://forums.lenovo.com/t5/Other-Linux-Discussions/amd-pstate-driver-support-for-AMD-laptops/m-p/5135917?page=5
+  # also check out https://github.com/DavidS95/Smokeless_UMAF
   boot.initrd.availableKernelModules =
     [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];

@@ -12,7 +12,8 @@
   networking.firewall.allowedUDPPorts = [ 9999 ];
 
   services.openssh.enable = true;
-  services.power-profiles-daemon.enable = true;
+  services.tlp.enable = true;
+  services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
 
