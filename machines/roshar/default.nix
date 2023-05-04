@@ -12,8 +12,9 @@
   networking.hostName = "Roshar"; # Define your hostname.
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.modesetting.enable = true;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  # hardware.nvidia.modesetting.enable = true; - no point with open driver, i think
+  hardware.nvidia.open = true;
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
