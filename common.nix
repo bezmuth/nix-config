@@ -281,5 +281,6 @@ in {
     wireshark
     virt-manager
     sniffnet
+    wdisplays
   ];
 }
