@@ -22,6 +22,7 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hyprland.url = "github:hyprwm/Hyprland";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
@@ -42,6 +43,7 @@
           home-manager.users.bezmuth.imports = [
             inputs.nix-doom-emacs.hmModule # i have no fucking clue why this works
             inputs.spicetify-nix.homeManagerModule
+            inputs.hyprland.homeManagerModules.default
             ./home/home.nix
           ];
           home-manager.extraSpecialArgs = { inherit inputs self; };

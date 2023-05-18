@@ -105,6 +105,7 @@ in {
   hardware.opengl.enable = true;
   programs.xwayland.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
+  programs.hyprland.enable = true;
 
   programs.wireshark.enable = true;
 

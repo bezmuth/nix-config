@@ -7,6 +7,8 @@
   home.username = "bezmuth";
   home.homeDirectory = "/home/bezmuth";
 
+  xdg.configFile."hypr/hyprland.conf".source = ./hyprland.conf;
+
   programs.doom-emacs = {
     enable = true;
     doomPrivateDir = ./doom.d;
@@ -123,6 +125,11 @@
   };
 
   programs.bash.bashrcExtra = "tmux";
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    nvidiaPatches = true;
+  };
 
   programs.zathura = {
     enable = true;
