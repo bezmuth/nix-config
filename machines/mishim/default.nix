@@ -17,10 +17,6 @@
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
 
-  services.fprintd.enable = true;
-  security.pam.services.login.fprintAuth = true;
-  security.pam.services.xscreensaver.fprintAuth = true;
-
   systemd.services.mouse-reset = {
     description = "reset trackpad when leaving sleep";
     wantedBy = [

@@ -191,7 +191,6 @@ in {
   #services.tailscale.enable = true;
   services.openssh.enable = true;
   programs.firejail.enable = true;
-  networking.nftables.enable = true;
   services.opensnitch = {
     enable = false;
     settings = {
