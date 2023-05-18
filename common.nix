@@ -101,10 +101,22 @@ in {
   i18n.defaultLocale = "en_GB.utf8";
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  #services.xserver.enable = true;
+
+  systemd.services.NetworkManager-wait-online.enable = false;
+  services.greetd = {
+    package = pkgs.greetd.tuigreet;
+    enable = true;
+    settings = rec {
+      default_session = {
+        command =
+          "${pkgs.greetd.tuigreet}/bin/tuigreet -r --cmd Hyprland --asterisks";
+      };
+    };
+  };
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
+  #services.xserver.displayManager.gdm.enable = true;
   # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
@@ -115,7 +127,7 @@ in {
 
   hardware.opengl.enable = true;
   programs.xwayland.enable = true;
-  services.xserver.displayManager.gdm.wayland = true;
+  #services.xserver.displayManager.gdm.wayland = true;
 
   programs.wireshark.enable = true;
 

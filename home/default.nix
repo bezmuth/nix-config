@@ -11,7 +11,6 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
-    spotify
     firefox
     syncthing
     keepassxc
@@ -58,7 +57,6 @@
     kiwix
     picom
     htop
-    snore
     fortune
     cowsay
     lolcat

@@ -31,7 +31,6 @@
       exec-once=nm-applet --indicator
       exec-once=kdeconnect-indicator
       exec-once=keepassxc
-      exec-once=waybar
     '';
   };
 
