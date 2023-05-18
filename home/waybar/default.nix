@@ -103,7 +103,7 @@
     '';
     settings = [{
       height = 20;
-      layer = "bottom";
+      layer = "top";
       position = "top";
       tray = { spacing = 10; };
       mode = "dock";

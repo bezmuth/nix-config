@@ -3,7 +3,7 @@
 {
 
   imports =
-    [ ./hyprland ./nushell ./alacritty ./zathura ./spicetify ./rofi ./emacs ];
+    [ ./hyprland ./nushell ./kitty ./zathura ./spicetify ./rofi ./emacs ];
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "bezmuth";

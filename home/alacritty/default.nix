@@ -4,6 +4,7 @@
   programs.alacritty = {
     enable = true;
     settings = {
+      window = { opacity = 0.8; };
       # Colors (catppuccin-mocha)
       colors = {
         # Default colors

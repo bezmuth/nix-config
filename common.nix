@@ -109,8 +109,7 @@ in {
     enable = true;
     settings = rec {
       default_session = {
-        command =
-          "${pkgs.greetd.tuigreet}/bin/tuigreet -r --cmd Hyprland --asterisks";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland -r";
       };
     };
   };
@@ -308,6 +307,7 @@ in {
     virt-manager
     sniffnet
     wdisplays
+    w3m
   ];
 
 }
