@@ -6,7 +6,6 @@
     enable = true;
     configFile.source = ./nu.nu;
   };
-  programs.direnv.enableNushellIntegration = true;
 
   programs.starship = {
     enable = true;
@@ -23,5 +22,9 @@
       nix_shell = { format = "❄ [(($name))](bold blue) "; };
     };
   };
+
+  programs.direnv.enable = true;
+  programs.direnv.nix-direnv.enable = true;
+  programs.direnv.enableNushellIntegration = true;
 
 }

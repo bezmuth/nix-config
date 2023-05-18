@@ -5,11 +5,12 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     agenix.url = "github:ryantm/agenix";
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    utils.url =
+      "github:ravensiris/flake-utils-plus/7a8d789d4d13e45d20e6826d7b2a1757d52f2e13"; # change this back when its merged
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    devshell.inputs.flake-utils.follows = "utils";
+    #devshell.inputs.flake-utils.follows = "utils";
 
     spicetify-nix.url = "github:the-argus/spicetify-nix";
 
@@ -44,7 +45,7 @@
             inputs.nix-doom-emacs.hmModule # i have no fucking clue why this works
             inputs.spicetify-nix.homeManagerModule
             inputs.hyprland.homeManagerModules.default
-            ./home/home.nix
+            ./home
           ];
           home-manager.extraSpecialArgs = { inherit inputs self; };
         }
