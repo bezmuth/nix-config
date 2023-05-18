@@ -1,0 +1,6 @@
+Xlib: sequence lost (0x10000 > 0x1fa) in reply type 0x16!
+Xlib: sequence lost (0x10000 > 0x205) in reply type 0x21!
+Xlib: sequence lost (0x10000 > 0x215) in reply type 0x21!
+Xlib: sequence lost (0x10000 > 0x2d0) in reply type 0xc!
+Xlib: sequence lost (0x10000 > 0x2d9) in reply type 0xc!
+Xlib: sequence lost (0x10000 > 0x3ff) in reply type 0xc!

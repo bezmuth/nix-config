@@ -26,7 +26,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, agenix, nur, emacs-overlay, spicetify-nix, ... }:
+    , devshell, agenix, nur, emacs-overlay, spicetify-nix, hyprland, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.

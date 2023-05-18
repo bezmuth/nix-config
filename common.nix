@@ -21,6 +21,17 @@ let
     '';
   };
 
+  dbus-hyprland-environment = pkgs.writeTextFile {
+    name = "dbus-hyprland-environment";
+    destination = "/bin/dbus-hyprland-environment";
+    executable = true;
+    text = ''
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=hyprland
+      systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire wireplumber pipewire-media-session xdg-desktop-portal xdg-desktop-portal-hyprland
+    '';
+  };
+
   # currently, there is some friction between sway and gtk:
   # https://github.com/swaywm/sway/wiki/GTK-3-settings-on-Wayland
   # the suggested way to set gtk settings is with gsettings
@@ -94,7 +105,7 @@ in {
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  # services.xserver.desktopManager.gnome.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -105,7 +116,6 @@ in {
   hardware.opengl.enable = true;
   programs.xwayland.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
-  programs.hyprland.enable = true;
 
   programs.wireshark.enable = true;
 
@@ -171,7 +181,7 @@ in {
   programs.firejail.enable = true;
   networking.nftables.enable = true;
   services.opensnitch = {
-    enable = true;
+    enable = false;
     settings = {
       Firewall = "nftables";
       DefaultAction = "deny";
@@ -224,8 +234,10 @@ in {
   xdg.portal = {
     enable = true;
     wlr.enable = true;
-    # gtk portal needed to make gtk apps happy
-    #extraPortals = [ pkgs.xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
   };
 
   # enable sway window manager
@@ -239,6 +251,7 @@ in {
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    swaybg
     ispell
     kanshi
     firefox
@@ -263,6 +276,7 @@ in {
     rofi
     sway
     dbus-sway-environment
+    dbus-hyprland-environment
     configure-gtk
     wayland
     xdg-utils # for openning default programms when clicking links
@@ -284,4 +298,23 @@ in {
     sniffnet
     wdisplays
   ];
+  # needed for hyprland
+  environment.sessionVariables = rec {
+    GBM_BACKEND = "nvidia-drm";
+    __GL_GSYNC_ALLOWED = "0";
+    __GL_VRR_ALLOWED = "0";
+    WLR_DRM_NO_ATOMIC = "1";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    QT_QPA_PLATFORM = "wayland";
+    QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+    GDK_BACKEND = "wayland";
+    WLR_NO_HARDWARE_CURSORS = "1";
+    MOZ_ENABLE_WAYLAND = "1";
+    WLR_BACKEND = "vulkan";
+    WLR_RENDERER = "vulkan";
+    XCURSOR_SIZE = "24";
+    NIXOS_OZONE_WL = "1";
+  };
+
 }
