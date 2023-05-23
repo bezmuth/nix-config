@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
-    agenix.url = "github:ryantm/agenix";
     utils.url =
       "github:ravensiris/flake-utils-plus/7a8d789d4d13e45d20e6826d7b2a1757d52f2e13"; # change this back when its merged
 
@@ -27,7 +26,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, agenix, nur, emacs-overlay, spicetify-nix, hyprland, ... }:
+    , devshell, nur, emacs-overlay, spicetify-nix, hyprland, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -36,7 +35,7 @@
         #   environment.systemPackages = [ config.nur.repos.mic92.hello-nur ];
         # })
         nur.nixosModules.nur
-        ./common.nix
+        ./common
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
@@ -64,7 +63,7 @@
       hosts.Salas.modules = [ ./machines/salas ];
       hosts.Salas.system = "aarch64-linux";
 
-      hostDefaults.modules = [ agenix.nixosModules.default ];
+      hostDefaults.modules = [ ];
 
       outputsBuilder = channels:
         with channels.nixpkgs; {
