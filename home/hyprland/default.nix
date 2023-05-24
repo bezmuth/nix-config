@@ -20,14 +20,12 @@ in {
     nvidiaPatches = true;
     recommendedEnvironment = true;
     extraConfig = ''
-      exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY
-      exec-once=gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+      exec-once=${dbus-hyprland-environment}
       ${builtins.readFile ./hyprland.conf}
       exec-once=blueman-applet
       exec-once=nm-applet --indicator
       exec-once=kdeconnect-indicator
       exec-once=keepassxc
-      exec-once=${dbus-hyprland-environment}
     '';
   };
 
