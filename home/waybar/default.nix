@@ -141,10 +141,10 @@
       };
       cpu = {
         interval = 2;
-        format = " {usage}%";
+        format = "{usage}% ";
         tooltip = false;
       };
-      memory = { format = " {}%"; };
+      memory = { format = "{}% "; };
       network = {
         interval = 1;
         format-alt = "{ifname}: {ipaddr}/{cidr}";
@@ -207,7 +207,7 @@
       };
       temperature = {
         critical-threshold = 80;
-        format = " {temperatureC}°C";
+        format = "{temperatureC}°C ";
         format-icons = [ "" ];
       };
     }];
