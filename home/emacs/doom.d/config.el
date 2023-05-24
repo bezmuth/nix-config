@@ -100,9 +100,6 @@
 (setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
 
-(require 'zone)
-(zone-when-idle 120)
-
 (setq elfeed-feeds
       '("http://www.chm.bris.ac.uk/motm/rss.xml"
         "http://www.xn--hrdin-gra.se/feed/all.atom.xml"
