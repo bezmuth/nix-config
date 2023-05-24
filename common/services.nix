@@ -62,7 +62,7 @@
     enable = true;
     settings = rec {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland -r";
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland";
       };
     };
   };
