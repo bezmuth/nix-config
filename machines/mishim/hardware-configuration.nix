@@ -9,7 +9,7 @@
   # for pstate info see this: https://forums.lenovo.com/t5/Other-Linux-Discussions/amd-pstate-driver-support-for-AMD-laptops/m-p/5135917?page=5
   # also check out https://github.com/DavidS95/Smokeless_UMAF
   boot.initrd.availableKernelModules =
-    [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
+    [ "nvme" "ehci_pci" "xhci_pci" "uas" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
@@ -17,17 +17,20 @@
   powerManagement.cpuFreqGovernor = "powersave";
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/14e33c0e-ba23-4004-a681-7d41276eb0b3";
-    fsType = "ext4";
+    device = "/dev/disk/by-uuid/b96d3035-c700-42c7-9f78-17baac2cc7e5";
+    fsType = "btrfs";
+    options = [ "subvol=@" ];
   };
+
+  boot.initrd.luks.devices."luks-5301159e-96bb-4d56-b0aa-57bd66fa220d".device =
+    "/dev/disk/by-uuid/5301159e-96bb-4d56-b0aa-57bd66fa220d";
 
   fileSystems."/boot/efi" = {
     device = "/dev/disk/by-uuid/42C4-D2D4";
     fsType = "vfat";
   };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/e681b34c-bcbc-412d-ae94-62207d456032"; }];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
@@ -38,6 +41,8 @@
   # networking.interfaces.enp2s0f0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
+
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
   hardware.cpu.amd.updateMicrocode =
     lib.mkDefault config.hardware.enableRedistributableFirmware;
