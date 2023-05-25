@@ -18,7 +18,7 @@
     ];
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_6_0;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.firewall.enable = true;
   networking.firewall.allowedTCPPorts = [ 22 80 443 25 ];
