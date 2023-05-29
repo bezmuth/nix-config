@@ -6,6 +6,8 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    swaybg
+    w3m
     firefox
     syncthing
     keepassxc
@@ -31,8 +33,11 @@
     tootle
     piper
     gnome-feeds
+    gnome-solanum
     calibre
     grim
+    slurp
+    wl-clipboard
     mitmproxy
     font-awesome
     playerctl
@@ -71,6 +76,7 @@
     theme.package = pkgs.catppuccin-gtk;
     theme.name = "Catppuccin-Dark";
   };
+  dconf.enable = true;
 
   services.syncthing.enable = true;
 

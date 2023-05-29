@@ -39,7 +39,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  # hellsite bloce
+  # hellsite block
   networking.extraHosts = ''
     127.0.0.1 twitter.com
   '';

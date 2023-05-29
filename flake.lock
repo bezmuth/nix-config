@@ -293,11 +293,19 @@
         ]
       },
       "locked": {
+<<<<<<< HEAD
         "lastModified": 1684824189,
         "narHash": "sha256-k3nCkn5Qy67rCguuw6YkGuL6hOUNRKxQoKOjnapk5sU=",
         "owner": "nix-community",
         "repo": "home-manager",
         "rev": "58eb968c21d309a6c2b020ea8d64e25c38ceebba",
+=======
+        "lastModified": 1684741999,
+        "narHash": "sha256-KZLKsFZ6cLjCdCNKZoT8bc1y+rYBuFgKatmIB38zqy4=",
+        "owner": "nix-community",
+        "repo": "home-manager",
+        "rev": "ba006d7cca2cb871c6a31bdbc130c05cde5ca8e8",
+>>>>>>> f347253 (More Cleanup)
         "type": "github"
       },
       "original": {
