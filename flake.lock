@@ -292,6 +292,10 @@
           "nixpkgs"
         ]
       },
+<<<<<<< HEAD
+=======
+      "locked": {
+>>>>>>> f347253 (More Cleanup)
         "lastModified": 1684741999,
         "narHash": "sha256-KZLKsFZ6cLjCdCNKZoT8bc1y+rYBuFgKatmIB38zqy4=",
         "owner": "nix-community",
