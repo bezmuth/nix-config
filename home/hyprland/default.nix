@@ -20,14 +20,11 @@ in {
     nvidiaPatches = true;
     recommendedEnvironment = true;
     extraConfig = ''
-<<<<<<< HEAD
       exec-once=${dbus-hyprland-environment}
-=======
       exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY &
       exec-once=gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &
       exec-once=dconf write /org/gnome/desktop/interface/gtk-theme "'Catppucin-Dark'" &
       exec-once=dconf write /org/gnome/desktop/interface/icon-theme "'EPapirus'" &
->>>>>>> f347253 (More Cleanup)
       ${builtins.readFile ./hyprland.conf}
       exec-once=blueman-applet
       exec-once=nm-applet --indicator
