@@ -20,7 +20,6 @@ in {
     nvidiaPatches = true;
     recommendedEnvironment = true;
     extraConfig = ''
-      exec-once=${dbus-hyprland-environment}
       exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY &
       exec-once=gnome-keyring-daemon --start --components=pkcs11,secrets,ssh &
       exec-once=dconf write /org/gnome/desktop/interface/gtk-theme "'Catppucin-Dark'" &
