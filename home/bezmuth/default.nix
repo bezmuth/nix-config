@@ -6,12 +6,12 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    webcord-vencord
     swaybg
     w3m
     firefox
     syncthing
     keepassxc
-    discord
     protonvpn-gui
     pandoc # emacs
     nixfmt # emacs
