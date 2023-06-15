@@ -22,6 +22,7 @@
   programs.dconf.enable = true;
 
   environment.systemPackages = with pkgs; [
+    waypipe
     ispell
     vim
     bat
