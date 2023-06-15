@@ -6,6 +6,9 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    temurin-jre-bin-18
+    xorg.xhost
+    gparted
     webcord-vencord
     swaybg
     w3m
