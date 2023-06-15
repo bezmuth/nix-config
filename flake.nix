@@ -22,7 +22,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland.url =
+      "github:hyprwm/Hyprland/bca3068db224d76b2da3f792efe4d0cb8cd2fe3e"; # pinned for now, weird behaviour on roshar
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
