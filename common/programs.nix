@@ -23,6 +23,7 @@
 
   environment.systemPackages = with pkgs; [
     waypipe
+    weston
     ispell
     vim
     bat
