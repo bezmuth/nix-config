@@ -330,17 +330,17 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1686347058,
-        "narHash": "sha256-bGGIFDvuAqCWpyPb7/j+9uEl42PLTqSpGV1UaNqCLK4=",
+        "lastModified": 1686819210,
+        "narHash": "sha256-mM+9CGiLOZ7qGMf1mw6xz3O1hxPmb/6PIaqJfm+GAec=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "bca3068db224d76b2da3f792efe4d0cb8cd2fe3e",
+        "rev": "d768226de9281828c6346d7acff3ddc10b3e657f",
         "type": "github"
       },
       "original": {
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "bca3068db224d76b2da3f792efe4d0cb8cd2fe3e",
+        "rev": "d768226de9281828c6346d7acff3ddc10b3e657f",
         "type": "github"
       }
     },
@@ -760,17 +760,16 @@
         "flake-utils": "flake-utils_4"
       },
       "locked": {
-        "lastModified": 1683999906,
-        "narHash": "sha256-LZprVmOTM+3iykh248bajobX9ludnMC/Ai5rOqimtFc=",
-        "owner": "ravensiris",
+        "lastModified": 1657226504,
+        "narHash": "sha256-GIYNjuq4mJlFgqKsZ+YrgzWm0IpA4axA3MCrdKYj7gs=",
+        "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "7a8d789d4d13e45d20e6826d7b2a1757d52f2e13",
+        "rev": "2bf0f91643c2e5ae38c1b26893ac2927ac9bd82a",
         "type": "github"
       },
       "original": {
-        "owner": "ravensiris",
+        "owner": "gytis-ivaskevicius",
         "repo": "flake-utils-plus",
-        "rev": "7a8d789d4d13e45d20e6826d7b2a1757d52f2e13",
         "type": "github"
       }
     },
