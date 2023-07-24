@@ -22,7 +22,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url =
-      "github:hyprwm/Hyprland/bca3068db224d76b2da3f792efe4d0cb8cd2fe3e"; # pinned for now, weird behaviour on roshar
+      "github:hyprwm/Hyprland/d768226de9281828c6346d7acff3ddc10b3e657f"; # pinned for now, weird behaviour on roshar
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
