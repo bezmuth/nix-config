@@ -33,7 +33,7 @@
 
   services.mastodon = {
     enable = true;
-    package = pkgs.v.glitch-soc;
+    #package = pkgs.v.glitch-soc;
     configureNginx = true;
     localDomain = "propaganda.lol";
     smtp.fromAddress = "admin@propaganda.lol";

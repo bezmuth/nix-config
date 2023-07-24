@@ -60,7 +60,7 @@
 
   hardware.opengl.enable = true;
 
-  boot.cleanTmpDir = true;
+  boot.tmp.cleanOnBoot = true;
 
   users.defaultUserShell = pkgs.nushell;
   users.users.bezmuth = {

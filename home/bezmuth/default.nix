@@ -68,6 +68,7 @@
     teams-for-linux
     swaylock
     spot
+    xcowsay
   ];
 
   fonts.fontconfig.enable = true;
