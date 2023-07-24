@@ -21,6 +21,8 @@
     };
   };
 
+  services.upower.enable = true;
+
   services.opensnitch = {
     enable = false;
     settings = {
@@ -58,11 +60,11 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
   services.greetd = {
-    package = pkgs.greetd.tuigreet;
     enable = true;
-    settings = rec {
+    settings = {
       default_session = {
-        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --cmd Hyprland";
+        user = "bezmuth";
+        command = "${pkgs.hyprland}/bin/Hyprland";
       };
     };
   };

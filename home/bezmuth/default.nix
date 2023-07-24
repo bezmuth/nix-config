@@ -44,17 +44,19 @@
     mitmproxy
     font-awesome
     playerctl
+    chromium
+    gnome.cheese
+    newsflash
     ranger
     tmux
     pavucontrol
     pulseaudio
     networkmanagerapplet
     nerdfonts
-    catppuccin-gtk
     catppuccin-cursors
     i2p
     transmission-gtk
-    gnome.nautilus
+    pcmanfm
     haruna
     gqrx
     kiwix
@@ -63,6 +65,9 @@
     fortune
     cowsay
     lolcat
+    teams-for-linux
+    swaylock
+    spot
   ];
 
   fonts.fontconfig.enable = true;
@@ -74,11 +79,15 @@
   };
 
   gtk = {
+    enable = true;
     iconTheme.package = pkgs.papirus-icon-theme;
-    iconTheme.name = "EPapirus";
-    theme.package = pkgs.catppuccin-gtk;
-    theme.name = "Catppuccin-Dark";
+    iconTheme.name = "Papirus";
+    theme = {
+      name = "Catppuccin-Mocha-Compact-Pink-dark";
+      package = pkgs.catppuccin-gtk.override { variant = "mocha"; };
+    };
   };
+
   dconf.enable = true;
 
   services.syncthing.enable = true;

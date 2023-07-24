@@ -1,8 +1,6 @@
 # common config between "all" (roshar and mishim) devices
 
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   imports = [ ./services.nix ./programs.nix ];
   # Point nix path to the home dir
   nix = {
@@ -39,13 +37,18 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
   boot.supportedFilesystems = [ "ntfs" ];
+  boot.plymouth = let
+    plymouthTheme = pkgs.catppuccin-plymouth.override { variant = "mocha"; };
+  in {
+    enable = true;
+    themePackages = [ plymouthTheme ];
+    theme = "catppuccin-mocha";
+  };
 
   # Enable networking
   networking.networkmanager.enable = true;
   # hellsite block
-  networking.extraHosts = ''
-    127.0.0.1 twitter.com
-  '';
+  networking.extraHosts = "";
   networking.firewall.checkReversePath = "loose";
 
   # Set your time zone.
