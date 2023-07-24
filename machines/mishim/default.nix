@@ -16,6 +16,7 @@
   services.power-profiles-daemon.enable = false;
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
+  hardware.cpu.amd.updateMicrocode = true;
 
   systemd.services.mouse-reset = {
     description = "reset trackpad when leaving sleep";

@@ -14,6 +14,7 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
+  hardware.cpu.intel.updateMicrocode = true;
   #hardware.nvidia.open = true; - hyprland
 
   system.stateVersion = "22.05"; # Did you read the comment?
