@@ -32,6 +32,8 @@
 
   boot.kernelPackages = pkgs.linuxPackages_zen;
 
+  hardware.enableRedistributableFirmware = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
