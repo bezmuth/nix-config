@@ -4,4 +4,5 @@ self: super: {
   font-awesome = (super.callPackage ./font-awesome { }).v6;
   i2p = super.callPackage ./i2p { };
   snore = super.callPackage ./snore { };
+  beeper = super.callPackage ./beeper { };
 }

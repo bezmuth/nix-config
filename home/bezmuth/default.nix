@@ -69,6 +69,7 @@
     swaylock
     spot
     xcowsay
+    beeper
   ];
 
   fonts.fontconfig.enable = true;
