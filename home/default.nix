@@ -10,6 +10,8 @@
     ./spicetify
     ./rofi
     ./emacs
+    #./waybar
+    ./eww
     ./bezmuth
   ];
 
