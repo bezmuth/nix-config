@@ -5,4 +5,5 @@ self: super: {
   i2p = super.callPackage ./i2p { };
   snore = super.callPackage ./snore { };
   beeper = super.callPackage ./beeper { };
+  lutgen = super.callPackage ./lutgen { };
 }

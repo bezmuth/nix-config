@@ -70,6 +70,7 @@
     spot
     xcowsay
     beeper
+    lutgen
   ];
 
   fonts.fontconfig.enable = true;
