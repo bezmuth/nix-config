@@ -3,7 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
+    nix-doom-emacs.url =
+      "github:librephoenix/nix-doom-emacs?ref=pgtk-patch"; # pinned for now, see: https://github.com/nix-community/nix-doom-emacs/issues/409
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     devshell.url = "github:numtide/devshell";
@@ -14,19 +15,17 @@
 
     nur.url = "github:nix-community/NUR";
 
-    emacs-overlay.url =
-      "github:nix-community/emacs-overlay/c16be6de78ea878aedd0292aa5d4a1ee0a5da501"; # pinned for now, see: https://github.com/nix-community/nix-doom-emacs/issues/409
-
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url =
       "github:hyprwm/Hyprland/"; # pinned for now, weird behaviour on roshar
+    eww.url = "github:ralismark/eww/tray-3";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, emacs-overlay, spicetify-nix, hyprland, ... }:
+    , devshell, nur, spicetify-nix, hyprland, eww, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -55,8 +54,7 @@
       supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
       channelsConfig.allowUnfree = true;
 
-      sharedOverlays =
-        [ devshell.overlays.default (import ./pkgs) emacs-overlay.overlay ];
+      sharedOverlays = [ devshell.overlays.default (import ./pkgs) ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
       hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;

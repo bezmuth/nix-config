@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }: {
   programs.eww = {
     enable = true;
-    package = pkgs.eww-wayland;
+    package = inputs.eww.packages.${pkgs.system}.eww-wayland;
     configDir = ./config;
   };
 }

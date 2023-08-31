@@ -71,6 +71,11 @@
     xcowsay
     beeper
     lutgen
+    socat
+    acpi
+    swayosd
+    pamixer
+    jq
   ];
 
   fonts.fontconfig.enable = true;

@@ -1,6 +1,6 @@
 # !/bin/bash
 
-battery="$(acpi | grep 'Battery 1' | grep -o '[0-9]*%' | grep -o '[0-9]*')"
+battery="$(acpi | grep 'Battery 0' | grep -o '[0-9]*%' | grep -o '[0-9]*')"
 if [ "$battery" -gt 75 ]; then
       icon=""
 elif [ "$battery" -gt 50 ]; then
@@ -14,7 +14,7 @@ else
 fi
 battery="$battery%"
 
-discharging="$(acpi | grep 'Battery 1' | grep -o Discharging)"
+discharging="$(acpi | grep 'Battery 0' | grep -o Discharging)"
 if [ "$discharging" != "Discharging" ]; then
       icon="$icon 󱐋"
 fi

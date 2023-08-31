@@ -1,6 +1,7 @@
 #! /bin/bash
 
 volume="$(pamixer --get-volume)"
+mute="$(pamixser --get-mute)"
 if [ "$volume" -gt 66 ]; then
       icon="󰕾"
 elif [ "$volume" -gt 33 ]; then
@@ -9,6 +10,9 @@ elif [ "$volume" -gt 0 ]; then
       icon="󰕿"
 else 
       icon="󰝟"
+fi
+if [ "$mute" == "true" ]; then
+        icon="󰝟"
 fi
 volume="$volume%"
 
