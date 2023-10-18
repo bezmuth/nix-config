@@ -16,8 +16,6 @@
     syncthing
     keepassxc
     protonvpn-gui
-    pandoc # emacs
-    nixfmt # emacs
     lorri
     element-desktop
     prismlauncher
@@ -29,21 +27,13 @@
     rsync
     nixfmt
     anki-bin
-    plantuml
-    graphviz
-    texlive.combined.scheme-full
     tor-browser-bundle-bin
     tootle
     piper
     gnome-feeds
     gnome-solanum
     calibre
-    grim
-    slurp
-    wl-clipboard
     mitmproxy
-    font-awesome
-    playerctl
     chromium
     gnome.cheese
     newsflash
@@ -51,31 +41,21 @@
     tmux
     pavucontrol
     pulseaudio
-    networkmanagerapplet
-    nerdfonts
     catppuccin-cursors
     i2p
     transmission-gtk
     pcmanfm
-    haruna
     gqrx
     kiwix
-    picom
     htop
     fortune
     cowsay
     lolcat
     teams-for-linux
-    swaylock
     spot
     xcowsay
     beeper
     lutgen
-    socat
-    acpi
-    swayosd
-    pamixer
-    jq
   ];
 
   fonts.fontconfig.enable = true;
