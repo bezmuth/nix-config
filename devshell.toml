@@ -2,8 +2,8 @@
 [[commands]]
 help = "Rebuilds nixos system."
 name = "rebuild"
-command = "sudo nixos-rebuild switch --flake flake.nix && xcowsay --cow-size=small Praise the rebuild"
+command = "sudo nixos-rebuild switch --flake flake.nix && notify-send 'Praise the rebuild' -u critical"
 [[commands]]
 help = "Update and rebuild the nixos system"
 name = "upbuild"
-command  = "nix flake update && sudo nixos-rebuild switch --flake flake.nix && xcowsay --cow-size=small Praise the update"
+command  = "nix flake update && sudo nixos-rebuild switch --flake flake.nix && notify-send 'Praise the update' -u critical"

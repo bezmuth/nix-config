@@ -42,6 +42,7 @@
     wireshark
     virt-manager
     wdisplays
+    font-awesome
   ];
 
 }

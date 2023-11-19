@@ -2,18 +2,8 @@
 
 {
 
-  imports = [
-    ./hyprland
-    ./nushell
-    ./kitty
-    ./zathura
-    ./spicetify
-    ./rofi
-    ./emacs
-    #./waybar
-    ./eww
-    ./bezmuth
-  ];
+  imports =
+    [ ./hyprland ./nushell ./kitty ./zathura ./spicetify ./emacs ./bezmuth ];
 
   home.stateVersion = "22.05";
 

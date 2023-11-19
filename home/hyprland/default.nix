@@ -40,6 +40,9 @@ in {
     picom
     swaylock
     nerdfonts
+    libnotify
   ];
+
+  imports = [ ../eww ../mako ../rofi ];
 
 }

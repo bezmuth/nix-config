@@ -4,7 +4,7 @@
   programs.spicetify = {
     enable = true;
     theme =
-      inputs.spicetify-nix.packages.${pkgs.system}.default.themes.catppuccin-mocha;
+      inputs.spicetify-nix.packages.${pkgs.system}.default.themes.catppuccin;
     colorScheme = "flamingo";
 
     enabledExtensions =

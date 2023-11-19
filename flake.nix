@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-doom-emacs.url = "github:librephoenix/nix-doom-emacs";
+    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     devshell.url = "github:numtide/devshell";
