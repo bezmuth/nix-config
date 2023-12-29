@@ -56,6 +56,7 @@
     xcowsay
     beeper
     lutgen
+    inputs.nh.packages.${pkgs.system}.default
   ];
 
   fonts.fontconfig.enable = true;

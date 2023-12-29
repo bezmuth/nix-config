@@ -17,7 +17,6 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     #nvidiaPatches = true;
-    recommendedEnvironment = true;
     extraConfig = ''
       exec-once=${dbus-hyprland-environment}
       exec-once=dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY &

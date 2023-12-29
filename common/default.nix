@@ -1,6 +1,6 @@
 # common config between "all" (roshar and mishim) devices
 
-{ config, pkgs, ... }: {
+{ config, pkgs, inputs, ... }: {
   imports = [ ./services.nix ./programs.nix ];
   # Point nix path to the home dir
   nix = {

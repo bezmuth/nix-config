@@ -3,8 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nix-doom-emacs.url = "github:nix-community/nix-doom-emacs";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
+
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows =
+        "nixpkgs"; # override this repo's nixpkgs snapshot
+    };
+
+    nix-doom-emacs = { url = "github:nix-community/nix-doom-emacs"; };
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +31,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, spicetify-nix, hyprland, eww, ... }:
+    , devshell, nur, spicetify-nix, hyprland, eww, nh, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -45,6 +52,14 @@
             ./home
           ];
           home-manager.extraSpecialArgs = { inherit inputs self; };
+        }
+        inputs.nh.nixosModules.default
+        {
+          nh = {
+            enable = true;
+            clean.enable = true;
+            clean.extraArgs = "--keep-since 4d --keep 3";
+          };
         }
       ];
 

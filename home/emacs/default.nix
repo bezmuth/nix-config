@@ -1,17 +1,20 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  programs.doom-emacs = {
-    enable = true;
-    doomPrivateDir = ./doom.d;
-    #emacsPackage = pkgs.emacs; # emacs pgtk blocks cause irony-el is kinda fucky
-  };
+  # nix-doom-emacs is pretty much broken, Linked doom.d here to .doom.d
+  # programs.doom-emacs = {
+  #   enable = true;
+  #   doomPrivateDir = ./doom.d;
+  #   emacsPackage = pkgs.emacs28;
+  # };
+  home.file.".doom.d".source = config.lib.file.mkOutOfStoreSymlink ./doom.d;
   home.packages = with pkgs; [
+    emacs29-pgtk
     pandoc
     nixfmt
     plantuml
     graphviz
-    texlive.combined.scheme-full
+    texliveSmall
     font-awesome
   ];
   #programs.emacs = {
