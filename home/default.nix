@@ -3,7 +3,7 @@
 {
 
   imports =
-    [ ./hyprland ./nushell ./kitty ./zathura ./spicetify ./emacs ./bezmuth ];
+    [ ./hyprland ./kitty ./zathura ./spicetify ./emacs ./bezmuth ./starship ];
 
   home.stateVersion = "22.05";
 

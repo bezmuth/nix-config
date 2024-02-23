@@ -22,6 +22,7 @@
   };
 
   services.upower.enable = true;
+  services.gnome.gnome-keyring.enable = true;
 
   services.opensnitch = {
     enable = false;
@@ -31,6 +32,8 @@
     };
   };
   services.openssh.enable = true;
+
+  #virtualisation.docker.enable = true;
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
   services.fwupd.enable = true;

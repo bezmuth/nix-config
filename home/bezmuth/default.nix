@@ -6,6 +6,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    distrobox
     temurin-jre-bin-18
     xorg.xhost
     gparted
@@ -28,7 +29,6 @@
     nixfmt
     anki-bin
     tor-browser-bundle-bin
-    tootle
     piper
     gnome-feeds
     gnome-solanum
@@ -81,10 +81,11 @@
 
   services.syncthing.enable = true;
 
-  services.opensnitch-ui.enable = true;
-  #
   services.mpris-proxy.enable = true;
 
   services.network-manager-applet.enable = true;
+
+  programs.direnv.enableBashIntegration = true;
+  programs.direnv.nix-direnv.enable = true;
 
 }
