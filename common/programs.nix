@@ -22,6 +22,7 @@
   programs.dconf.enable = true;
 
   environment.systemPackages = with pkgs; [
+    catppuccin-kde
     gnome.adwaita-icon-theme
     cachix
     waypipe

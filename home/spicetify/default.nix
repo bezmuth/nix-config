@@ -14,9 +14,10 @@
         keyboardShortcut
         popupLyrics
         playlistIcons
-        genre
         playNext
         volumePercentage
+        lastfm
+        songStats
       ];
   };
 }

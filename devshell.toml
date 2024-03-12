@@ -1,9 +1,29 @@
-# https://numtide.github.io/devshell
+# https://github.com/numtide/devshell/blob/main/devshell.toml for example config
+[devshell]
+name = "nix-config"
+packages = [
+  'libnotify',
+]
 [[commands]]
 help = "Rebuilds nixos system."
 name = "rebuild"
-command = "sudo nixos-rebuild switch --flake flake.nix && notify-send 'Praise the rebuild' -u critical"
+command = """
+  #!/usr/bin/env bash
+  git diff -U0 *.nix
+  echo "$HOSTNAME rebuilding"
+  sudo nixos-rebuild switch --flake . &>nixos-switch.log || (
+    cat nixos-switch.log | grep --color error && false)
+  notify-send 'Praise the rebuild' -t 10000
+"""
 [[commands]]
 help = "Update and rebuild the nixos system"
 name = "upbuild"
-command  = "nix flake update && sudo nixos-rebuild switch --flake flake.nix && notify-send 'Praise the update' -u critical"
+command = """
+  #!/usr/bin/env bash
+  nix flake update
+  git diff -U0 *.nix
+  echo "$HOSTNAME updating and rebuilding"
+  sudo nixos-rebuild switch --flake . &>nixos-switch.log || (
+    cat nixos-switch.log | grep --color error && false)
+  notify-send 'Praise the update' -t 10000
+"""

@@ -2,7 +2,16 @@
 
 {
 
-  imports = [ ./kitty ./zathura ./emacs ./bezmuth ./starship ./bash ./plasma ];
+  imports = [
+    ./kitty
+    ./zathura
+    ./emacs
+    ./bezmuth
+    ./starship
+    ./bash
+    ./plasma
+    ./spicetify
+  ];
 
   home.stateVersion = "22.05";
 

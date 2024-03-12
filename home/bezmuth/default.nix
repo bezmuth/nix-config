@@ -6,6 +6,7 @@
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
+    hackgen-nf-font
     distrobox
     temurin-jre-bin-18
     xorg.xhost
