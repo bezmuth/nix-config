@@ -2,9 +2,9 @@
 
 {
 
-  programs.nushell = {
+  programs.bash = {
     enable = true;
-    configFile.source = ./nu.nu;
+     enableCompletion = true;
   };
 
   programs.direnv.enable = true;

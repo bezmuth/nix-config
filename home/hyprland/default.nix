@@ -40,8 +40,13 @@ in {
     swaylock
     nerdfonts
     libnotify
+    pcmanfm
   ];
 
   imports = [ ../eww ../mako ../rofi ];
+
+  services.blueman.enable = true;
+
+  services.network-manager-applet.enable = true;
 
 }

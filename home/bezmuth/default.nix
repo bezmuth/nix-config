@@ -44,7 +44,6 @@
     catppuccin-cursors
     i2p
     transmission-gtk
-    pcmanfm
     gqrx
     kiwix
     htop
@@ -61,31 +60,11 @@
 
   fonts.fontconfig.enable = true;
 
-  home.pointerCursor = {
-    package = pkgs.catppuccin-cursors;
-    name = "mochaLite";
-    gtk.enable = true;
-  };
-
-  gtk = {
-    enable = true;
-    iconTheme.package = pkgs.papirus-icon-theme;
-    iconTheme.name = "Papirus";
-    theme = {
-      name = "Catppuccin-Mocha-Compact-Pink-dark";
-      package = pkgs.catppuccin-gtk.override { variant = "mocha"; };
-    };
-  };
-
   dconf.enable = true;
 
   services.syncthing.enable = true;
+  services.syncthing.tray.enable = true;
 
   services.mpris-proxy.enable = true;
-
-  services.network-manager-applet.enable = true;
-
-  programs.direnv.enableBashIntegration = true;
-  programs.direnv.nix-direnv.enable = true;
 
 }

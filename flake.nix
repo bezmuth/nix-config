@@ -17,7 +17,7 @@
     devshell.inputs.nixpkgs.follows = "nixpkgs";
     #devshell.inputs.flake-utils.follows = "utils";
 
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    #spicetify-nix.url = "github:the-argus/spicetify-nix";
 
     nur.url = "github:nix-community/NUR";
 
@@ -31,7 +31,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, spicetify-nix, hyprland, eww, nh, ... }:
+    , devshell, nur, hyprland, eww, nh, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -47,7 +47,7 @@
           home-manager.useUserPackages = true;
           home-manager.users.bezmuth.imports = [
             inputs.nix-doom-emacs.hmModule # i have no fucking clue why this works
-            inputs.spicetify-nix.homeManagerModule
+            #inputs.spicetify-nix.homeManagerModule
             inputs.hyprland.homeManagerModules.default
             ./home
           ];

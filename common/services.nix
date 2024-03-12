@@ -39,7 +39,7 @@
   services.fwupd.enable = true;
   services.ratbagd.enable = true;
 
-  services.blueman.enable = true;
+  #services.blueman.enable = true;
 
   # Enable sound with pipewire.
   sound.enable = true;
@@ -63,7 +63,7 @@
 
   systemd.services.NetworkManager-wait-online.enable = false;
   services.greetd = {
-    enable = true;
+    enable = false;
     settings = {
       default_session = {
         user = "bezmuth";
@@ -71,6 +71,11 @@
       };
     };
   };
+
+  # plasma 6 testing
+  services.xserver.displayManager.sddm.enable = true;
+  services.xserver.enable = true;
+  services.xserver.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
