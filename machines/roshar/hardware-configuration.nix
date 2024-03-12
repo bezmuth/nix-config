@@ -4,23 +4,27 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-  boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "uas" "sd_mod" ];
+  boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usbhid" "uas" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/e63c9ae1-17b3-4d65-8321-3bb0f2204e3b";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/76b02cb6-5e03-4003-91c7-a21d887b73f2";
+      fsType = "btrfs";
+      options = [ "subvol=@" ];
+    };
 
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/5433-7A66";
-    fsType = "vfat";
-  };
+  boot.initrd.luks.devices."luks-dc512aa5-dc76-497d-ae2f-0d7f5c9bab42".device = "/dev/disk/by-uuid/dc512aa5-dc76-497d-ae2f-0d7f5c9bab42";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/4162-0642";
+      fsType = "vfat";
+    };
 
   swapDevices = [ ];
 
@@ -32,9 +36,6 @@
   # networking.interfaces.eno2.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlo1.useDHCP = lib.mkDefault true;
 
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
-  # high-resolution display
-  hardware.bluetooth.enable = true;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }
