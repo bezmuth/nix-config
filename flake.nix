@@ -28,10 +28,12 @@
     hyprland.url =
       "github:hyprwm/Hyprland/"; # pinned for now, weird behaviour on roshar
     eww.url = "github:ralismark/eww/tray-3";
+
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, hyprland, eww, nh, spicetify-nix, ... }:
+    , devshell, nur, hyprland, eww, nh, spicetify-nix, nix-flatpak, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -61,6 +63,7 @@
             clean.extraArgs = "--keep-since 4d --keep 3";
           };
         }
+        nix-flatpak.nixosModules.nix-flatpak
       ];
 
     in utils.lib.mkFlake {

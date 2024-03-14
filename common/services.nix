@@ -76,6 +76,7 @@
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.enable = true;
   services.xserver.desktopManager.plasma6.enable = true;
+  programs.hyprland.enable = true;
 
   # Configure keymap in X11
   services.xserver = {

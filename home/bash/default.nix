@@ -4,7 +4,7 @@
 
   programs.bash = {
     enable = true;
-     enableCompletion = true;
+    enableCompletion = true;
   };
 
   programs.direnv.enable = true;

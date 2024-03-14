@@ -45,7 +45,7 @@ in {
 
   imports = [ ../eww ../mako ../rofi ];
 
-  services.blueman.enable = true;
+  services.blueman-applet.enable = true;
 
   services.network-manager-applet.enable = true;
 

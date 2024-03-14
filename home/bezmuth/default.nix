@@ -57,6 +57,7 @@
     beeper
     lutgen
     inputs.nh.packages.${pkgs.system}.default
+    macchina
   ];
 
   fonts.fontconfig.enable = true;

@@ -9,7 +9,8 @@ help = "Rebuilds nixos system."
 name = "rebuild"
 command = """
   #!/usr/bin/env bash
-  git diff -U0 *.nix
+  echo "--- Git Status ---"
+  git status -s
   echo "$HOSTNAME rebuilding"
   sudo nixos-rebuild switch --flake . &>nixos-switch.log || (
     cat nixos-switch.log | grep --color error && false)
@@ -21,7 +22,8 @@ name = "upbuild"
 command = """
   #!/usr/bin/env bash
   nix flake update
-  git diff -U0 *.nix
+  echo "--- Git Status ---"
+  git status -s
   echo "$HOSTNAME updating and rebuilding"
   sudo nixos-rebuild switch --flake . &>nixos-switch.log || (
     cat nixos-switch.log | grep --color error && false)

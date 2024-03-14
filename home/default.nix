@@ -11,6 +11,7 @@
     ./bash
     ./plasma
     ./spicetify
+    ./hyprland
   ];
 
   home.stateVersion = "22.05";
