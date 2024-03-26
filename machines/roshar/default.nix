@@ -13,12 +13,15 @@
 
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
-  hardware.nvidia.modesetting.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
-  #hardware.nvidia.open = true; - hyprland
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    open = true;
+  };
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  # needed for hyprland
+  # Nvidia Hardware decoding
 
 }

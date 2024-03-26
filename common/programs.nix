@@ -14,6 +14,7 @@
   programs.adb.enable = true;
 
   programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
 
   programs.firejail.enable = true;
 

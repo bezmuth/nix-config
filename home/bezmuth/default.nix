@@ -58,6 +58,7 @@
     lutgen
     inputs.nh.packages.${pkgs.system}.default
     macchina
+    r2modman
   ];
 
   fonts.fontconfig.enable = true;
