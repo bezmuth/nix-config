@@ -22,6 +22,8 @@
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
+  environment.variables = rec { STEAM_FORCE_DESKTOPUI_SCALING = "1.75"; };
+
   # Nvidia Hardware decoding
 
 }
