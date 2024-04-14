@@ -15,7 +15,6 @@
 
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    #devshell.inputs.flake-utils.follows = "utils";
 
     spicetify-nix.url = "github:the-argus/spicetify-nix";
 
@@ -25,15 +24,13 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url =
-      "github:hyprwm/Hyprland/"; # pinned for now, weird behaviour on roshar
-    eww.url = "github:ralismark/eww/tray-3";
+    hyprland.url = "github:hyprwm/Hyprland/";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, hyprland, eww, nh, spicetify-nix, nix-flatpak, ... }:
+    , devshell, nur, hyprland, nh, spicetify-nix, nix-flatpak, ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.

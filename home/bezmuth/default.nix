@@ -43,7 +43,6 @@
     pavucontrol
     pulseaudio
     catppuccin-cursors
-    i2p
     transmission-gtk
     gqrx
     kiwix
@@ -55,7 +54,6 @@
     spot
     xcowsay
     beeper
-    lutgen
     inputs.nh.packages.${pkgs.system}.default
     macchina
     r2modman

@@ -4,5 +4,5 @@
     enable = true;
     onCalendar = "weekly"; # Default value
   };
-  services.flatpak.packages = [ "io.mrarm.mcpelauncher" ];
+  services.flatpak.packages = [ ];
 }
