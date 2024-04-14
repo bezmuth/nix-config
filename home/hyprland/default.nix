@@ -13,7 +13,6 @@ let
   };
 
 in {
-  # https://github.com/notohh/snowflake/blob/6009bc78f5955bfbb65a8602f5ccc9cd4b9abc8f/flake.nix
   wayland.windowManager.hyprland = {
     enable = true;
     #nvidiaPatches = true;
@@ -45,8 +44,8 @@ in {
 
   imports = [ ../eww ../mako ../rofi ];
 
-  services.blueman-applet.enable = true;
+  #services.blueman-applet.enable = true;
 
-  services.network-manager-applet.enable = true;
+  #services.network-manager-applet.enable = true;
 
 }
