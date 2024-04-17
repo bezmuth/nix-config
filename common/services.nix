@@ -100,4 +100,7 @@
     session required pam_unix.so
   '';
 
+  programs.alvr.enable = true;
+  programs.noisetorch.enable = true;
+
 }

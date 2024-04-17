@@ -91,11 +91,24 @@
 
 ;; Org mode
 (defun org-config-func ()
-  ;(linum-mode 0)
+                                        ;(linum-mode 0)
   (setq tab-bar-show nil)
   (setq line-spacing 15)
-)
+  )
 (rainbow-delimiters-mode)
 
 (setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
+
+
+;;(add-hook 'rust-mode-hook lambda () (lsp-ui-sideline-toggle-symbols-info lsp-ui-imenu))
+
+;;This is broken to shit, i wanna open imenu whenever i go into a rust project
+;;but it doesnt work
+;;
+;; Adds imenu and some extra lsp stuff
+;;(defun rust-mode-functions () (lsp-ui-imenu))
+;;(add-hook 'rust-mode-hook #'rust-mode-functions)
+
+(provide 'config)
+;;; config.el ends here

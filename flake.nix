@@ -27,10 +27,13 @@
     hyprland.url = "github:hyprwm/Hyprland/";
 
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
-    , devshell, nur, hyprland, nh, spicetify-nix, nix-flatpak, ... }:
+    , devshell, nur, hyprland, nh, spicetify-nix, nix-flatpak, emacs-overlay
+    , ... }:
     let
       desktopModules = [
         # This adds a nur configuration option.
@@ -68,7 +71,8 @@
       supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
       channelsConfig.allowUnfree = true;
 
-      sharedOverlays = [ devshell.overlays.default (import ./pkgs) ];
+      sharedOverlays =
+        [ devshell.overlays.default emacs-overlay (import ./pkgs) ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
       hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;
