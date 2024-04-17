@@ -11,8 +11,6 @@
         "nixpkgs"; # override this repo's nixpkgs snapshot
     };
 
-    nix-doom-emacs = { url = "github:nix-community/nix-doom-emacs"; };
-
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -31,7 +29,7 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, nix-doom-emacs, utils
+  outputs = inputs@{ self, nixpkgs, home-manager,  utils
     , devshell, nur, hyprland, nh, spicetify-nix, nix-flatpak, emacs-overlay
     , ... }:
     let
@@ -48,7 +46,6 @@
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.users.bezmuth.imports = [
-            inputs.nix-doom-emacs.hmModule # i have no fucking clue why this works
             inputs.spicetify-nix.homeManagerModule
             inputs.hyprland.homeManagerModules.default
             ./home
@@ -72,7 +69,7 @@
       channelsConfig.allowUnfree = true;
 
       sharedOverlays =
-        [ devshell.overlays.default emacs-overlay (import ./pkgs) ];
+        [ devshell.overlays.default emacs-overlay.overlay (import ./pkgs) ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
       hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;

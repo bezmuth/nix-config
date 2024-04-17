@@ -1,15 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  # nix-doom-emacs is pretty much broken, Linked doom.d here to .doom.d
-  # programs.doom-emacs = {
-  #   enable = true;
-  #   doomPrivateDir = ./doom.d;
-  #   emacsPackage = pkgs.emacs28;
-  # };
-  home.file.".doom.d".source = config.lib.file.mkOutOfStoreSymlink ./doom.d;
-  home.packages = with pkgs; [
-    emacs29-pgtk
+   home.packages = with pkgs; [
     pandoc
     nixfmt
     plantuml
@@ -20,7 +12,7 @@
 
   programs.emacs = {
     enable = true;
-    package = (pkgs.emacsWithPackagesFromUsePackage {
+    package = pkgs.emacsWithPackagesFromUsePackage {
       config = ./emacs.el;
       defaultInitFile = true;
       # config = path/to/your/config.org; # Org-Babel configs also supported
@@ -36,14 +28,6 @@
               # Apply fixes here
             });
         };
-    });
+    };
   };
-  #programs.emacs = {
-  #    enable = true;
-  #    package = pkgs.emacs29-pgtk;
-  #  };
-  #  home.file.".emacs.d" = {
-  #    source = ./emacs.d;
-  #    recursive = true;
-  #  };
 }
