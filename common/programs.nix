@@ -44,6 +44,10 @@
     wireshark
     virt-manager
     wdisplays
+  ];
+
+  fonts.packages = with pkgs; [
+    iosevka
     font-awesome
   ];
 

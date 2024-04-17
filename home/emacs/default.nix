@@ -8,6 +8,8 @@
     graphviz
     texliveSmall
     font-awesome
+    aspell
+    ripgrep
   ];
 
   programs.emacs = {
@@ -19,6 +21,8 @@
 
       # Optionally provide extra packages not in the configuration file.
       extraEmacsPackages = epkgs: [ epkgs.use-package ];
+
+      alwaysEnsure = true; 
 
       # Optionally override derivations.
       override = epkgs:
