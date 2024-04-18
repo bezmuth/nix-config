@@ -15,15 +15,12 @@
   programs.emacs = {
     enable = true;
     package = pkgs.emacsWithPackagesFromUsePackage {
-      config = ./emacs.el;
+      config = ./emacs.org;
       defaultInitFile = true;
-      # config = path/to/your/config.org; # Org-Babel configs also supported
-
+      alwaysTangle = true;
       # Optionally provide extra packages not in the configuration file.
       extraEmacsPackages = epkgs: [ epkgs.use-package ];
-
-      alwaysEnsure = true; 
-
+      alwaysEnsure = true;
       # Optionally override derivations.
       override = epkgs:
         epkgs // {
