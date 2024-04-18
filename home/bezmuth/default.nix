@@ -54,7 +54,6 @@
     spot
     xcowsay
     beeper
-    inputs.nh.packages.${pkgs.system}.default
     macchina
     r2modman
   ];

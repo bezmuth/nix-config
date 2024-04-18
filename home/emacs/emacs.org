@@ -4,32 +4,24 @@
 
 Mostly stolen from: https://github.com/ZacJoffe/zemacs/blob/master/init.el#L1415-L1540
 * Core Packages and Setup
-** Boilerplate
-#+BEGIN_SRC emacs-lisp
-  ;; performance stuff
-  ;; increase amount of data which emacs can read from processes (mainly for LSP mode https://emacs-lsp.github.io/lsp-mode/page/performance/)
-  (setq read-process-output-max (* 1024 1024) ;; 1 MB
-        ;; increase the gc threshold
-        gc-cons-threshold 100000000)
-  ;; disable the "‘buffer-local-value’ is an obsolete generalized variable." warning on init
-  (byte-compile-disable-warning 'obsolete)
-#+END_SRC
-** Emacs
+** Emacs Boilerplate
 #+BEGIN_SRC emacs-lisp
   ;; A few more useful configurations...
   (use-package emacs
     :ensure nil
     :custom
     (inhibit-startup-message t
-        inhibit-startup-screen t
-        inhibit-splash-screen t
-        initial-buffer-choice 'scratch-buffer
-        blink-cursor-mode nil
-        native-comp-async-report-warnings-errors nil
-        initial-major-mode 'text-mode
-        ad-redefinition-action 'accept
-        suggest-key-bindings nil
-        initial-scratch-message "")
+         inhibit-startup-screen t
+         inhibit-splash-screen t
+         initial-buffer-choice 'scratch-buffer
+         blink-cursor-mode nil
+         native-comp-async-report-warnings-errors nil
+         initial-major-mode 'text-mode
+         ad-redefinition-action 'accept
+         suggest-key-bindings nil
+         initial-scratch-message
+         read-process-output-max (* 1024 1024)
+         gc-cons-threshold 100000000)
     :init
     ;; Do not allow the cursor in the minibuffer prompt
     (setq minibuffer-prompt-properties
@@ -42,6 +34,13 @@ Mostly stolen from: https://github.com/ZacJoffe/zemacs/blob/master/init.el#L1415
     ;;(text-mode-ispell-word-completion nil)
     ;; Hides irrelevant stuff from M-x
     (setq read-extended-command-predicate #'command-completion-default-include-p))
+    (byte-compile-disable-warning 'obsolete)
+#+END_SRC
+** Orgmode config
+#+BEGIN_SRC emacs-lisp
+  ;; Make indentation with tab work properly in org mode code blocks
+  (setq org-src-preserve-indentation nil
+      org-edit-src-content-indentation 0)
 #+END_SRC
 ** Editor Settings
 #+BEGIN_SRC emacs-lisp
@@ -152,6 +151,10 @@ Put backup files and auto-save files in their own directory.
   ;; Persist history over Emacs restarts.
   (use-package savehist
     :ensure nil
+    :custom
+    ;; ensure savefile is actually put somewhere (conflicts with no littering)
+    (user-emacs-directory (expand-file-name "emacs/" (or (getenv "XDG_CACHE_HOME") "~/.cache/"))
+    savehist-file (expand-file-name "history" user-emacs-directory))
     :init
     (savehist-mode))
 #+END_SRC
@@ -185,25 +188,26 @@ Put backup files and auto-save files in their own directory.
     :hook (doom-modeline-mode . size-indication-mode) ; filesize in modeline
     :hook (doom-modeline-mode . column-number-mode)   ; cursor column in modeline
                                           ; https://github.com/hlissner/doom-emacs/blob/master/modules/ui/modeline/config.el
+    :custom
+    (display-time-default-load-average nil)
     :init
-    (setq display-time-default-load-average nil)
-    (unless after-init-time
-      ;; prevent flash of unstyled modeline at startup
-      (setq-default mode-line-format nil))
+    ;; (unless after-init-time
+    ;;   ;; prevent flash of unstyled modeline at startup
+    ;;   (setq-default mode-line-format nil))
 
-    ;; We display project info in the modeline ourselves
-    (setq projectile-dynamic-mode-line nil
-          ;; set these early so they don't trigger variable watchers
-          doom-modeline-bar-width 3
-          doom-modeline-buffer-file-name-style 'truncate-nil
-          ;; Only show file encoding if it's non-UTF-8 and different line endings
-          ;; than the current OSes preference
-          doom-modeline-buffer-encoding 'nondefault
-          ;; default line endings are LF on mac/linux, CRLF on windows
-          doom-modeline-default-eol-type (if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)) 0 1))
+    ;; ;; We display project info in the modeline ourselves
+    ;; (setq projectile-dynamic-mode-line nil
+    ;;       ;; set these early so they don't trigger variable watchers
+    ;;       doom-modeline-bar-width 3
+    ;;       doom-modeline-buffer-file-name-style 'truncate-nil
+    ;;       ;; Only show file encoding if it's non-UTF-8 and different line endings
+    ;;       ;; than the current OSes preference
+    ;;       doom-modeline-buffer-encoding 'nondefault
+    ;;       ;; default line endings are LF on mac/linux, CRLF on windows
+    ;;       doom-modeline-default-eol-type (if (or (eq system-type 'gnu/linux) (eq system-type 'darwin)) 0 1))
 
     :config
-    ;; display symlink file paths https://github.com/seagle0128/doom-modeline#faq
+    ;; ;; display symlink file paths https://github.com/seagle0128/doom-modeline#faq
     (setq find-file-visit-truename t)
     ;; Don’t compact font caches during GC.
     (setq inhibit-compacting-font-caches t)
@@ -291,29 +295,28 @@ Put backup files and auto-save files in their own directory.
 * Modal Editing
 ** Evil
 #+BEGIN_SRC emacs-lisp
-  (use-package evil
-    :init ;; tweak evil's configuration before loading it
-    (setq evil-search-module 'evil-search
-          evil-ex-complete-emacs-commands nil
-          evil-vsplit-window-right t
-          evil-split-window-below t
-          evil-shift-round nil
-          evil-want-C-u-scroll t
-          evil-want-integration t
-          evil-want-keybinding nil
-          evil-normal-state-cursor 'box
-          evil-search-module 'evil-search
-          evil-undo-system 'undo-fu
-          evil-respect-visual-line-mode t
-          evil-shift-width tab-width)
-    :general
-    ("C-S-o" 'evil-jump-forward)
-    :config
-    ;; highlight the current line (not explicitly evil but whatever)
-    (global-hl-line-mode 1)
-    ;; make horizontal movement cross lines
-    (setq-default evil-cross-lines t)
-    (evil-mode))
+      (use-package evil
+        :custom
+        (evil-search-module 'evil-search
+              evil-ex-complete-emacs-commands nil
+              evil-vsplit-window-right t
+              evil-split-window-below t
+              evil-shift-round nil
+              evil-want-C-u-scroll t
+              evil-want-integration t
+              evil-want-keybinding nil
+              evil-normal-state-cursor 'box
+              evil-search-module 'evil-search
+              evil-undo-system 'undo-fu
+              evil-respect-visual-line-mode t
+              evil-shift-width tab-width
+              evil-cross-lines t)
+        :general
+        ("C-S-o" 'evil-jump-forward)
+        :config
+        ;; highlight the current line (not explicitly evil but whatever)
+        (global-hl-line-mode 1)
+        (evil-mode))
 #+END_SRC
 ** Evil Helper Packgages
 #+BEGIN_SRC emacs-lisp
@@ -350,6 +353,9 @@ Put backup files and auto-save files in their own directory.
 * Ivy
 #+BEGIN_SRC emacs-lisp
   (use-package ivy
+    :custom
+    (ivy-use-virtual-buffers t)
+    (enable-recursive-minibuffers t)
     :general
     (general-unbind 'ivy-minibuffer-map
       "C-j"
@@ -357,9 +363,7 @@ Put backup files and auto-save files in their own directory.
     (:keymaps 'ivy-minibuffer-map
               "C-j" 'ivy-next-line
               "C-k" 'ivy-previous-line)
-    :init
-    (setq ivy-use-virtual-buffers t)
-    (setq enable-recursive-minibuffers t)
+    :config
     (ivy-mode))
 #+END_SRC
 ** Counsel + Swiper
@@ -377,24 +381,18 @@ Put backup files and auto-save files in their own directory.
 ** Projectile
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
-    :init
-    ;; some configs that doom uses https://github.com/doomemacs/doomemacs/blob/bc32e2ec4c51c04da13db3523b19141bcb5883ba/core/core-projects.el#L29
-    (setq projectile-enable-caching t  ;; big performance boost, especially for `projectile-find-file'
-          projectile-auto-discover nil
-          projectile-project-search-path '("~/Projects/"))
+    :custom
+    (projectile-enable-caching t
+     projectile-auto-discover nil
+     projectile-project-search-path '("~/Projects/"))
     :config
     (projectile-mode +1))
 #+END_SRC
 ** Highlight todos
 #+BEGIN_SRC emacs-lisp
-  (use-package hl-todo
-    :hook ((prog-mode . hl-todo-mode)
-           (markdown-mode . hl-todo-mode)
-           (org-mode . hl-todo-mode)
-           (LaTeX-mode . hl-todo-mode))
-    :config
-                                          ; https://github.com/hlissner/doom-emacs/blob/develop/modules/ui/hl-todo/config.el
-    (setq hl-todo-highlight-punctuation ":"
+    (use-package hl-todo
+      :custom
+      (hl-todo-highlight-punctuation ":"
           hl-todo-keyword-faces
           `(;; For things that need to be done, just not today.
             ("TODO" warning bold)
@@ -420,7 +418,12 @@ Put backup files and auto-save files in their own directory.
             ("DELETEME" error bold)
             ("KILLME" error bold)
             ;; for works in progress
-            ("WIP" font-lock-keyword-face bold))))
+            ("WIP" font-lock-keyword-face bold)))
+      :hook ((prog-mode . hl-todo-mode)
+             (markdown-mode . hl-todo-mode)
+             (org-mode . hl-todo-mode)
+             (LaTeX-mode . hl-todo-mode))
+  )
 #+END_SRC
 ** Rainbow Delimiters
 #+BEGIN_SRC emacs-lisp
@@ -436,25 +439,26 @@ Put backup files and auto-save files in their own directory.
 ** Git
 *** Magit
 #+BEGIN_SRC emacs-lisp
-  (use-package magit
-    ;; refresh status when you save file being tracked in repo
-    :hook (after-save . magit-after-save-refresh-status)
-    ;; start magit commit in insert mode https://emacs.stackexchange.com/a/20895
-    :hook (git-commit-mode . evil-insert-state)
-    :general
-    (:keymaps
-     'transient-base-map "<escape>" 'transient-quit-one)
-    (:states '(normal visual)
-             :keymaps 'magit-mode-map
-             "q" '+magit/quit)
-    :config
-    ;; display magit status in current buffer (no popup) https://stackoverflow.com/a/58554387/11312409
-    (setq magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1
-          magit-auto-revert-mode t
-          ;; highlight commit message after 50 characters
-          git-commit-summary-max-length 50
-          ;; NOTE this is apparently DEPRECATED but it seems to do exactly what I want (autowrap commmit body at 72 chars)
-          git-commit-fill-column 72))
+    (use-package magit
+      ;; refresh status when you save file being tracked in repo
+      :hook (after-save . magit-after-save-refresh-status)
+      ;; start magit commit in insert mode https://emacs.stackexchange.com/a/20895
+      :hook (git-commit-mode . evil-insert-state)
+      :custom
+      ;; display magit status in current buffer (no popup) https://stackoverflow.com/a/58554387/11312409
+      (magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1
+       magit-auto-revert-mode t
+       ;; highlight commit message after 50 characters
+       git-commit-summary-max-length 50
+       ;; NOTE this is apparently DEPRECATED but it seems to do exactly what I want (autowrap commmit body at 72 chars)
+       git-commit-fill-column 72)
+      :general
+      (:keymaps
+       'transient-base-map "<escape>" 'transient-quit-one)
+      (:states '(normal visual)
+               :keymaps 'magit-mode-map
+               "q" '+magit/quit)
+  )
 #+END_SRC
 *** Git Gutter
 #+BEGIN_SRC emacs-lisp
@@ -504,12 +508,11 @@ TODO: Look into cape
               "C-SPC" 'corfu-insert-separator
               "<tab>" '+corfu-complete-quit
               "<escape>" '+corfu-quit) ;; NOTE also sets functionality of "C-["
-    :init
+    :config
     (global-corfu-mode)
     (corfu-popupinfo-mode)
     (corfu-history-mode)
     (add-to-list 'savehist-additional-variables 'corfu-history)
-    :config
     (setq corfu-popupinfo-delay 1))
 
   (defun +corfu-quit ()
@@ -573,7 +576,6 @@ TODO port config to use emacs29 native treesit
   (use-package consult-flycheck
     :after (consult flycheck))
   (use-package consult-flyspell
-    :straight (consult-flyspell :type git :host gitlab :repo "OlMon/consult-flyspell" :branch "master")
     :config
     ;; default settings
     (setq consult-flyspell-select-function nil
@@ -634,9 +636,9 @@ TODO port config to use emacs29 native treesit
 #+BEGIN_SRC emacs-lisp
   (use-package rustic
     :mode ("\\.rs\\'" . rustic-mode)
-    :config
-    (setq rustic-lsp-client 'eglot)
-    (setq rustic-format-trigger 'on-save))
+    :custom
+    (rustic-lsp-client 'eglot)
+    (rustic-format-trigger 'on-save))
 
   (push 'rustic-clippy flycheck-checkers)
   (remove-hook 'rustic-mode-hook 'flycheck-mode)

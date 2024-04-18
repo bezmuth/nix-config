@@ -17,7 +17,7 @@
 
   hardware.nvidia = {
     modesetting.enable = true;
-    open = true;
+    open = false; # true breaks hardware video decode (i think)
   };
 
   system.stateVersion = "22.05"; # Did you read the comment?

@@ -5,12 +5,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    nh = {
-      url = "github:viperML/nh";
-      inputs.nixpkgs.follows =
-        "nixpkgs"; # override this repo's nixpkgs snapshot
-    };
-
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -30,7 +24,7 @@
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager,  utils
-    , devshell, nur, hyprland, nh, spicetify-nix, nix-flatpak, emacs-overlay
+    , devshell, nur, hyprland, spicetify-nix, nix-flatpak, emacs-overlay
     , ... }:
     let
       desktopModules = [
@@ -52,13 +46,7 @@
           ];
           home-manager.extraSpecialArgs = { inherit inputs self; };
         }
-        inputs.nh.nixosModules.default
         {
-          nh = {
-            enable = true;
-            clean.enable = true;
-            clean.extraArgs = "--keep-since 4d --keep 3";
-          };
         }
         nix-flatpak.nixosModules.nix-flatpak
       ];
