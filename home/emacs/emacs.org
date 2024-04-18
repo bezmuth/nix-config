@@ -295,28 +295,30 @@ Put backup files and auto-save files in their own directory.
 * Modal Editing
 ** Evil
 #+BEGIN_SRC emacs-lisp
-      (use-package evil
-        :custom
-        (evil-search-module 'evil-search
-              evil-ex-complete-emacs-commands nil
-              evil-vsplit-window-right t
-              evil-split-window-below t
-              evil-shift-round nil
-              evil-want-C-u-scroll t
-              evil-want-integration t
-              evil-want-keybinding nil
-              evil-normal-state-cursor 'box
-              evil-search-module 'evil-search
-              evil-undo-system 'undo-fu
-              evil-respect-visual-line-mode t
-              evil-shift-width tab-width
-              evil-cross-lines t)
-        :general
-        ("C-S-o" 'evil-jump-forward)
-        :config
-        ;; highlight the current line (not explicitly evil but whatever)
-        (global-hl-line-mode 1)
-        (evil-mode))
+(use-package evil
+  :init
+  ;; need this here or evil-collection complains
+  (setq evil-want-keybinding nil)
+  :custom
+  (evil-search-module 'evil-search
+        evil-ex-complete-emacs-commands nil
+        evil-vsplit-window-right t
+        evil-split-window-below t
+        evil-shift-round nil
+        evil-want-C-u-scroll t
+        evil-want-integration t
+        evil-normal-state-cursor 'box
+        evil-search-module 'evil-search
+        evil-undo-system 'undo-fu
+        evil-respect-visual-line-mode t
+        evil-shift-width tab-width
+        evil-cross-lines t)
+  :general
+  ("C-S-o" 'evil-jump-forward)
+  :config
+  ;; highlight the current line (not explicitly evil but whatever)
+  (global-hl-line-mode 1)
+  (evil-mode))
 #+END_SRC
 ** Evil Helper Packgages
 #+BEGIN_SRC emacs-lisp
