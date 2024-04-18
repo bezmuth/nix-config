@@ -6,17 +6,6 @@ Mostly stolen from: https://github.com/ZacJoffe/zemacs/blob/master/init.el#L1415
 * Core Packages and Setup
 ** Boilerplate
 #+BEGIN_SRC emacs-lisp
-  (setq inhibit-startup-message t
-        inhibit-startup-screen t
-        inhibit-splash-screen t
-        initial-buffer-choice 'scratch-buffer
-        blink-cursor-mode nil
-        native-comp-async-report-warnings-errors nil
-        initial-major-mode 'text-mode
-        ad-redefinition-action 'accept
-        suggest-key-bindings nil
-        initial-scratch-message "")
-
   ;; performance stuff
   ;; increase amount of data which emacs can read from processes (mainly for LSP mode https://emacs-lsp.github.io/lsp-mode/page/performance/)
   (setq read-process-output-max (* 1024 1024) ;; 1 MB
@@ -31,7 +20,16 @@ Mostly stolen from: https://github.com/ZacJoffe/zemacs/blob/master/init.el#L1415
   (use-package emacs
     :ensure nil
     :custom
-    (help-window-select nil "Dont switch to help buffers")
+    (inhibit-startup-message t
+        inhibit-startup-screen t
+        inhibit-splash-screen t
+        initial-buffer-choice 'scratch-buffer
+        blink-cursor-mode nil
+        native-comp-async-report-warnings-errors nil
+        initial-major-mode 'text-mode
+        ad-redefinition-action 'accept
+        suggest-key-bindings nil
+        initial-scratch-message "")
     :init
     ;; Do not allow the cursor in the minibuffer prompt
     (setq minibuffer-prompt-properties
@@ -43,7 +41,7 @@ Mostly stolen from: https://github.com/ZacJoffe/zemacs/blob/master/init.el#L1415
     ;; TODO try cape-dict
     ;;(text-mode-ispell-word-completion nil)
     ;; Hides irrelevant stuff from M-x
-    (read-extended-command-predicate #'command-completion-default-include-p))
+    (setq read-extended-command-predicate #'command-completion-default-include-p))
 #+END_SRC
 ** Editor Settings
 #+BEGIN_SRC emacs-lisp
