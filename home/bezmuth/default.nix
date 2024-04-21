@@ -15,7 +15,7 @@
     swaybg
     w3m
     firefox
-    syncthing
+    #syncthing
     keepassxc
     protonvpn-gui
     lorri
@@ -65,8 +65,8 @@
 
   dconf.enable = true;
 
-  services.syncthing.enable = true;
-  services.syncthing.tray.enable = true;
+  #services.syncthing.enable = true;
+  #services.syncthing.tray.enable = true;
 
   services.mpris-proxy.enable = true;
 
