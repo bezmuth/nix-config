@@ -2,9 +2,3 @@
 Main nix configuration files
 
 Run ~nix-develop~ in this directory then run ~rebuild~
-
-# I WANNA USE THIS
-okay thats nice, first you're gonna have to change a couple of things
-- add a folder in the machines dir with hardware-configuration and a default.nix (or just a default.nix with the hardware config)
-- add this host to the host lists in flake.nix
-- change all the references from bezmuth to whatever username you wanna use (home dir n stuff)
