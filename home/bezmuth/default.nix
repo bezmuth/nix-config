@@ -58,6 +58,7 @@
     r2modman
     kdePackages.kasts
     nextcloud-client
+    helvum
   ];
 
   fonts.fontconfig.enable = true;
