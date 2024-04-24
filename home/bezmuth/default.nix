@@ -27,7 +27,7 @@
     libreoffice-fresh
     scrcpy
     rsync
-    nixfmt
+    nixfmt-classic
     anki-bin
     tor-browser-bundle-bin
     piper

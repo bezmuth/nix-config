@@ -16,11 +16,6 @@
       ];
     };
 
-    gc.automatic = true;
-    gc.dates = "19:00";
-    gc.persistent = true;
-    gc.options = "--delete-older-than 14d";
-
     package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
     extraOptions = ''
       experimental-features = nix-command flakes

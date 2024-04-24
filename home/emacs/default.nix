@@ -3,7 +3,7 @@
 {
    home.packages = with pkgs; [
     pandoc
-    nixfmt
+    nixfmt-classic
     plantuml
     graphviz
     texliveSmall
