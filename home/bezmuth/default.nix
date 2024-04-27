@@ -56,7 +56,6 @@
     beeper
     macchina
     r2modman
-    kdePackages.kasts
     nextcloud-client
     helvum
   ];
