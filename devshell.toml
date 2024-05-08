@@ -12,7 +12,8 @@ command = """
   echo "--- Git Status ---"
   git status -s
   echo "$HOSTNAME rebuilding"
-  sudo nixos-rebuild switch --flake .
+  sudo nixos-rebuild switch --flake . --show-trace
+  nixfmt *
   notify-send 'Praise the rebuild' -t 10000
 """
 [[commands]]
@@ -24,6 +25,7 @@ command = """
   echo "--- Git Status ---"
   git status -s
   echo "$HOSTNAME updating and rebuilding"
-  sudo nixos-rebuild switch --flake .
+  sudo nixos-rebuild switch --flake . --show-trace
+  nixfmt *
   notify-send 'Praise the update' -t 10000
 """

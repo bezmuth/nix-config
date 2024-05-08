@@ -6,45 +6,45 @@
 {
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
-  # for pstate info see this: https://forums.lenovo.com/t5/Other-Linux-Discussions/amd-pstate-driver-support-for-AMD-laptops/m-p/5135917?page=5
-  # also check out https://github.com/DavidS95/Smokeless_UMAF
   boot.initrd.availableKernelModules =
-    [ "nvme" "ehci_pci" "xhci_pci" "uas" "usb_storage" "sd_mod" "sdhci_pci" ];
+    [ "nvme" "ehci_pci" "xhci_pci" "usb_storage" "sd_mod" "sdhci_pci" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
-  powerManagement.cpuFreqGovernor = "powersave";
-
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/b96d3035-c700-42c7-9f78-17baac2cc7e5";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
+    device = "/dev/disk/by-uuid/bd0b06f8-0e2f-48db-ad00-1a890018e213";
+    fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-5301159e-96bb-4d56-b0aa-57bd66fa220d".device =
-    "/dev/disk/by-uuid/5301159e-96bb-4d56-b0aa-57bd66fa220d";
+  boot.initrd.luks.devices."luks-3f7a5672-aeb1-477d-9569-80bb1fe64d57".device =
+    "/dev/disk/by-uuid/3f7a5672-aeb1-477d-9569-80bb1fe64d57";
 
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-  fileSystems."/boot/efi" = {
-    device = "/dev/disk/by-uuid/42C4-D2D4";
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/43F9-E041";
     fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
-  swapDevices = [ ];
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/fa95e22e-a202-4db0-a213-fec77336d310"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  hardware.bluetooth.enable = true;
   # networking.interfaces.enp2s0f0.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 
-  hardware.cpu.amd.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.luks.devices."luks-4add1228-0793-4a85-b773-b57d539e3cf4".device =
+    "/dev/disk/by-uuid/4add1228-0793-4a85-b773-b57d539e3cf4";
+
 }

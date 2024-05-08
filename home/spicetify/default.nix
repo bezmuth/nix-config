@@ -5,7 +5,7 @@
     enable = true;
     theme =
       inputs.spicetify-nix.packages.${pkgs.system}.default.themes.catppuccin;
-    colorScheme = "flamingo";
+    colorScheme = "latte";
 
     enabledExtensions =
       with inputs.spicetify-nix.packages.${pkgs.system}.default.extensions; [

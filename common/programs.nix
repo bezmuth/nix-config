@@ -2,29 +2,12 @@
 
 {
   #nixpkgs.config.allowUnfree = true;
-
-  virtualisation.libvirtd.enable = true;
-
   programs.xwayland.enable = true;
-
-  programs.wireshark.enable = true;
-
   programs.kdeconnect.enable = true;
-
   programs.adb.enable = true;
-
   programs.steam.enable = true;
-  programs.steam.gamescopeSession.enable = true;
-
-  programs.firejail.enable = true;
-
   programs.light.enable = true;
-
   programs.dconf.enable = true;
-
-
-  programs.alvr.enable = true;
-  programs.noisetorch.enable = true;
 
   programs.nh = {
     enable = true;
@@ -32,34 +15,26 @@
     clean.extraArgs = "--keep-since 4d --keep 3";
   };
 
-
   environment.systemPackages = with pkgs; [
-    catppuccin-kde
+    (catppuccin-kde.override {
+      flavour = [ "latte" ];
+      accents = [ "pink" ];
+      winDecStyles = [ "modern" ];
+    })
+    (papirus-icon-theme.override { color = "pink"; })
     gnome.adwaita-icon-theme
-    cachix
-    waypipe
-    weston
     ispell
     vim
     bat
     git
-    lm_sensors
     webcamoid
     man-pages
     man-pages-posix
     veracrypt
-    sccache
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
-    papirus-icon-theme
-    wireshark
-    virt-manager
-    wdisplays
   ];
 
-  fonts.packages = with pkgs; [
-    iosevka
-    font-awesome
-  ];
+  fonts.packages = with pkgs; [ iosevka font-awesome nerdfonts ];
 
 }

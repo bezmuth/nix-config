@@ -37,7 +37,6 @@ in {
     networkmanagerapplet
     picom
     swaylock
-    nerdfonts
     libnotify
     pcmanfm
   ];

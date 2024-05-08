@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-   home.packages = with pkgs; [
+  home.packages = with pkgs; [
     pandoc
     nixfmt-classic
     plantuml

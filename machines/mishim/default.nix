@@ -7,11 +7,6 @@
 
   networking.hostName = "Mishim"; # Define your hostname.
   #
-  networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 9999 ];
-  networking.firewall.allowedUDPPorts = [ 9999 ];
-
-  services.openssh.enable = true;
   #services.tlp.enable = true;
   #services.tlp.settings = {
   #  CPU_SCALING_GOVERNOR_ON_AC = "performance";
@@ -21,6 +16,8 @@
   services.thermald.enable = true;
   services.auto-cpufreq.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   systemd.services.mouse-reset = {
     description = "reset trackpad when leaving sleep";
