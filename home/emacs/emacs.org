@@ -600,18 +600,19 @@ TODO port config to use emacs29 native treesit
 #+END_SRC
 *** Rust
 #+BEGIN_SRC emacs-lisp
-  (use-package rustic
-    :mode ("\\.rs\\'" . rustic-mode)
-    :custom
-    (rustic-lsp-client 'eglot)
-    (rustic-format-trigger 'on-save))
+(use-package rustic
+  :mode ("\\.rs\\'" . rustic-mode)
+  :custom
+  (rustic-lsp-client 'eglot)
+  (rustic-format-trigger 'on-save)
+)
 
-  (push 'rustic-clippy flycheck-checkers)
-  (remove-hook 'rustic-mode-hook 'flycheck-mode)
+(push 'rustic-clippy flycheck-checkers)
+(remove-hook 'rustic-mode-hook 'flycheck-mode)
 
-  (defun rustic-mode-auto-save-hook ()
-    "Enable auto-saving in rustic-mode buffers."
-    (when buffer-file-name
-      (setq-local compilation-ask-about-save nil)))
-  (add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
+(defun rustic-mode-auto-save-hook ()
+  "Enable auto-saving in rustic-mode buffers."
+  (when buffer-file-name
+    (setq-local compilation-ask-about-save nil)))
+(add-hook 'rustic-mode-hook 'rustic-mode-auto-save-hook)
 #+END_SRC

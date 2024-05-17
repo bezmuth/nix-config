@@ -32,6 +32,7 @@
     beeper
     r2modman
     nextcloud-client
+    libsForQt5.kasts
   ];
 
   fonts.fontconfig.enable = true;

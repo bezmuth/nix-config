@@ -14,13 +14,15 @@
     };
     hyprland.url = "github:hyprwm/Hyprland/";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, nur, hyprland
-    , spicetify-nix, emacs-overlay, ... }:
+    , spicetify-nix, emacs-overlay, nix-flatpak, ... }:
     let
       desktopModules = [
         nur.nixosModules.nur
+        nix-flatpak.nixosModules.nix-flatpak
         ./common
         home-manager.nixosModules.home-manager
         {
