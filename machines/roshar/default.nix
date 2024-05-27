@@ -10,19 +10,22 @@
   ];
 
   networking.hostName = "Roshar"; # Define your hostname.
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
+  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.nvidia = {
     modesetting.enable = true;
     open = false; # true breaks hardware video decode (i think)
+    package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
   };
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  environment.variables = rec { STEAM_FORCE_DESKTOPUI_SCALING = "1.75"; };
+  environment.variables = rec { STEAM_FORCE_DESKTOPUI_SCALING = "1.5"; };
 
   # Nvidia Hardware decoding
 

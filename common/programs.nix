@@ -1,7 +1,8 @@
 { config, pkgs, ... }:
 
 {
-  #nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowBroken = true;
+  nixpkgs.config.allowUnfree = true;
   programs.xwayland.enable = true;
   programs.kdeconnect.enable = true;
   programs.adb.enable = true;
@@ -33,8 +34,10 @@
     veracrypt
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
+    steam-run
+    minecraft
   ];
 
-  fonts.packages = with pkgs; [ iosevka font-awesome nerdfonts ];
+  fonts.packages = with pkgs; [ iosevka font-awesome ];
 
 }

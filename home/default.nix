@@ -10,6 +10,7 @@
     ./bash
     ./plasma
     ./spicetify
+    ./fastfetch
   ];
   home.stateVersion = "22.05";
   # Let Home Manager install and manage itself.

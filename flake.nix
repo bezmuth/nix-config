@@ -15,10 +15,11 @@
     hyprland.url = "github:hyprwm/Hyprland/";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
+    lem.url = "github:dariof4/lem-flake/";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, nur, hyprland
-    , spicetify-nix, emacs-overlay, nix-flatpak, ... }:
+    , spicetify-nix, emacs-overlay, nix-flatpak, lem, ... }:
     let
       desktopModules = [
         nur.nixosModules.nur
@@ -43,8 +44,12 @@
       supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
       channelsConfig.allowUnfree = true;
 
-      sharedOverlays =
-        [ devshell.overlays.default emacs-overlay.overlay (import ./pkgs) ];
+      sharedOverlays = [
+        devshell.overlays.default
+        emacs-overlay.overlay
+        (import ./pkgs)
+        lem.overlays.default
+      ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
       hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;

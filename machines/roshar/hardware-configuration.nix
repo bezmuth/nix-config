@@ -7,24 +7,28 @@
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd.availableKernelModules =
-    [ "xhci_pci" "ahci" "nvme" "usbhid" "uas" "sd_mod" ];
+    [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  hardware.bluetooth.enable = true;
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/76b02cb6-5e03-4003-91c7-a21d887b73f2";
-    fsType = "btrfs";
-    options = [ "subvol=@" ];
+    device = "/dev/disk/by-uuid/151fe5b5-61df-4e7a-8473-b2939a02fc37";
+    fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-dc512aa5-dc76-497d-ae2f-0d7f5c9bab42".device =
-    "/dev/disk/by-uuid/dc512aa5-dc76-497d-ae2f-0d7f5c9bab42";
+  boot.initrd.luks.devices."luks-0646ec4e-4789-45bd-8ec8-f60ac8bbc0e1".device =
+    "/dev/disk/by-uuid/0646ec4e-4789-45bd-8ec8-f60ac8bbc0e1";
+  boot.initrd.luks.devices."luks-204a3273-cf89-4ae7-b3c1-747e05220fd5".device =
+    "/dev/disk/by-uuid/204a3273-cf89-4ae7-b3c1-747e05220fd5";
+
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/4162-0642";
+    device = "/dev/disk/by-uuid/3F82-B1C6";
     fsType = "vfat";
+    options = [ "fmask=0022" "dmask=0022" ];
   };
 
   fileSystems."/run/mount/SSD 2" = {
@@ -33,7 +37,8 @@
     options = [ "rw" "uid=1000" ];
   };
 
-  swapDevices = [ ];
+  swapDevices =
+    [{ device = "/dev/disk/by-uuid/cf2ad9a9-c73c-475d-a4f7-a4e40bd8adf6"; }];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
