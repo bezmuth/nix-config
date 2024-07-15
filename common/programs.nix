@@ -24,6 +24,7 @@
     })
     (papirus-icon-theme.override { color = "pink"; })
     gnome.adwaita-icon-theme
+    mpv
     ispell
     vim
     bat
@@ -34,7 +35,6 @@
     veracrypt
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
-    steam-run
     minecraft
   ];
 

@@ -98,16 +98,6 @@
             "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts"
             "https://cdn.jsdelivr.net/gh/hagezi/dns-blocklists@latest/wildcard/pro.plus.txt"
           ];
-          twitter = [
-            "https://raw.githubusercontent.com/JackCuthbert/pihole-twitter/main/pihole-twitter.txt"
-            "*.x.com"
-            "x.com"
-          ];
-          reddit = [
-            "https://raw.githubusercontent.com/nickoppen/pihole-blocklists/master/blocklist-reddit.txt"
-            "*.reddit.*"
-            "www.reddit.com"
-          ];
         };
         #Configure what block categories are used
         clientGroupsBlock = { default = [ "ads" "twitter" "reddit" ]; };

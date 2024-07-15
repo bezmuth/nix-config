@@ -13,7 +13,7 @@
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
       distrobox
-      temurin-jre-bin-18
+      #temurin-jre-bin-18
       xorg.xhost
       gparted
       webcord-vencord
@@ -33,16 +33,22 @@
       nnn
       tmux
       catppuccin-cursors
-      transmission-gtk
+      #transmission_4-gtk
       htop
       beeper
       r2modman
       nextcloud-client
-      gpodder
-      lem
+      #lem
       ckan
+      vscode
+      # fixes fonts in ksp mods
+      (steam.override {
+        extraPkgs = (pkgs: [ pkgs.corefonts pkgs.vistafonts ]);
+      }).run
+      lutris
     ];
   };
+
   fonts.fontconfig.enable = true;
   dconf.enable = true;
   services.mpris-proxy.enable = true;
