@@ -7,7 +7,6 @@
     plantuml
     graphviz
     texliveSmall
-    font-awesome
     aspell
     ripgrep
   ];

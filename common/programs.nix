@@ -38,6 +38,11 @@
     minecraft
   ];
 
-  fonts.packages = with pkgs; [ iosevka font-awesome ];
+  fonts.packages = with pkgs; [
+    iosevka
+    font-awesome
+    nerdfonts
+    emacs-all-the-icons-fonts
+  ];
 
 }
