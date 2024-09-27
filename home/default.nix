@@ -2,13 +2,12 @@
 
 {
   imports = [
-    ./kitty
     ./zathura
     ./emacs
     ./bezmuth
     ./starship
     ./bash
-    ./plasma
+    ./i3sway
     ./spicetify
     ./fastfetch
     ./zellij

@@ -16,5 +16,5 @@
       modules = [ "OS" "Packages" "Kernel" "CPUUsage" "Disk" ];
     };
   };
-  programs.bash.bashrcExtra = "fastfetch";
+  #programs.bash.bashrcExtra = "fastfetch";
 }

@@ -4,6 +4,6 @@
   programs.zellij = {
     enable = true;
     enableBashIntegration = true;
-    settings = { theme = "catppuccin-latte"; };
+    settings = { theme = "catppuccin-mocha"; };
   };
 }

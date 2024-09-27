@@ -1,7 +1,14 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  imports = [ ../waybar ];
+  imports = [ ../alacritty ../rofi ../waybar ../mako ];
+
+  home.packages = with pkgs; [
+    cinnamon.nemo-with-extensions
+    swaylock
+    blueman
+    networkmanagerapplet
+  ];
 
   xsession.windowManager.i3 = {
     enable = true;
@@ -47,7 +54,7 @@
       keybindings = let m = config.xsession.windowManager.i3.config.modifier;
       in lib.mkOptionDefault {
         "${m}+Return" = "exec ${terminal}";
-        "${m}+space" = "exec ${menu} -show drun -show-icons";
+        "${m}+space" = "exec ${menu} -show drun -show-icon";
         "${m}+t" = "split toggle";
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
@@ -88,17 +95,26 @@
   };
 
   wayland.windowManager.sway = let
+    configure-gtk = pkgs.writeTextFile {
+      # see:  https://discourse.nixos.org/t/some-loose-ends-for-sway-on-nixos-which-we-should-fix/17728/2
+      name = "configure-gtk";
+      destination = "/bin/configure-gtk";
+      executable = true;
+      text = let
+        schema = pkgs.gsettings-desktop-schemas;
+        datadir = "${schema}/share/gsettings-schemas/${schema.name}";
+      in ''
+        export XDG_DATA_DIRS=${datadir}:$XDG_DATA_DIRS
+        gnome_schema=org.gnome.desktop.interface
+        gsettings set $gnome_schema gtk-theme 'catppuccin-mocha-pink-compact'
+        gsettings set $gnome_schema icon-theme 'Papirus-Dark'
+      '';
+    };
     gsettings = "${pkgs.glib}/bin/gsettings";
     gnomeSchema = "org.gnome.desktop.interface";
     importGsettings = pkgs.writeShellScript "import_gsettings.sh" ''
-      config="/home/alternateved/.config/gtk-3.0/settings.ini"
-      if [ ! -f "$config" ]; then exit 1; fi
-      gtk_theme="$(grep 'gtk-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-      icon_theme="$(grep 'gtk-icon-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-      cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | sed 's/.*\s*=\s*//')"
-      font_name="$(grep 'gtk-font-name' "$config" | sed 's/.*\s*=\s*//')"
-      ${gsettings} set ${gnomeSchema} gtk-theme "$gtk_theme"
-      ${gsettings} set ${gnomeSchema} icon-theme "$icon_theme"
+      ${gsettings} set ${gnomeSchema} gtk-theme "Catppuccin"
+      ${gsettings} set ${gnomeSchema} icon-theme "Papirus-Dark"
       ${gsettings} set ${gnomeSchema} cursor-theme "$cursor_theme"
       ${gsettings} set ${gnomeSchema} font-name "$font_name"
     '';
@@ -120,7 +136,8 @@
           command =
             "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
         }
-        { command = "${importGsettings}"; }
+        { command = "${configure-gtk}"; }
+        { command = "waybar"; }
         { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
@@ -132,7 +149,7 @@
       keybindings = let m = config.wayland.windowManager.sway.config.modifier;
       in lib.mkOptionDefault {
         "${m}+Return" = "exec ${terminal}";
-        "${m}+space" = "exec '${menu} -show drun -show-icons'";
+        "${m}+space" = "exec '${menu} -show drun -show-icon'";
         "${m}+t" = "split toggle";
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
@@ -198,9 +215,9 @@
 
       seat."*".hide_cursor = "3000";
 
-      focus.forceWrapping = true;
+      focus.wrapping = "force";
 
-      output."*".bg = "~/Pictures/background.png fill";
+      #output."*".bg = "background.png fill";
 
     };
   };

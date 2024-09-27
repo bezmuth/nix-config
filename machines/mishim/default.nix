@@ -14,7 +14,6 @@
   #};
   services.power-profiles-daemon.enable = true;
   services.thermald.enable = true;
-  services.auto-cpufreq.enable = true;
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;

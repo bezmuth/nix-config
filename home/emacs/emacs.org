@@ -171,7 +171,7 @@ Put backup files and auto-save files in their own directory.
 #+BEGIN_SRC emacs-lisp
   (use-package catppuccin-theme
     :init
-    (setq catppuccin-flavor 'latte))
+    (setq catppuccin-flavor 'mocha))
   (use-package doom-themes
     :config
     ;; Global settings (defaults)

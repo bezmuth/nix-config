@@ -9,6 +9,10 @@
   programs.steam.enable = true;
   programs.light.enable = true;
   programs.dconf.enable = true;
+  programs.sway = {
+    enable = true;
+    wrapperFeatures.gtk = true;
+  };
 
   programs.nh = {
     enable = true;
@@ -18,12 +22,17 @@
 
   environment.systemPackages = with pkgs; [
     (catppuccin-kde.override {
-      flavour = [ "latte" ];
+      flavour = [ "mocha" ];
       accents = [ "pink" ];
       winDecStyles = [ "modern" ];
     })
     (papirus-icon-theme.override { color = "pink"; })
-    gnome.adwaita-icon-theme
+    (catppuccin-gtk.override {
+      accents = [ "pink" ];
+      size = "compact";
+      variant = "mocha";
+    })
+    adwaita-icon-theme
     mpv
     ispell
     vim
@@ -36,6 +45,7 @@
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
     minecraft
+    pulseaudio
   ];
 
   fonts.packages = with pkgs; [

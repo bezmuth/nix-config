@@ -12,6 +12,7 @@
     };
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
+      kdePackages.ark
       distrobox
       #temurin-jre-bin-18
       xorg.xhost
@@ -37,7 +38,7 @@
       htop
       beeper
       r2modman
-      nextcloud-client
+      #nextcloud-client
       #lem
       ckan
       vscode

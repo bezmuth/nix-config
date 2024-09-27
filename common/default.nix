@@ -27,7 +27,7 @@
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.utf8";
   console.keyMap = "uk";
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
   boot.tmp.cleanOnBoot = true;
   users.defaultUserShell = pkgs.bash;
   users.users.bezmuth = {

@@ -6,7 +6,10 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    spicetify-nix.url = "github:the-argus/spicetify-nix";
+    spicetify-nix = {
+      url = "github:Gerg-L/spicetify-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -31,7 +34,7 @@
           home-manager.useUserPackages = true;
           home-manager.backupFileExtension = "hmbak";
           home-manager.users.bezmuth.imports = [
-            inputs.spicetify-nix.homeManagerModule
+            inputs.spicetify-nix.homeManagerModules.default
             inputs.hyprland.homeManagerModules.default
             ./home
           ];

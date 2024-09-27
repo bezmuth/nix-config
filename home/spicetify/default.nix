@@ -1,14 +1,14 @@
 { config, pkgs, lib, inputs, ... }:
 
 {
-  programs.spicetify = {
-    enable = true;
-    theme =
-      inputs.spicetify-nix.packages.${pkgs.system}.default.themes.catppuccin;
-    colorScheme = "latte";
+  programs.spicetify =
+    let spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+    in {
+      enable = true;
+      theme = spicePkgs.themes.catppuccin;
+      colorScheme = "mocha";
 
-    enabledExtensions =
-      with inputs.spicetify-nix.packages.${pkgs.system}.default.extensions; [
+      enabledExtensions = with spicePkgs.extensions; [
         fullAppDisplay
         shuffle # shuffle+ (special characters are sanitized out of ext names)
         keyboardShortcut
@@ -19,5 +19,5 @@
         lastfm
         songStats
       ];
-  };
+    };
 }

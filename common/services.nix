@@ -23,11 +23,9 @@
 
   services.upower.enable = true;
   services.gnome.gnome-keyring.enable = true;
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  services.udev.packages = [ pkgs.gnome-settings-daemon ];
   services.fwupd.enable = true;
   services.ratbagd.enable = true;
-  # Enable sound with pipewire.
-  sound.enable = true;
   hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -39,17 +37,9 @@
   services.printing.enable = true;
   systemd.services.NetworkManager-wait-online.enable = false;
 
-  # plasma 6 testing
+  # lightdm
   services.xserver.displayManager.lightdm.enable = true;
   services.xserver.enable = true;
-  environment.plasma6.excludePackages = [
-    pkgs.kdePackages.konsole
-    pkgs.kdePackages.elisa
-    pkgs.kdePackages.kate
-    pkgs.kdePackages.okular
-  ];
-  services.xserver.excludePackages = [ pkgs.xterm ];
-  services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
