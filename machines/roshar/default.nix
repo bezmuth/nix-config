@@ -35,9 +35,7 @@
       Comment=Sway on nvidia
       Exec=sway --unsupported-gpu
       Type=Application
-    '').overrideAttrs (_: {
-      passthru.providedSessions = [ "sway-nvidia" ];
-    })) # This tells Nix it is a session providing "steam" in the derivation, which allows it to be defined as a session to `sessionPackages`
+    '').overrideAttrs (_: { passthru.providedSessions = [ "sway-nvidia" ]; }))
   ];
 
 }

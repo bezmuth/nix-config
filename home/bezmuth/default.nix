@@ -43,13 +43,8 @@
       #lem
       ckan
       vscode
-      # fixes fonts in ksp mods
-      #(steam.override {
-      #  extraPkgs = (pkgs: [ pkgs.corefonts pkgs.vistafonts ]);
-      #}).run
-      steam
+      # fixes fonts in ksp mods + proton-ge
       lutris
-      protonup-qt
     ];
   };
 

@@ -6,7 +6,11 @@
   programs.xwayland.enable = true;
   programs.kdeconnect.enable = true;
   programs.adb.enable = true;
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    extraCompatPackages = [ pkgs.proton-ge-bin ];
+    fontPackages = [ pkgs.corefonts pkgs.vistafonts ];
+  };
   programs.light.enable = true;
   programs.dconf.enable = true;
   programs.sway = {
