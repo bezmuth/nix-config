@@ -19,10 +19,15 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     lem.url = "github:dariof4/lem-flake/";
+    # for sway latest (nvidia explicit sync)
+    nixpkgs-wayland = {
+      url = "github:nix-community/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, nur, hyprland
-    , spicetify-nix, emacs-overlay, nix-flatpak, lem, ... }:
+    , spicetify-nix, emacs-overlay, nix-flatpak, lem, nixpkgs-wayland, ... }:
     let
       desktopModules = [
         nur.nixosModules.nur
@@ -48,6 +53,7 @@
       channelsConfig.allowUnfree = true;
 
       sharedOverlays = [
+        inputs.nixpkgs-wayland.overlay
         devshell.overlays.default
         emacs-overlay.overlay
         (import ./pkgs)

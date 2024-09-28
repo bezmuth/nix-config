@@ -10,9 +10,13 @@
       "nixpkgs=/nix/var/nix/profiles/per-user/root/channels/nixos"
     ];
     settings = {
-      substituters = [ "https://nix-community.cachix.org" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://nixpkgs-wayland.cachix.org"
+      ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
     };
     package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
@@ -27,7 +31,10 @@
   time.timeZone = "Europe/London";
   i18n.defaultLocale = "en_GB.utf8";
   console.keyMap = "uk";
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    extraPackages = [ pkgs.vulkan-validation-layers ];
+  };
   boot.tmp.cleanOnBoot = true;
   users.defaultUserShell = pkgs.bash;
   users.users.bezmuth = {

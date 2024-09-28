@@ -25,8 +25,22 @@
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  environment.variables = rec { STEAM_FORCE_DESKTOPUI_SCALING = "1.5"; };
+  environment.variables = rec {
+    STEAM_FORCE_DESKTOPUI_SCALING = "1.5";
+    #WLR_RENDERER = "vulkan";
+  };
 
-  # Nvidia Hardware decoding
+  # sway nvidia
+  services.displayManager.sessionPackages = [
+    ((pkgs.writeTextDir "share/wayland-sessions/sway-nvidia.desktop" ''
+      [Desktop Entry]
+      Name=sway-nvidia
+      Comment=Sway on nvidia
+      Exec=sway --unsupported-gpu
+      Type=Application
+    '').overrideAttrs (_: {
+      passthru.providedSessions = [ "sway-nvidia" ];
+    })) # This tells Nix it is a session providing "steam" in the derivation, which allows it to be defined as a session to `sessionPackages`
+  ];
 
 }

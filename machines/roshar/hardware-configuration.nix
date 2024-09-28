@@ -11,34 +11,23 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/151fe5b5-61df-4e7a-8473-b2939a02fc37";
+    device = "/dev/disk/by-uuid/086eebef-3e29-45ad-95d5-f4c5597672c6";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-0646ec4e-4789-45bd-8ec8-f60ac8bbc0e1".device =
-    "/dev/disk/by-uuid/0646ec4e-4789-45bd-8ec8-f60ac8bbc0e1";
-  boot.initrd.luks.devices."luks-204a3273-cf89-4ae7-b3c1-747e05220fd5".device =
-    "/dev/disk/by-uuid/204a3273-cf89-4ae7-b3c1-747e05220fd5";
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."luks-7bd60c9a-ff74-40f6-857a-b840a2c913c4".device =
+    "/dev/disk/by-uuid/7bd60c9a-ff74-40f6-857a-b840a2c913c4";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/3F82-B1C6";
+    device = "/dev/disk/by-uuid/A478-23FC";
     fsType = "vfat";
-    options = [ "fmask=0022" "dmask=0022" ];
+    options = [ "fmask=0077" "dmask=0077" ];
   };
 
-  fileSystems."/run/mount/SSD 2" = {
-    device = "/dev/disk/by-uuid/25A1ECD023922BF6";
-    fsType = "ntfs-3g";
-    options = [ "rw" "uid=1000" ];
-  };
-
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/cf2ad9a9-c73c-475d-a4f7-a4e40bd8adf6"; }];
+  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's
