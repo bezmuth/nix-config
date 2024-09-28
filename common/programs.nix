@@ -10,6 +10,8 @@
     enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
     fontPackages = [ pkgs.corefonts pkgs.vistafonts ];
+    remotePlay.openFirewall = true;
+    localNetworkGameTransfers.openFirewall = true;
   };
   programs.light.enable = true;
   programs.dconf.enable = true;
