@@ -7,7 +7,7 @@
     ./bezmuth
     ./starship
     ./bash
-    ./i3sway
+    ./sway
     ./spicetify
     ./fastfetch
     ./zellij
