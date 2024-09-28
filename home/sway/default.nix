@@ -118,7 +118,8 @@
 
       input = {
         "type:keyboard" = {
-          xkb_layout = if osConfig.networking.hostName == "Roshar" then "us" else "gb";
+          xkb_layout =
+            if osConfig.networking.hostName == "Roshar" then "us" else "gb";
           xkb_options = "caps:escape";
         };
         "type:pointer" = {

@@ -25,10 +25,7 @@
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  environment.variables = rec {
-    STEAM_FORCE_DESKTOPUI_SCALING = "1.5";
-    #WLR_RENDERER = "vulkan";
-  };
+  environment.variables = rec { };
 
   # sway nvidia
   services.displayManager.sessionPackages = [
