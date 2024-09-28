@@ -12,6 +12,7 @@
     };
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
+      comma
       kdePackages.ark
       distrobox
       #temurin-jre-bin-18
