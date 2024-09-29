@@ -10,6 +10,7 @@
     networkmanagerapplet
     playerctl
     pavucontrol
+    wl-clipboard-rs
   ];
 
   wayland.windowManager.sway = let
@@ -71,6 +72,7 @@
         "${m}+Return" = "exec ${terminal}";
         "${m}+space" = "exec '${menu} -show drun -show-icon'";
         "${m}+t" = "split toggle";
+        "${m}+Tab" = "floating toggle";
         "${m}+bracketright" = "exec playerctl next";
         "${m}+bracketleft" = "exec playerctl play-pause";
         "${m}+p" = "exec playerctl previous";
