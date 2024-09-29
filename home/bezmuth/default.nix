@@ -46,6 +46,7 @@
       # fixes fonts in ksp mods + proton-ge
       lutris
       boxbuddy
+      tigervnc
     ];
   };
 

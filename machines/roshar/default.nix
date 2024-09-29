@@ -12,6 +12,7 @@
   networking.hostName = "Roshar"; # Define your hostname.
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
+  services.power-profiles-daemon.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
   #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;

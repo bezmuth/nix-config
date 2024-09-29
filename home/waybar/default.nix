@@ -99,6 +99,10 @@
           background-color: @surface0;
           color: @rosewater;
       }
+      #power-profiles-daemon.performance {
+          background-color: @red;
+          color: @base;
+      }
 
     '';
     settings = [{
@@ -112,6 +116,7 @@
       modules-right = [
         "custom/spotify-metadata"
         "tray"
+        "power-profiles-daemon"
         "pulseaudio"
         "cpu"
         "memory"
@@ -143,6 +148,17 @@
         interval = 2;
         format = "{usage}% ";
         tooltip = false;
+      };
+      power-profiles-daemon = {
+        format = " {icon}";
+        tooltip-format = "Power profile: {profile}nDriver: {driver}";
+        tooltip = true;
+        format-icons = {
+          default = "";
+          performance = "";
+          balanced = "";
+          power-saver = "";
+        };
       };
       memory = { format = "{}% "; };
       network = {

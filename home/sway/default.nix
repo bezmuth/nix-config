@@ -8,6 +8,8 @@
     swaylock
     blueman
     networkmanagerapplet
+    playerctl
+    pavucontrol
   ];
 
   wayland.windowManager.sway = let

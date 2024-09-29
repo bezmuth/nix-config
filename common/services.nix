@@ -38,7 +38,11 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   # lightdm
-  services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager = {
+    lightdm.enable = true;
+    autoLogin.enable = true;
+    autoLogin.user = "bezmuth";
+  };
   services.xserver.enable = true;
 
   # Configure keymap in X11
