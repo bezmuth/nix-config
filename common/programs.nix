@@ -5,7 +5,6 @@
   nixpkgs.config.allowUnfree = true;
   programs.xwayland.enable = true;
   programs.kdeconnect.enable = true;
-  programs.adb.enable = true;
   programs.steam = {
     enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
@@ -27,11 +26,6 @@
   };
 
   environment.systemPackages = with pkgs; [
-    (catppuccin-kde.override {
-      flavour = [ "mocha" ];
-      accents = [ "pink" ];
-      winDecStyles = [ "modern" ];
-    })
     (papirus-icon-theme.override { color = "pink"; })
     (catppuccin-gtk.override {
       accents = [ "pink" ];
@@ -42,15 +36,12 @@
     mpv
     ispell
     vim
-    bat
     git
-    webcamoid
     man-pages
     man-pages-posix
     veracrypt
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
-    minecraft
     pulseaudio
   ];
 

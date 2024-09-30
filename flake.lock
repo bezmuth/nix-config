@@ -360,24 +360,6 @@
         "type": "github"
       }
     },
-    "lem": {
-      "inputs": {
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1718454711,
-        "narHash": "sha256-1vvQn3wHq40YtnSGhhK0qwJOiTj/OVxUY5ld1KW39qg=",
-        "owner": "dariof4",
-        "repo": "lem-flake",
-        "rev": "2d6fe3627261ca93a45417ee981b06f11b79d1fe",
-        "type": "github"
-      },
-      "original": {
-        "owner": "dariof4",
-        "repo": "lem-flake",
-        "type": "github"
-      }
-    },
     "lib-aggregate": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -401,7 +383,7 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nix-github-actions": "nix-github-actions",
-        "nixpkgs": "nixpkgs_5",
+        "nixpkgs": "nixpkgs_4",
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
@@ -543,19 +525,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1692447944,
-        "narHash": "sha256-fkJGNjEmTPvqBs215EQU4r9ivecV5Qge5cF/QDLVn3U=",
-        "path": "/nix/store/s4jqyj35hii03rs7j5n6vn7gpgp6ja81-source",
-        "rev": "d680ded26da5cf104dd2735a51e88d2d8f487b4d",
-        "type": "path"
-      },
-      "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1726937504,
         "narHash": "sha256-bvGoiQBvponpZh8ClUcmJ6QnsNKw0EMrCQJARK3bI1c=",
         "owner": "nixos",
@@ -570,7 +539,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1723221148,
         "narHash": "sha256-7pjpeQlZUNQ4eeVntytU3jkw9dFK3k1Htgk2iuXjaD8=",
@@ -586,32 +555,15 @@
         "type": "github"
       }
     },
-    "nur": {
-      "locked": {
-        "lastModified": 1727146799,
-        "narHash": "sha256-EgTExhm77mFu0dNkl4A9LaVYwZYcx62hIG1Q7IJbzzg=",
-        "owner": "nix-community",
-        "repo": "NUR",
-        "rev": "819ed7a5b7dfec428810dfa1403d4fcb5cad44f3",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "NUR",
-        "type": "github"
-      }
-    },
     "root": {
       "inputs": {
         "devshell": "devshell",
         "emacs-overlay": "emacs-overlay",
         "home-manager": "home-manager",
         "hyprland": "hyprland",
-        "lem": "lem",
         "nix-flatpak": "nix-flatpak",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_3",
         "nixpkgs-wayland": "nixpkgs-wayland",
-        "nur": "nur",
         "spicetify-nix": "spicetify-nix",
         "utils": "utils"
       }

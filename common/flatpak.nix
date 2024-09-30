@@ -4,6 +4,10 @@
     enable = true;
     onCalendar = "weekly"; # Default value
   };
-  services.flatpak.packages =
-    [ "com.usebottles.bottles" "org.kde.kasts" "net.lutris.Lutris" ];
+  services.flatpak.packages = [
+    "com.usebottles.bottles"
+    "org.kde.kasts"
+    "net.lutris.Lutris"
+    "com.hunterwittenborn.Celeste"
+  ];
 }

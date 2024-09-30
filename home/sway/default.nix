@@ -4,7 +4,7 @@
   imports = [ ../alacritty ../rofi ../waybar ../mako ];
 
   home.packages = with pkgs; [
-    cinnamon.nemo-with-extensions
+    nemo-with-extensions
     swaylock
     blueman
     networkmanagerapplet

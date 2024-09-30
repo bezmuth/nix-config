@@ -10,7 +10,6 @@
       url = "github:Gerg-L/spicetify-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nur.url = "github:nix-community/NUR";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,19 +17,17 @@
     hyprland.url = "github:hyprwm/Hyprland/";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    lem.url = "github:dariof4/lem-flake/";
     # for sway latest (nvidia explicit sync)
     nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland";
+      url = "github:nix-community/nixpkgs-wayland/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, nur, hyprland
-    , spicetify-nix, emacs-overlay, nix-flatpak, lem, nixpkgs-wayland, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, hyprland
+    , spicetify-nix, emacs-overlay, nix-flatpak, nixpkgs-wayland, ... }:
     let
       desktopModules = [
-        nur.nixosModules.nur
         nix-flatpak.nixosModules.nix-flatpak
         ./common
         home-manager.nixosModules.home-manager
@@ -57,7 +54,6 @@
         devshell.overlays.default
         emacs-overlay.overlay
         (import ./pkgs)
-        lem.overlays.default
       ];
 
       hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;

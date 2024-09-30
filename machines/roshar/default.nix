@@ -15,7 +15,6 @@
   services.power-profiles-daemon.enable = true;
 
   services.xserver.videoDrivers = [ "nvidia" ];
-  #hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.nvidia = {

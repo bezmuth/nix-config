@@ -13,18 +13,12 @@
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
       wine64
-      comma
       kdePackages.ark
       distrobox
-      #temurin-jre-bin-18
-      xorg.xhost
       gparted
-      webcord-vencord
-      swaybg
       firefox
       keepassxc
       protonvpn-gui
-      lorri
       prismlauncher
       vlc
       libreoffice-fresh
@@ -32,22 +26,11 @@
       anki-bin
       tor-browser-bundle-bin
       piper
-      chromium
-      nnn
-      tmux
-      catppuccin-cursors
-      #transmission_4-gtk
       htop
-      beeper
       r2modman
-      #nextcloud-client
-      #lem
       ckan
       vscode
-      # fixes fonts in ksp mods + proton-ge
-      lutris
       boxbuddy
-      tigervnc
     ];
   };
 
