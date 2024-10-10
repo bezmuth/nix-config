@@ -96,23 +96,23 @@
         blackLists = {
           #Adblocking
           ads = [ "https://big.oisd.nl/domainswild" ];
-          twitter = [
-            "https://raw.githubusercontent.com/JackCuthbert/pihole-twitter/main/pihole-twitter.txt"
-            #"*.x.com"
-            #"x.com"
-          ];
-          reddit = [
-            "https://raw.githubusercontent.com/nickoppen/pihole-blocklists/master/blocklist-reddit.txt"
-            "*.reddit.*"
-            "www.reddit.com"
-          ];
+          # twitter = [
+          #   "https://raw.githubusercontent.com/JackCuthbert/pihole-twitter/main/pihole-twitter.txt"
+          #   #"*.x.com"
+          #   #"x.com"
+          # ];
+          # reddit = [
+          #   "https://raw.githubusercontent.com/nickoppen/pihole-blocklists/master/blocklist-reddit.txt"
+          #   "*.reddit.*"
+          #   "www.reddit.com"
+          # ];
         };
         #Configure what block categories are used
         clientGroupsBlock = {
           default = [
             "ads"
-            "twitter"
-            "reddit"
+            #"twitter"
+            #"reddit"
           ];
         };
       };
