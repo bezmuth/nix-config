@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   imports = [ ./hardware-configuration.nix ];
 
   boot.cleanTmpDir = true;
@@ -9,20 +10,33 @@
     isNormalUser = true;
     home = "/home/bezmuth";
     description = "Bezmuth";
-    extraGroups = [ "wheel" "networkmanager" "postgres" ];
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "postgres"
+    ];
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.firewall.enable = true;
-  networking.firewall.allowedTCPPorts = [ 22 80 443 25 ];
+  networking.firewall.allowedTCPPorts = [
+    22
+    80
+    443
+    25
+  ];
   networking.firewall.allowedUDPPorts = [ config.services.tailscale.port ];
   networking.extraHosts = ''
     130.162.189.151 femboy.rehab
     130.162.189.151 propaganda.lol
   '';
 
-  environment.systemPackages = [ pkgs.vim pkgs.tailscale pkgs.git ];
+  environment.systemPackages = [
+    pkgs.vim
+    pkgs.tailscale
+    pkgs.git
+  ];
 
   services.mastodon = {
     enable = true;
@@ -54,7 +68,9 @@
   #   };
   # };
 
-  security.acme.certs = { "propaganda.lol".email = "benkel97@protonmail.com"; };
+  security.acme.certs = {
+    "propaganda.lol".email = "benkel97@protonmail.com";
+  };
   security.acme.acceptTerms = true;
 
 }

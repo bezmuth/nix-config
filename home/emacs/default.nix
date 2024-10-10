@@ -1,5 +1,11 @@
 # See: https://github.com/sebnyberg/doomemacs-nix-example
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   home.packages = with pkgs; [

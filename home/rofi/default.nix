@@ -1,10 +1,15 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   programs.rofi = {
     enable = true;
-    package =
-      pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-power-menu ]; };
+    package = pkgs.rofi-wayland.override { plugins = [ pkgs.rofi-power-menu ]; };
     extraConfig = {
       modi = "run,drun,power-menu:${pkgs.rofi-power-menu}/bin/rofi-power-menu";
       kb-primary-paste = "Control+V,Shift+Insert";

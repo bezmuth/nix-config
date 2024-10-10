@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   programs.fastfetch = {
@@ -6,14 +12,22 @@
     settings = {
       logo = {
         source = "nixos_small";
-        padding = { right = 1; };
+        padding = {
+          right = 1;
+        };
       };
       display = {
         size.binaryPrefix = "si";
         color = "blue";
         separator = "  ";
       };
-      modules = [ "OS" "Packages" "Kernel" "CPUUsage" "Disk" ];
+      modules = [
+        "OS"
+        "Packages"
+        "Kernel"
+        "CPUUsage"
+        "Disk"
+      ];
     };
   };
   #programs.bash.bashrcExtra = "fastfetch";

@@ -16,8 +16,7 @@
     description = "kanshi daemon";
     serviceConfig = {
       Type = "simple";
-      ExecStart =
-        "${pkgs.kanshi}/bin/kanshi -c /home/bezmuth/.config/kanshi/config";
+      ExecStart = "${pkgs.kanshi}/bin/kanshi -c /home/bezmuth/.config/kanshi/config";
     };
   };
 
@@ -48,7 +47,7 @@
       lightdm.enable = true;
     };
   };
-  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
+  environment.xfce.excludePackages = [ pkgs.xfce.xfce4-power-manager ];
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -87,7 +86,10 @@
       # For initially solving DoH/DoT Requests when no system Resolver is available.
       bootstrapDns = {
         upstream = "https://one.one.one.one/dns-query";
-        ips = [ "1.1.1.1" "1.0.0.1" ];
+        ips = [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
       };
       #Enable Blocking of certian domains.
       blocking = {
@@ -106,7 +108,13 @@
           ];
         };
         #Configure what block categories are used
-        clientGroupsBlock = { default = [ "ads" "twitter" "reddit" ]; };
+        clientGroupsBlock = {
+          default = [
+            "ads"
+            "twitter"
+            "reddit"
+          ];
+        };
       };
       caching = {
         minTime = "5m";

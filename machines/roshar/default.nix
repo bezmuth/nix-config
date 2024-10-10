@@ -5,7 +5,8 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
   ];
 
@@ -29,13 +30,18 @@
 
   # sway nvidia
   services.displayManager.sessionPackages = [
-    ((pkgs.writeTextDir "share/wayland-sessions/sway-nvidia.desktop" ''
-      [Desktop Entry]
-      Name=sway-nvidia
-      Comment=Sway on nvidia
-      Exec=sway --unsupported-gpu
-      Type=Application
-    '').overrideAttrs (_: { passthru.providedSessions = [ "sway-nvidia" ]; }))
+    (
+      (pkgs.writeTextDir "share/wayland-sessions/sway-nvidia.desktop" ''
+        [Desktop Entry]
+        Name=sway-nvidia
+        Comment=Sway on nvidia
+        Exec=sway --unsupported-gpu
+        Type=Application
+      '').overrideAttrs
+      (_: {
+        passthru.providedSessions = [ "sway-nvidia" ];
+      })
+    )
   ];
 
 }

@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 let
   dbus-hyprland-environment = pkgs.writeTextFile {
@@ -12,7 +18,8 @@ let
     '';
   };
 
-in {
+in
+{
   wayland.windowManager.hyprland = {
     enable = true;
     #nvidiaPatches = true;
@@ -41,7 +48,11 @@ in {
     pcmanfm
   ];
 
-  imports = [ ../eww ../mako ../rofi ];
+  imports = [
+    ../eww
+    ../mako
+    ../rofi
+  ];
 
   #services.blueman-applet.enable = true;
 

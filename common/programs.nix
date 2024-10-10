@@ -1,4 +1,9 @@
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   nixpkgs.config.allowBroken = true;
@@ -8,7 +13,10 @@
   programs.steam = {
     enable = true;
     extraCompatPackages = [ pkgs.proton-ge-bin ];
-    fontPackages = [ pkgs.corefonts pkgs.vistafonts ];
+    fontPackages = [
+      pkgs.corefonts
+      pkgs.vistafonts
+    ];
     remotePlay.openFirewall = true;
     localNetworkGameTransfers.openFirewall = true;
   };

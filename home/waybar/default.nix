@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
 
@@ -105,127 +111,147 @@
       }
 
     '';
-    settings = [{
-      height = 20;
-      layer = "top";
-      position = "top";
-      tray = { spacing = 10; };
-      mode = "dock";
-      modules-center = [ "clock" ];
-      modules-left = [ "sway/workspaces" ];
-      modules-right = [
-        "custom/spotify-metadata"
-        "tray"
-        "power-profiles-daemon"
-        "pulseaudio"
-        "cpu"
-        "memory"
-        "temperature"
-        "battery"
-      ];
-      "sway/scratchpad" = {
-        format = "{icon}";
-        show-empty = false;
-        format-icons = [ "" "" ];
-      };
-      battery = {
-        format = "{capacity}% {icon}";
-        format-alt = "{time} {icon}";
-        format-charging = "{capacity}% ";
-        format-icons = [ "" "" "" "" "" ];
-        format-plugged = "{capacity}% ";
-        states = {
-          critical = 15;
-          warning = 30;
+    settings = [
+      {
+        height = 20;
+        layer = "top";
+        position = "top";
+        tray = {
+          spacing = 10;
         };
-      };
-      clock = {
-        format = "{:%Y-%m-%d | %H:%M}";
-        format-alt = "{:%Y-%m-%d}";
-        tooltip-format = "{:%Y-%m-%d | %H:%M}";
-      };
-      cpu = {
-        interval = 2;
-        format = "{usage}% ";
-        tooltip = false;
-      };
-      power-profiles-daemon = {
-        format = " {icon}";
-        tooltip-format = "Power profile: {profile}nDriver: {driver}";
-        tooltip = true;
-        format-icons = {
-          default = "";
-          performance = "";
-          balanced = "";
-          power-saver = "";
+        mode = "dock";
+        modules-center = [ "clock" ];
+        modules-left = [ "sway/workspaces" ];
+        modules-right = [
+          "custom/spotify-metadata"
+          "tray"
+          "power-profiles-daemon"
+          "pulseaudio"
+          "cpu"
+          "memory"
+          "temperature"
+          "battery"
+        ];
+        "sway/scratchpad" = {
+          format = "{icon}";
+          show-empty = false;
+          format-icons = [
+            ""
+            ""
+          ];
         };
-      };
-      memory = { format = "{}% "; };
-      network = {
-        interval = 1;
-        format-alt = "{ifname}: {ipaddr}/{cidr}";
-        format-disconnected = "Disconnected ⚠";
-        format-ethernet =
-          "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
-        format-linked = "{ifname} (No IP) ";
-        format-wifi = "{essid} ({signalStrength}%) ";
-      };
-      pulseaudio = {
-        format = "{volume}% {icon} {format_source}";
-        format-bluetooth = "{volume}% {icon} {format_source}";
-        format-bluetooth-muted = " {icon} {format_source}";
-        format-icons = {
-          car = "";
-          default = [ "" "" "" ];
-          handsfree = "";
-          headphones = "";
-          headset = "";
-          phone = "";
-          portable = "";
+        battery = {
+          format = "{capacity}% {icon}";
+          format-alt = "{time} {icon}";
+          format-charging = "{capacity}% ";
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
+          format-plugged = "{capacity}% ";
+          states = {
+            critical = 15;
+            warning = 30;
+          };
         };
-        format-muted = " {format_source}";
-        format-source = "{volume}% ";
-        format-source-muted = "";
-        on-click = "pavucontrol";
-      };
-      "sway/mode" = { format = ''<span style="italic">{}</span>''; };
-      "custom/spotify-metadata" = {
-        format = " {}   ";
-        max-length = 100;
-        interval = 1;
-        return-type = "json";
-        exec = pkgs.writeShellScript "metadata.sh" ''
-          status=$(playerctl -p spotify status)
-          artist=$(playerctl -p spotify metadata xesam:artist)
-          title=$(playerctl -p spotify metadata xesam:title)
-          album=$(playerctl -p spotify metadata xesam:album)
-          time=$(playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
-          if [[ -z $status ]]
-          then
-             # spotify is dead, we should die to.
-             exit
-          fi
-          if [[ $status == "Playing" ]]
-          then
-             echo "{\"class\": \"playing\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-             pkill -RTMIN+5 waybar
-             exit
-          fi
-          if [[ $status == "Paused" ]]
-          then
-             echo "{\"class\": \"paused\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-             pkill -RTMIN+5 waybar
-             exit
-          fi
-        '';
-        signal = 5;
-        smooth-scrolling-threshold = 1.0;
-      };
-      temperature = {
-        critical-threshold = 80;
-        format = "{temperatureC}°C ";
-        format-icons = [ "" ];
-      };
-    }];
+        clock = {
+          format = "{:%Y-%m-%d | %H:%M}";
+          format-alt = "{:%Y-%m-%d}";
+          tooltip-format = "{:%Y-%m-%d | %H:%M}";
+        };
+        cpu = {
+          interval = 2;
+          format = "{usage}% ";
+          tooltip = false;
+        };
+        power-profiles-daemon = {
+          format = " {icon}";
+          tooltip-format = "Power profile: {profile}nDriver: {driver}";
+          tooltip = true;
+          format-icons = {
+            default = "";
+            performance = "";
+            balanced = "";
+            power-saver = "";
+          };
+        };
+        memory = {
+          format = "{}% ";
+        };
+        network = {
+          interval = 1;
+          format-alt = "{ifname}: {ipaddr}/{cidr}";
+          format-disconnected = "Disconnected ⚠";
+          format-ethernet = "{ifname}: {ipaddr}/{cidr}   up: {bandwidthUpBits} down: {bandwidthDownBits}";
+          format-linked = "{ifname} (No IP) ";
+          format-wifi = "{essid} ({signalStrength}%) ";
+        };
+        pulseaudio = {
+          format = "{volume}% {icon} {format_source}";
+          format-bluetooth = "{volume}% {icon} {format_source}";
+          format-bluetooth-muted = " {icon} {format_source}";
+          format-icons = {
+            car = "";
+            default = [
+              ""
+              ""
+              ""
+            ];
+            handsfree = "";
+            headphones = "";
+            headset = "";
+            phone = "";
+            portable = "";
+          };
+          format-muted = " {format_source}";
+          format-source = "{volume}% ";
+          format-source-muted = "";
+          on-click = "pavucontrol";
+        };
+        "sway/mode" = {
+          format = ''<span style="italic">{}</span>'';
+        };
+        "custom/spotify-metadata" = {
+          format = " {}   ";
+          max-length = 100;
+          interval = 1;
+          return-type = "json";
+          exec = pkgs.writeShellScript "metadata.sh" ''
+            status=$(playerctl -p spotify status)
+            artist=$(playerctl -p spotify metadata xesam:artist)
+            title=$(playerctl -p spotify metadata xesam:title)
+            album=$(playerctl -p spotify metadata xesam:album)
+            time=$(playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
+            if [[ -z $status ]]
+            then
+               # spotify is dead, we should die to.
+               exit
+            fi
+            if [[ $status == "Playing" ]]
+            then
+               echo "{\"class\": \"playing\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
+               pkill -RTMIN+5 waybar
+               exit
+            fi
+            if [[ $status == "Paused" ]]
+            then
+               echo "{\"class\": \"paused\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
+               pkill -RTMIN+5 waybar
+               exit
+            fi
+          '';
+          signal = 5;
+          smooth-scrolling-threshold = 1.0;
+        };
+        temperature = {
+          critical-threshold = 80;
+          format = "{temperatureC}°C ";
+          format-icons = [ "" ];
+        };
+      }
+    ];
   };
 }

@@ -25,8 +25,21 @@
     remarkable-utility.url = "github:404Wolf/remarkable-connection-utility";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, hyprland
-    , spicetify-nix, emacs-overlay, nix-flatpak, nixpkgs-wayland, remarkable-utility, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      utils,
+      devshell,
+      hyprland,
+      spicetify-nix,
+      emacs-overlay,
+      nix-flatpak,
+      nixpkgs-wayland,
+      remarkable-utility,
+      ...
+    }:
     let
       desktopModules = [
         nix-flatpak.nixosModules.nix-flatpak
@@ -41,13 +54,19 @@
             inputs.hyprland.homeManagerModules.default
             ./home
           ];
-          home-manager.extraSpecialArgs = { inherit inputs self; };
+          home-manager.extraSpecialArgs = {
+            inherit inputs self;
+          };
         }
       ];
 
-    in utils.lib.mkFlake {
+    in
+    utils.lib.mkFlake {
       inherit self inputs;
-      supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
+      supportedSystems = [
+        "aarch64-linux"
+        "x86_64-linux"
+      ];
       channelsConfig.allowUnfree = true;
 
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
@@ -66,15 +85,13 @@
 
       hostDefaults.modules = [ ];
 
-      outputsBuilder = channels:
-        with channels.nixpkgs; {
+      outputsBuilder =
+        channels: with channels.nixpkgs; {
           defaultPackage = channels.nixpkgs.devshell.mkShell {
-            imports =
-              [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
           };
           devShell = channels.nixpkgs.devshell.mkShell {
-            imports =
-              [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
           };
         };
     };

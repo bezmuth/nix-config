@@ -1,4 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
 
 {
   programs.starship = {
@@ -6,14 +12,24 @@
     enableBashIntegration = true;
     settings = {
       add_newline = false;
-      format = lib.concatStrings [ "$all" "$nix_shell" ];
+      format = lib.concatStrings [
+        "$all"
+        "$nix_shell"
+      ];
       scan_timeout = 10;
       character = {
         success_symbol = "➜(bold green)";
         error_symbol = "➜(bold red)";
       };
-      git_branch = { ignore_branches = [ "master" "main" ]; };
-      nix_shell = { format = "❄ [(($name))](bold blue) "; };
+      git_branch = {
+        ignore_branches = [
+          "master"
+          "main"
+        ];
+      };
+      nix_shell = {
+        format = "❄ [(($name))](bold blue) ";
+      };
     };
   };
 }

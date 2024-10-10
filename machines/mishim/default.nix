@@ -2,7 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, agenix, ... }: {
+{
+  config,
+  pkgs,
+  agenix,
+  ...
+}:
+{
   imports = [ ./hardware-configuration.nix ];
 
   networking.hostName = "Mishim"; # Define your hostname.
@@ -27,7 +33,10 @@
       "hybrid-sleep.target"
       "suspend-then-hibernate.target"
     ];
-    path = with pkgs; [ bash kmod ];
+    path = with pkgs; [
+      bash
+      kmod
+    ];
     script = ''
       modprobe -r psmouse && modprobe psmouse
     '';

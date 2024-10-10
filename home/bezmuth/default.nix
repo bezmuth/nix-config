@@ -1,14 +1,19 @@
-{ config, pkgs, lib, inputs, ... }: {
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}:
+{
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
     username = "bezmuth";
     homeDirectory = "/home/bezmuth";
     shellAliases = {
-      rb =
-        "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
-      ub =
-        "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
+      rb = "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
+      ub = "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
     };
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
@@ -31,6 +36,7 @@
       vscode
       boxbuddy
       inputs.remarkable-utility.packages.${system}.default
+      osu-lazer-bin
     ];
   };
 
