@@ -22,10 +22,11 @@
       url = "github:nix-community/nixpkgs-wayland/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    remarkable-utility.url = "github:404Wolf/remarkable-connection-utility";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, utils, devshell, hyprland
-    , spicetify-nix, emacs-overlay, nix-flatpak, nixpkgs-wayland, ... }:
+    , spicetify-nix, emacs-overlay, nix-flatpak, nixpkgs-wayland, remarkable-utility, ... }:
     let
       desktopModules = [
         nix-flatpak.nixosModules.nix-flatpak
@@ -48,6 +49,8 @@
       inherit self inputs;
       supportedSystems = [ "aarch64-linux" "x86_64-linux" ];
       channelsConfig.allowUnfree = true;
+
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       sharedOverlays = [
         inputs.nixpkgs-wayland.overlay

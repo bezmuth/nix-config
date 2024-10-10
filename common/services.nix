@@ -38,12 +38,17 @@
   systemd.services.NetworkManager-wait-online.enable = false;
 
   # lightdm
-  services.xserver.displayManager = {
-    lightdm.enable = true;
-    autoLogin.enable = true;
-    autoLogin.user = "bezmuth";
+  services.xserver = {
+    enable = true;
+    desktopManager = {
+      xterm.enable = false;
+      xfce.enable = true;
+    };
+    displayManager = {
+      lightdm.enable = true;
+    };
   };
-  services.xserver.enable = true;
+  environment.xfce.excludePackages = [pkgs.xfce.xfce4-power-manager];
 
   # Configure keymap in X11
   services.xserver.xkb = {

@@ -167,6 +167,24 @@
         "systems": "systems_4"
       },
       "locked": {
+        "lastModified": 1710146030,
+        "narHash": "sha256-SZ5L6eA7HJ/nmkzGG7/ISclqe6oZdOZTNoesiInkXPQ=",
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "rev": "b1d9ab70662946ef0850d488da1c9019f3a9752a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "flake-utils_4": {
+      "inputs": {
+        "systems": "systems_5"
+      },
+      "locked": {
         "lastModified": 1694529238,
         "narHash": "sha256-zsNZZGTGnMOf9YpHKJqMSsa0dXbfmxeoJ7xHlrt+xmY=",
         "owner": "numtide",
@@ -555,6 +573,41 @@
         "type": "github"
       }
     },
+    "nixpkgs_5": {
+      "locked": {
+        "lastModified": 1723362943,
+        "narHash": "sha256-dFZRVSgmJkyM0bkPpaYRtG/kRMRTorUIDj8BxoOt1T4=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "a58bc8ad779655e790115244571758e8de055e3d",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "remarkable-utility": {
+      "inputs": {
+        "flake-utils": "flake-utils_3",
+        "nixpkgs": "nixpkgs_5"
+      },
+      "locked": {
+        "lastModified": 1723583070,
+        "narHash": "sha256-IrFFeMSW3v+uiO03a0cxlVWqZP4z4A4Yn6rsNW82qBM=",
+        "owner": "404Wolf",
+        "repo": "remarkable-connection-utility",
+        "rev": "0dc42d188af723569a07f827b43713e9c56ef6c7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "404Wolf",
+        "repo": "remarkable-connection-utility",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "devshell": "devshell",
@@ -564,6 +617,7 @@
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_3",
         "nixpkgs-wayland": "nixpkgs-wayland",
+        "remarkable-utility": "remarkable-utility",
         "spicetify-nix": "spicetify-nix",
         "utils": "utils"
       }
@@ -649,6 +703,21 @@
         "type": "github"
       }
     },
+    "systems_5": {
+      "locked": {
+        "lastModified": 1681028828,
+        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
+        "owner": "nix-systems",
+        "repo": "default",
+        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-systems",
+        "repo": "default",
+        "type": "github"
+      }
+    },
     "treefmt-nix": {
       "inputs": {
         "nixpkgs": [
@@ -673,7 +742,7 @@
     },
     "utils": {
       "inputs": {
-        "flake-utils": "flake-utils_3"
+        "flake-utils": "flake-utils_4"
       },
       "locked": {
         "lastModified": 1722363685,

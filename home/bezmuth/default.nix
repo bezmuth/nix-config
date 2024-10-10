@@ -19,7 +19,6 @@
       firefox
       keepassxc
       protonvpn-gui
-      prismlauncher
       vlc
       libreoffice-fresh
       nixfmt-classic
@@ -31,6 +30,7 @@
       ckan
       vscode
       boxbuddy
+      inputs.remarkable-utility.packages.${system}.default
     ];
   };
 

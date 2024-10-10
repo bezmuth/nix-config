@@ -4,22 +4,24 @@
 {
   home.packages = with pkgs; [
     pandoc
-    nixfmt-classic
+    nixfmt
     plantuml
     graphviz
     texliveSmall
     aspell
     ripgrep
     # Indexing / search dependencies
-    pkgs.fd
-    (pkgs.ripgrep.override { withPCRE2 = true; })
+    fd
+    (ripgrep.override { withPCRE2 = true; })
 
     # Font / icon config
     # Added FiraCode as an example, it's not used in the config example.
-    pkgs.emacs-all-the-icons-fonts
-    pkgs.fontconfig
+    emacs-all-the-icons-fonts
+    fontconfig
 
-    pkgs.nixfmt # :lang nix
+    sqlite
+    zls
+    rust-analyzer
   ];
 
   # Note that session variables and path can be a bit wonky to get going. To be
@@ -33,7 +35,6 @@
     DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
   };
   home.sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
-
   programs.emacs.enable = true;
   programs.emacs.package = pkgs.emacs29-pgtk;
 

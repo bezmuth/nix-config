@@ -13,7 +13,7 @@ command = """
   git status -s
   echo "$HOSTNAME rebuilding"
   sudo nixos-rebuild switch --flake . --show-trace
-  nixfmt *
+  nix fmt
   doom sync
   notify-send 'Praise the rebuild' -t 10000
 """
@@ -27,7 +27,7 @@ command = """
   git status -s
   echo "$HOSTNAME updating and rebuilding"
   sudo nixos-rebuild switch --flake . --show-trace
-  nixfmt *
+  nix fmt
   doom sync
   notify-send 'Praise the update' -t 10000
 """

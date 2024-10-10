@@ -43,6 +43,7 @@
     xdg-utils # for openning default programms when clicking links
     glib # gsettings
     pulseaudio
+    xfce.xfce4-whiskermenu-plugin
   ];
 
   fonts.packages = with pkgs; [
@@ -51,5 +52,8 @@
     nerdfonts
     emacs-all-the-icons-fonts
   ];
+
+  programs.gamemode.enable = true;
+  programs.gamemode.enableRenice = true;
 
 }

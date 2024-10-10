@@ -9,5 +9,6 @@
     "org.kde.kasts"
     "net.lutris.Lutris"
     "com.hunterwittenborn.Celeste"
+    "org.prismlauncher.PrismLauncher"
   ];
 }
