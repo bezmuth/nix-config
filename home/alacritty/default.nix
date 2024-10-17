@@ -11,7 +11,7 @@
     enable = true;
     settings = {
       window = {
-        opacity = 0.8;
+        opacity = 1.0;
       };
       # Colors (catppuccin-mocha)
       colors = {

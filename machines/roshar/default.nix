@@ -44,4 +44,9 @@
     )
   ];
 
+  #deadlock
+  boot.kernel.sysctl = {
+    "vm.max_map_count" = 1048576;
+  };
+
 }
