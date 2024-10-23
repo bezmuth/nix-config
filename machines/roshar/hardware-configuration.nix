@@ -25,23 +25,24 @@
   boot.extraModulePackages = [ ];
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  fileSystems."/" = {
-    device = "/dev/disk/by-uuid/086eebef-3e29-45ad-95d5-f4c5597672c6";
-    fsType = "ext4";
-  };
 
-  boot.initrd.luks.devices."luks-7bd60c9a-ff74-40f6-857a-b840a2c913c4".device = "/dev/disk/by-uuid/7bd60c9a-ff74-40f6-857a-b840a2c913c4";
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/4809ec95-7481-4d74-b00f-b9c4f7b8bdcc";
+      fsType = "ext4";
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/A478-23FC";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
+  boot.initrd.luks.devices."luks-0e14c560-6f72-47df-a073-74af6c710507".device = "/dev/disk/by-uuid/0e14c560-6f72-47df-a073-74af6c710507";
+
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/A107-DA79";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
+
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/4bbf4749-5d6b-4ca1-82bf-18960f60274d"; }
     ];
-  };
 
-  swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

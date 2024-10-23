@@ -77,7 +77,6 @@
           { command = "blueman-applet"; }
           { command = "nm-applet --indicator"; }
           { command = "kdeconnect-indicator"; }
-          { command = "keepassxc"; }
         ];
         modifier = "Mod4";
         terminal = "alacritty";
