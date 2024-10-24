@@ -37,6 +37,7 @@
       boxbuddy
       inputs.remarkable-utility.packages.${system}.default
       osu-lazer-bin
+      jellyfin-web
     ];
   };
 
