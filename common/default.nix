@@ -29,7 +29,7 @@
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
       ];
     };
-    package = pkgs.nixFlakes; # or versioned attributes like nixVersions.nix_2_8
+    package = pkgs.nixVersions.stable; # or versioned attributes like nixVersions.nix_2_8
     extraOptions = ''
       experimental-features = nix-command flakes
     '';
@@ -61,7 +61,7 @@
     ];
   };
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [ libusb ];
+  programs.nix-ld.libraries = with pkgs; [ libusb1 ];
   security.polkit.enable = true;
   documentation.dev.enable = true;
   security.sudo-rs.enable = true;
