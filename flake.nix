@@ -6,92 +6,74 @@
     utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     devshell.url = "github:numtide/devshell";
     devshell.inputs.nixpkgs.follows = "nixpkgs";
-    spicetify-nix = {
-      url = "github:Gerg-L/spicetify-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprland.url = "github:hyprwm/Hyprland/";
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    # for sway latest (nvidia explicit sync)
-    nixpkgs-wayland = {
-      url = "github:nix-community/nixpkgs-wayland/";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     remarkable-utility.url = "github:404Wolf/remarkable-connection-utility";
+    # doom emacs install repo
+    doom-emacs-src = {
+      url = "github:doomemacs/doomemacs";
+      flake = false;
+    };
   };
 
-  outputs =
-    inputs@{
-      self,
-      nixpkgs,
-      home-manager,
-      utils,
-      devshell,
-      hyprland,
-      spicetify-nix,
-      emacs-overlay,
-      nix-flatpak,
-      nixpkgs-wayland,
-      remarkable-utility,
-      ...
-    }:
-    let
-      desktopModules = [
-        nix-flatpak.nixosModules.nix-flatpak
-        ./common
-        home-manager.nixosModules.home-manager
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    ...
+  }: let
+    pcModules =
+      [
+        ./modules
+        ./modules/pc-services.nix
+        ./modules/pc-programs.nix
         {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.backupFileExtension = "hmbak";
-          home-manager.users.bezmuth.imports = [
-            inputs.spicetify-nix.homeManagerModules.default
-            inputs.hyprland.homeManagerModules.default
-            ./home
-          ];
-          home-manager.extraSpecialArgs = {
-            inherit inputs self;
+          home-manager = {
+            useGlobalPkgs = true;
+            useUserPackages = true;
+            backupFileExtension = "hmbak";
+            users.bezmuth.imports = [
+              ./home
+            ];
+            extraSpecialArgs = {
+              inherit inputs self;
+            };
           };
         }
-      ];
-
-    in
-    utils.lib.mkFlake {
+      ]
+      ++ (with inputs; [
+        home-manager.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+      ]);
+  in
+    inputs.utils.lib.mkFlake {
       inherit self inputs;
       supportedSystems = [
-        "aarch64-linux"
         "x86_64-linux"
       ];
       channelsConfig.allowUnfree = true;
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
       sharedOverlays = [
-        inputs.nixpkgs-wayland.overlay
-        devshell.overlays.default
-        emacs-overlay.overlay
+        inputs.devshell.overlays.default
         (import ./pkgs)
       ];
 
-      hosts.Mishim.modules = [ ./machines/mishim ] ++ desktopModules;
-      hosts.Roshar.modules = [ ./machines/roshar ] ++ desktopModules;
-      hosts.Salas.modules = [ ./machines/salas ];
-      hosts.Salas.system = "aarch64-linux";
+      hosts.Mishim.modules = [./hosts/mishim] ++ pcModules;
+      hosts.Roshar.modules = [./hosts/roshar] ++ pcModules;
 
-      hostDefaults.modules = [ ];
+      hostDefaults.modules = [];
 
-      outputsBuilder =
-        channels: with channels.nixpkgs; {
+      outputsBuilder = channels:
+        with channels.nixpkgs; {
           defaultPackage = channels.nixpkgs.devshell.mkShell {
-            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+            imports = [(channels.nixpkgs.devshell.importTOML ./devshell.toml)];
           };
           devShell = channels.nixpkgs.devshell.mkShell {
-            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+            imports = [(channels.nixpkgs.devshell.importTOML ./devshell.toml)];
           };
         };
     };

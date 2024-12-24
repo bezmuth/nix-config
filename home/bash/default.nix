@@ -1,18 +1,17 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-
-{
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
+{pkgs, ...}: {
+  programs = {
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    bash = {
+      enable = true;
+      enableCompletion = true;
+      bashrcExtra = "${pkgs.pfetch-rs}/bin/pfetch";
+    };
   };
-
-  programs.direnv.enable = true;
-  programs.direnv.nix-direnv.enable = true;
-  programs.direnv.enableNushellIntegration = true;
+  home.shellAliases = {
+    rb = "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
+    ub = "PASSTWD=$(pwd) && cd ~/nix-config/ && nix develop --command bash -c 'rebuild' && cd \${PASTWD}";
+  };
 }

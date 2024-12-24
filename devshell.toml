@@ -1,8 +1,12 @@
-# https://github.com/numtide/devshell/blob/main/devshell.toml for example config
 [devshell]
 name = "nix-config"
 packages = [
   'libnotify',
+  'vim',
+  'git',
+  'alejandra',
+  'deadnix',
+  'statix',
 ]
 [[commands]]
 help = "Rebuilds nixos system."
@@ -15,6 +19,8 @@ command = """
   sudo nixos-rebuild switch --flake . --show-trace
   nix fmt
   doom sync
+  deadnix
+  statix check -i hardware-configuration.nix
   notify-send 'Praise the rebuild' -t 10000
 """
 [[commands]]
@@ -29,5 +35,7 @@ command = """
   sudo nixos-rebuild switch --flake . --show-trace
   nix fmt
   doom sync
+  deadnix
+  statix check -i hardware-configuration.nix
   notify-send 'Praise the update' -t 10000
 """

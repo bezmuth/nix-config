@@ -34,7 +34,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-one)
 
-(set-face-attribute 'default nil :font "Iosevka" :height 180 :weight 'bold)
+(set-face-attribute 'default nil :font "Iosevka" :height 120 :weight 'bold)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.

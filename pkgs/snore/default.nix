@@ -3,7 +3,6 @@
   fetchFromGitHub,
   rustPlatform,
 }:
-
 rustPlatform.buildRustPackage rec {
   pname = "snore";
   version = "0.1";

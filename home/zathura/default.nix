@@ -1,12 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}:
-
-{
+_: {
   programs.zathura = {
     enable = true;
     extraConfig = ''
@@ -45,5 +37,4 @@
       set recolor-keephue "true"
     '';
   };
-
 }
