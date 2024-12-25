@@ -13,11 +13,12 @@
   ];
   services.shiori = {
     enable = true;
-    port = 1001;
+    port = 10001;
+    webRoot = "/shiori";
   };
   services.calibre-web = {
     enable = true;
-    listen.port = 1002;
+    listen.port = 10002;
     options.enableBookUploading = true;
   };
   # reverse proxy
@@ -36,7 +37,7 @@
         ;
       };
       locations."/shiori" = {
-        proxyPass = "http://127.0.0.1:1001";
+        proxyPass = "http://127.0.0.1:10001";
         proxyWebsockets = true; # needed if you need to use WebSocket
         extraConfig =
           # required when the target is also TLS server with multiple hosts
@@ -45,7 +46,7 @@
         ;
       };
       locations."/calibre" = {
-        proxyPass = "http://127.0.0.1:1002";
+        proxyPass = "http://127.0.0.1:10002";
         proxyWebsockets = true; # needed if you need to use WebSocket
         extraConfig =
           # required when the target is also TLS server with multiple hosts
