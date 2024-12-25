@@ -19,7 +19,7 @@
   services.calibre-web = {
     enable = true;
     listen.port = 1002;
-    enableBookUploading = true;
+    options.enableBookUploading = true;
   };
   # reverse proxy
   services.nginx = {
