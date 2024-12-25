@@ -4,4 +4,5 @@ let
   roshar = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGHuTuWP4QNFb3ZU/QksaItFuICLWMs+fJ33aXJNC0WR";
 in {
   "openvpn-env.age".publicKeys = [salas mishim roshar];
+  "nextcloud.age".publicKeys = [salas mishim roshar];
 }
