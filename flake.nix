@@ -24,7 +24,7 @@
     nixpkgs,
     ...
   }: let
-    pcModules =
+    pc-modules =
       [
         ./modules
         ./modules/pc-services.nix
@@ -47,6 +47,7 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
       ]);
+    server-modules = [./modules ./modules/server-services.nix ./modules/server-programs.nix];
   in
     inputs.utils.lib.mkFlake {
       inherit self inputs;
@@ -62,8 +63,9 @@
         (import ./pkgs)
       ];
 
-      hosts.Mishim.modules = [./hosts/mishim] ++ pcModules;
-      hosts.Roshar.modules = [./hosts/roshar] ++ pcModules;
+      hosts.Mishim.modules = [./hosts/mishim] ++ pc-modules;
+      hosts.Roshar.modules = [./hosts/roshar] ++ pc-modules;
+      hosts.Salas.modules = [./hosts/salas] ++ server-modules;
 
       hostDefaults.modules = [];
 
