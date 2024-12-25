@@ -19,7 +19,11 @@
   services.calibre-web = {
     enable = true;
     listen.port = 10002;
-    options.enableBookUploading = true;
+    options = {
+      calibreLibrary = "/home/bezmuth/files/books";
+      enableBookUploading = true;
+      enableBookConversion = true;
+    };
   };
   # reverse proxy
   services.nginx = {
@@ -48,17 +52,17 @@
         ;
       };
       locations."/calibre" = {
-        proxyPass = "http://127.0.0.1:10002";
         proxyWebsockets = true; # needed if you need to use WebSocket
-        extraConfig =
-          # required when the target is also TLS server with multiple hosts
-          # required when the server wants to use HTTP Authentication
-          ''proxy_pass_header Authorization;
-           proxy_set_header        $host            $http_host;
-           proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-           proxy_set_header        X-Scheme        $scheme;
-           proxy_set_header        X-Script-Name   /calibre;''  # IMPORTANT: path has NO trailing slash
-        ;
+        extraConfig = ''
+                proxy_bind           $server_addr;
+                proxy_pass           http://127.0.0.1:10002;
+                proxy_set_header     Host $host;
+                proxy_set_header     X-Forwarded-For $proxy_add_x_forwarded_for;
+                proxy_set_header     X-Scheme        $scheme;
+                proxy_set_header     X-Script-Name   /calibre-web;  # IMPORTANT: path has NO trailing slash
+                client_max_body_size 1024M;
+        '';
+
       };
     };
   };
