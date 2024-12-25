@@ -17,6 +17,7 @@
     webRoot = "/shiori";
   };
   services.calibre-web = {
+    grp = "srv-data";
     enable = true;
     listen.port = 10002;
     options = {
