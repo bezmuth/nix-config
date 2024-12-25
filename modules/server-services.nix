@@ -22,7 +22,6 @@
     enable = true;
     listen.port = 10002;
     options = {
-      calibreLibrary = "/home/bezmuth/files/books";
       enableBookUploading = true;
       enableBookConversion = true;
     };
