@@ -7,6 +7,7 @@
   imports = [./services.nix];
   services.openssh.enable = true;
   age.identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
+  users.groups.srv-data = { };
   networking.firewall.allowedTCPPorts = [
     80
     443
