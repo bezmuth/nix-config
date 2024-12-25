@@ -45,13 +45,11 @@
         ;
       };
       locations."/shiori" = {
-        proxyPass = "http://127.0.0.1:10001/";
         proxyWebsockets = true; # needed if you need to use WebSocket
         extraConfig =
           ''proxy_set_header Host $host;
-           proxy_set_header X-Real-IP $remote_addr;
-            # required when the target is also TLS server with multiple hosts
-            # required when the server wants to use HTTP Authentication
+            proxy_pass http://localhost:10001/;
+            proxy_set_header X-Real-IP $remote_addr;
             proxy_pass_header Authorization;''
         ;
       };
