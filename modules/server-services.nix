@@ -54,7 +54,7 @@
           # required when the target is also TLS server with multiple hosts
           # required when the server wants to use HTTP Authentication
           ''proxy_pass_header Authorization;
-           proxy_set_header        Host            $http_host;
+           proxy_set_header        $host            $http_host;
            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header        X-Scheme        $scheme;
            proxy_set_header        X-Script-Name   /calibre;''  # IMPORTANT: path has NO trailing slash
