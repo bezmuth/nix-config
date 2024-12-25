@@ -40,11 +40,11 @@
         proxyPass = "http://127.0.0.1:10001/";
         proxyWebsockets = true; # needed if you need to use WebSocket
         extraConfig =
-          "proxy_set_header Host $host;
+          ''proxy_set_header Host $host;
            proxy_set_header X-Real-IP $remote_addr;
             # required when the target is also TLS server with multiple hosts
             # required when the server wants to use HTTP Authentication
-            proxy_pass_header Authorization;"
+            proxy_pass_header Authorization;''
         ;
       };
       locations."/calibre" = {
@@ -53,11 +53,11 @@
         extraConfig =
           # required when the target is also TLS server with multiple hosts
           # required when the server wants to use HTTP Authentication
-          "proxy_pass_header Authorization;
+          ''proxy_pass_header Authorization;
            proxy_set_header        Host            $http_host;
            proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
            proxy_set_header        X-Scheme        $scheme;
-           proxy_set_header        X-Script-Name   /calibre"  # IMPORTANT: path has NO trailing slash
+           proxy_set_header        X-Script-Name   /calibre;''  # IMPORTANT: path has NO trailing slash
         ;
       };
     };
