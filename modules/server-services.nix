@@ -12,10 +12,6 @@
     80
     443
   ];
-  services.shiori = {
-    enable = true;
-    port = 10001;
-  };
   services.calibre-web = {
     group = "srv-data";
     enable = true;
@@ -41,15 +37,6 @@
           # required when the target is also TLS server with multiple hosts
           # required when the server wants to use HTTP Authentication
           "proxy_pass_header Authorization;"
-        ;
-      };
-      locations."/shiori" = {
-        proxyWebsockets = true; # needed if you need to use WebSocket
-        extraConfig =
-          ''proxy_set_header Host $host;
-            proxy_pass http://localhost:10001/;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_pass_header Authorization;''
         ;
       };
       locations."/calibre" = {
