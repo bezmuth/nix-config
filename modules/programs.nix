@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   programs.nh = {
     enable = true;
     clean.enable = true;
@@ -6,6 +10,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    inputs.agenix.packages.${system}.default
     vim
     git
     man-pages

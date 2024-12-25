@@ -17,6 +17,7 @@
       url = "github:doomemacs/doomemacs";
       flake = false;
     };
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs = inputs @ {
@@ -46,8 +47,18 @@
       ++ (with inputs; [
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
+        agenix.nixosModules.default
       ]);
-    server-modules = [./modules ./modules/server-services.nix ./modules/server-programs.nix];
+    server-modules =
+      [
+        ./modules
+        ./modules/server-services.nix
+        ./modules/server-programs.nix
+        ./modules/containers/seedbox.nix
+      ]
+      ++ (with inputs; [
+        inputs.agenix.nixosModules.default
+      ]);
   in
     inputs.utils.lib.mkFlake {
       inherit self inputs;
