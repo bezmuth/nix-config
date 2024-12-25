@@ -14,7 +14,6 @@
   services.shiori = {
     enable = true;
     port = 1001;
-    webRoot = "/shiori";
   };
   services.calibre-web = {
     enable = true;
