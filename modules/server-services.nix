@@ -20,7 +20,10 @@
   services.calibre-web = {
     group = "srv-data";
     enable = true;
-    listen.port = 10002;
+    listen = {
+      ip = "127.0.0.1";
+      port = 10002;
+    };
     options = {
       enableBookUploading = true;
       enableBookConversion = true;
