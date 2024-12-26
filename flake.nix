@@ -75,9 +75,11 @@
         (import ./pkgs)
       ];
 
-      hosts.Mishim.modules = [./hosts/mishim] ++ pc-modules;
-      hosts.Roshar.modules = [./hosts/roshar] ++ pc-modules;
-      hosts.Salas.modules = [./hosts/salas] ++ server-modules;
+      hosts = {
+        Mishim.modules = [./hosts/mishim] ++ pc-modules;
+        Roshar.modules = [./hosts/roshar] ++ pc-modules;
+        Salas.modules = [./hosts/salas] ++ server-modules;
+      };
 
       hostDefaults.modules = [];
 

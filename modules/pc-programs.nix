@@ -34,6 +34,7 @@
     veracrypt
     xdg-utils # for openning default programms when clicking links
     pulseaudio
+    nextcloud-client
   ];
   fonts.packages = with pkgs; [
     iosevka
