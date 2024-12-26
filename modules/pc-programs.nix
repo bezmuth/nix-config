@@ -28,6 +28,8 @@
       size = "compact";
       variant = "mocha";
     })
+    alacritty
+    cava
     playerctl
     adwaita-icon-theme
     mpv
