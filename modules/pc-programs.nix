@@ -28,6 +28,7 @@
       size = "compact";
       variant = "mocha";
     })
+    playerctl
     adwaita-icon-theme
     mpv
     ispell
