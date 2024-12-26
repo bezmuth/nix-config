@@ -49,7 +49,7 @@
 
                 proxy_http_version                  1.1;
 
-                proxy_pass http://localhost:10003/;
+                proxy_pass http://localhost:10004/;
                 proxy_redirect                      http:// https://;
 
                 # Prevent 413 Request Entity Too Large error
