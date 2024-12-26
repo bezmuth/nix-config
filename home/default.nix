@@ -1,10 +1,8 @@
 {...}: {
   imports = [
-    ./zathura
     ./emacs
     ./bezmuth
-    ./starship
-    ./bash
+    ./zathura
   ];
   home.stateVersion = "22.05";
   # Let Home Manager install and manage itself.

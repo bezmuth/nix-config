@@ -1,6 +1,7 @@
 {
   pkgs,
   inputs,
+  lib,
   ...
 }: {
   programs = {
@@ -14,16 +15,38 @@
       nix-direnv.enable = true;
     };
     bash = {
-      enable = true;
       enableCompletion = true;
-      bashrcExtra = ''
-        ${pkgs.pfetch-rs}/bin/pfetch
-        alias rb=cd ~/nix-config/ && nix develop --command bash -c 'rebuild'
-        alias rb=cd ~/nix-config/ && nix develop --command bash -c 'upbuild'
-      '';
+      shellAliases = {
+        rb = "cd ~/nix-config/ && nix develop --command bash -c 'rebuild'";
+        ub = "cd ~/nix-config/ && nix develop --command bash -c 'upbuild'";
+      };
+      interactiveShellInit = "${pkgs.pfetch-rs}/bin/pfetch";
+    };
+    starship = {
+      enable = true;
+      settings = {
+        add_newline = false;
+        format = lib.concatStrings [
+          "$all"
+          "$nix_shell"
+        ];
+        scan_timeout = 10;
+        character = {
+          success_symbol = "➜(bold green)";
+          error_symbol = "➜(bold red)";
+        };
+        git_branch = {
+          ignore_branches = [
+            "master"
+            "main"
+          ];
+        };
+        nix_shell = {
+          format = "❄ [(($name))](bold blue) ";
+        };
+      };
     };
   };
-
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${system}.default
     vim
