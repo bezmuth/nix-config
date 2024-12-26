@@ -23,6 +23,7 @@
         volumes = [
           "/home/files/nextcloud-config:/config:rw"
           "/home/files/nextcloud-data:/data:rw"
+          "/home/files/audiobooks:/audiobooks:rw"
         ];
         ports = [
           "10003:80/tcp"
