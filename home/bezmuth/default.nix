@@ -22,6 +22,7 @@
       htop
       r2modman
       inputs.remarkable-utility.packages.${system}.default
+      spotify
     ];
   };
 
