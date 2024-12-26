@@ -3,10 +3,25 @@
   inputs,
   ...
 }: {
-  programs.nh = {
-    enable = true;
-    clean.enable = true;
-    clean.extraArgs = "--keep-since 4d --keep 3";
+  programs = {
+    nh = {
+      enable = true;
+      clean.enable = true;
+      clean.extraArgs = "--keep-since 4d --keep 3";
+    };
+    direnv = {
+      enable = true;
+      nix-direnv.enable = true;
+    };
+    bash = {
+      enable = true;
+      enableCompletion = true;
+      bashrcExtra = ''
+        ${pkgs.pfetch-rs}/bin/pfetch
+        alias rb=cd ~/nix-config/ && nix develop --command bash -c 'rebuild'
+        alias rb=cd ~/nix-config/ && nix develop --command bash -c 'upbuild'
+      '';
+    };
   };
 
   environment.systemPackages = with pkgs; [
