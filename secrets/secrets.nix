@@ -5,4 +5,5 @@ let
 in {
   "openvpn-env.age".publicKeys = [salas mishim roshar];
   "nextcloud.age".publicKeys = [salas mishim roshar];
+  "default-password.age".publicKeys = [salas mishim roshar];
 }

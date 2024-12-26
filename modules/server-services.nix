@@ -1,7 +1,8 @@
-{...}: {
+{config, ...}: {
   imports = [./services.nix];
   age.identityPaths = ["/home/bezmuth/.ssh/id_ed25519"];
   users.groups.srv-data = {};
+  age.secrets.default-password.file = ../secrets/default-password.age;
   networking.firewall.allowedTCPPorts = [
     80
     443
@@ -25,6 +26,13 @@
       host = "127.0.0.1";
       port = 10004;
     };
+    freshrss = {
+      enable = true;
+      virtualHost = "freshrss.localhost";
+      defaultUser = "bezmuth";
+      passwordFile = "${config.age.secrets.default-password.path}";
+      baseUrl = "http://salas/freshrss";
+    };
     nginx = {
       enable = true;
       recommendedProxySettings = true;
@@ -39,6 +47,16 @@
             "proxy_pass_header Authorization;";
         };
         locations = {
+          "/freshrss" = {
+            extraConfig = ''
+                proxy_pass http://freshrss.localhost/;
+                proxy_buffering off;
+                proxy_set_header X-Forwarded-Port $server_port;
+                proxy_cookie_path / "/; HTTPOnly; Secure";
+                proxy_set_header Authorization $http_authorization;
+                proxy_pass_header Authorization;
+            '';
+          };
           "/" = {
             extraConfig = ''
                 proxy_set_header X-Forwarded-For    $proxy_add_x_forwarded_for;
