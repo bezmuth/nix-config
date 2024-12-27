@@ -1,5 +1,5 @@
 {config, ...}: {
-  imports = [./services.nix];
+  imports = [./services.nix ./containers/nextcloud.nix];
   age.identityPaths = ["/home/bezmuth/.ssh/id_ed25519"];
   users.groups.srv-data = {};
   age.secrets.default-password.file = ../secrets/default-password.age;
@@ -78,6 +78,20 @@
           useACMEHost = "bezmuth.uk";
           extraConfig = ''
             reverse_proxy http://127.0.0.1:10002
+          '';
+        };
+        "nextcloud.bezmuth.uk" = {
+          useACMEHost = "bezmuth.uk";
+          extraConfig = ''
+          reverse_proxy 172.19.0.2:443 {
+            transport http {
+              tls_insecure_skip_verify
+            }
+          }
+          header {
+            Strict-Transport-Security max-age=31536000;
+          }
+          redir /.well-known/webfinger /public.php?service=webfinger 301
           '';
         };
       };
