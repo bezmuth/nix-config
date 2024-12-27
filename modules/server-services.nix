@@ -27,6 +27,7 @@
       enable = true;
       domains = [
         "bezmuth.uk"
+        "social.bezmuth.uk"
       ];
       apiTokenFile = config.age.secrets.cloudflare-token.path;
     };
@@ -59,7 +60,6 @@
       enable = true;
       settings = {
         host = "social.bezmuth.uk";
-        account-domain = "bezmuth.uk";
         bind-address = "127.0.0.1";
         port = 10006;
       };
