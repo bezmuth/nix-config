@@ -6,4 +6,6 @@ in {
   "openvpn-env.age".publicKeys = [salas mishim roshar];
   "nextcloud.age".publicKeys = [salas mishim roshar];
   "default-password.age".publicKeys = [salas mishim roshar];
+  "cloudflare-token.age".publicKeys = [salas mishim roshar];
+  "dns-token.age".publicKeys = [salas mishim roshar];
 }

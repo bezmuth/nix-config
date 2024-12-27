@@ -28,6 +28,7 @@
       size = "compact";
       variant = "mocha";
     })
+    seafile-client
     alacritty
     cava
     playerctl
