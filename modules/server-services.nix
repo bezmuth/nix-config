@@ -55,11 +55,23 @@
       baseUrl = "https://freshrss.bezmuth.uk";
     };
     nginx.virtualHosts."freshrss.localhost".listen = [{addr = "127.0.0.1"; port = 10003; ssl =false;}];
+    gotosocial = {
+      enable = true;
+      settings = {
+        host = "social.bezmuth.uk";
+        account-domain = "bezmuth.uk";
+        bind-address = "127.0.0.1";
+        port = 10006;
+      };
+    };
 
     caddy = {
       enable = true;
       virtualHosts = {
         "bezmuth.uk".extraConfig = ''
+          redir /.well-known/host-meta* https://social.bezmuth.com{uri} permanent  # host
+          redir /.well-known/webfinger* https://social.bezmuth.com{uri} permanent  # host
+          redir /.well-known/nodeinfo* https://social.bezmuth.com{uri} permanent   # host
           respond "Hello, world!"
         '';
         "freshrss.bezmuth.uk" = {
@@ -92,6 +104,18 @@
             Strict-Transport-Security max-age=31536000;
           }
           redir /.well-known/webfinger /public.php?service=webfinger 301
+          '';
+        };
+        "social.bezmuth.uk" = {
+          useACMEHost = "bezmuth.uk";
+          extraConfig = ''
+            # Optional, but recommended, compress the traffic using proper protocols
+            encode zstd gzip
+
+            # The actual proxy configuration to port 8080 (unless you've chosen another port number)
+            reverse_proxy * http://127.0.0.1:10006 {
+              flush_interval -1
+            }
           '';
         };
       };
