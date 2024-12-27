@@ -173,6 +173,19 @@
             };
           };
         };
+        "calibre.bezmuth.uk" = {
+          serverName = "calibre.bezmuth.uk";
+          forceSSL = true;
+          useACMEHost = "bezmuth.uk";
+          locations = {
+            "/" = {
+              proxyWebsockets = true;
+              extraConfig = ''
+                proxy_pass http://127.0.0.1:10002;
+              '';
+            };
+          };
+        };
       };
     };
   };
