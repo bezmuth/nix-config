@@ -55,29 +55,6 @@
       baseUrl = "https://freshrss.bezmuth.uk";
     };
 
-    seafile = {
-      enable = true;
-      group = "srv-data";
-
-      adminEmail = "benkel97@protonmail.com";
-      initialAdminPassword = "123456";
-
-      ccnetSettings.General.SERVICE_URL = "https://seafile.bezmuth.uk";
-
-      seafileSettings = {
-        quota.default = "50"; # Amount of GB allotted to users
-        history.keep_days = "14"; # Remove deleted files after 14 days
-
-        fileserver = {
-          host = "unix:/run/seafile/server.sock";
-        };
-      };
-      gc = {
-        enable = true;
-        dates = ["Sun 03:00:00"];
-      };
-    };
-
     nginx = {
       enable = true;
       virtualHosts = {
@@ -103,58 +80,6 @@
                 proxy_cookie_path / "/; HTTPOnly; Secure";
                 proxy_set_header Authorization $http_authorization;
                 proxy_pass_header Authorization;
-              '';
-            };
-          };
-        };
-
-        "seafile.bezmuth.uk" = {
-          forceSSL = true;
-          useACMEHost = "bezmuth.uk";
-          locations = {
-            "/" = {
-              proxyPass = "http://unix:/run/seahub/gunicorn.sock";
-              extraConfig = ''
-                proxy_set_header   Host $host;
-                proxy_set_header   X-Real-IP $remote_addr;
-                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header   X-Forwarded-Host $server_name;
-                proxy_read_timeout  1200s;
-                client_max_body_size 0;
-              '';
-            };
-            "/seafhttp" = {
-              proxyPass = "http://unix:/run/seafile/server.sock";
-              extraConfig = ''
-                rewrite ^/seafhttp(.*)$ $1 break;
-                client_max_body_size 0;
-                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_connect_timeout  36000s;
-                proxy_read_timeout  36000s;
-                proxy_send_timeout  36000s;
-                send_timeout  36000s;
-              '';
-            };
-            "/seafdav" = {
-              extraConfig = ''
-                proxy_pass         http://127.0.0.1:8080;
-                proxy_set_header   Host $host;
-                proxy_set_header   X-Real-IP $remote_addr;
-                proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header   X-Forwarded-Host $server_name;
-                proxy_set_header   X-Forwarded-Proto https;
-                proxy_http_version 1.1;
-                proxy_connect_timeout  36000s;
-                proxy_read_timeout  36000s;
-                proxy_send_timeout  36000s;
-                send_timeout  36000s;
-
-                # This option is only available for Nginx >= 1.8.0. See more details below.
-                client_max_body_size 0;
-                proxy_request_buffering off;
-
-                access_log      /var/log/nginx/seafdav.access.log;
-                error_log       /var/log/nginx/seafdav.error.log;
               '';
             };
           };
