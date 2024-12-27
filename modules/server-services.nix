@@ -20,7 +20,7 @@
       credentialFiles = {"CF_DNS_API_TOKEN_FILE" = config.age.secrets.dns-token.path;};
     };
   };
-  users.users.nginx.extraGroups = ["acme"];
+  users.users.caddy.extraGroups = ["acme"];
   services = {
     openssh.enable = true;
     cloudflare-dyndns = {
@@ -54,62 +54,31 @@
       passwordFile = "${config.age.secrets.default-password.path}";
       baseUrl = "https://freshrss.bezmuth.uk";
     };
+    nginx.virtualHosts."freshrss.localhost".listen = [{addr = "127.0.0.1"; port = 10003; ssl =false;}];
 
-    nginx = {
+    caddy = {
       enable = true;
       virtualHosts = {
-        "bezmuth.uk" = {
-          serverName = "bezmuth.uk";
-          useACMEHost = "bezmuth.uk";
-          forceSSL = true;
-          locations."/" = {
-            #root = "/var/www";
-          };
-        };
-
+        "bezmuth.uk".extraConfig = ''
+          respond "Hello, world!"
+        '';
         "freshrss.bezmuth.uk" = {
-          serverName = "freshrss.bezmuth.uk";
-          forceSSL = true;
           useACMEHost = "bezmuth.uk";
-          locations = {
-            "/" = {
-              extraConfig = ''
-                proxy_pass http://freshrss.localhost;
-                proxy_buffering off;
-                proxy_set_header X-Forwarded-Port $server_port;
-                proxy_cookie_path / "/; HTTPOnly; Secure";
-                proxy_set_header Authorization $http_authorization;
-                proxy_pass_header Authorization;
-              '';
-            };
-          };
+          extraConfig = ''
+            reverse_proxy http://127.0.0.1:10003
+          '';
         };
-
         "abs.bezmuth.uk" = {
-          serverName = "abs.bezmuth.uk";
-          forceSSL = true;
           useACMEHost = "bezmuth.uk";
-          locations = {
-            "/" = {
-              proxyWebsockets = true;
-              extraConfig = ''
-                proxy_pass http://127.0.0.1:10004;
-              '';
-            };
-          };
+          extraConfig = ''
+            reverse_proxy http://127.0.0.1:10004
+          '';
         };
         "calibre.bezmuth.uk" = {
-          serverName = "calibre.bezmuth.uk";
-          forceSSL = true;
           useACMEHost = "bezmuth.uk";
-          locations = {
-            "/" = {
-              proxyWebsockets = true;
-              extraConfig = ''
-                proxy_pass http://127.0.0.1:10002;
-              '';
-            };
-          };
+          extraConfig = ''
+            reverse_proxy http://127.0.0.1:10002
+          '';
         };
       };
     };
