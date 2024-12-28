@@ -22,7 +22,7 @@
 
         volumes = [
           # need to place an openvpn config file here named ch.protonvpn.udp.ovpn
-          "/home/bezmuth/nix-config/modules/containers/vpnconfig:/etc/openvpn/custom/:rw"
+          "/home/bezmuth/nix-config/modules/seedbox/vpnconfig:/etc/openvpn/custom/:rw"
           "/home/files:/data:rw"
           "seedbox-config:/config:rw"
         ];

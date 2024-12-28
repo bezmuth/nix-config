@@ -52,9 +52,8 @@
     server-modules =
       [
         ./modules
-        ./modules/server-services.nix
-        ./modules/server-programs.nix
-        ./modules/containers/seedbox.nix
+        ./modules/services.nix
+        ./modules/programs.nix
       ]
       ++ (with inputs; [
         inputs.agenix.nixosModules.default

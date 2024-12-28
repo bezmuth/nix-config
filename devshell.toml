@@ -21,7 +21,7 @@ command = """
   nix fmt
   doom sync
   deadnix
-  statix check -i hardware-configuration.nix
+  statix check -i hardware-configuration.nix container.nix
   notify-send 'Praise the rebuild' -t 10000
 """
 [[commands]]
@@ -37,6 +37,6 @@ command = """
   nix fmt
   doom sync
   deadnix
-  statix check -i hardware-configuration.nix
+  statix check -i hardware-configuration.nix container.nix
   notify-send 'Praise the update' -t 10000
 """
