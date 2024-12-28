@@ -49,6 +49,7 @@
         nix-flatpak.nixosModules.nix-flatpak
         agenix.nixosModules.default
       ]);
+
     server-modules =
       [
         ./modules
