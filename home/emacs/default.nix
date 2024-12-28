@@ -41,5 +41,8 @@
   xdg.configFile."doom".source = ./doom;
 
   # Note! This must match $EMACSDIR
-  xdg.configFile."emacs".source = inputs.doom-emacs-src;
+  #xdg.configFile."emacs".source = builtins.fetchGit {
+  #  url = "https://github.com/doomemacs/doomemacs.git";
+  #  rev = "ba1dca322f9a07bc2b7bec6a98f2c3c55c0bbd77";
+  #};
 }

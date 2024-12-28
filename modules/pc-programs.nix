@@ -28,6 +28,7 @@
       size = "compact";
       variant = "mocha";
     })
+    kdePackages.tokodon
     alacritty
     cava
     playerctl

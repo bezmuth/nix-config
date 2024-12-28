@@ -31,7 +31,7 @@ This is my NixOS config for both of my PCs and my home server. It uses flakes an
 This essentially acts as a custom interface for this project and a method for easy machine bootstrapping. Both commands run extra formatting and linting after each rebuild. More info can be found in [devshell.toml](/devshell.toml).
 
 ### Server Modules
-Inside of the modules folder you'll find services (e.g. nextcloud, audiobookshelf, gotosocial) I run on my homelab, these all use caddy as a reverse proxy.
+Inside of the modules folder you'll find services (e.g. nextcloud, audiobookshelf, gotosocial) I run on my homelab, these all use caddy as a reverse proxy. (most can probably just be copied into another config with some modification)
 
 ## Installation Guide  
 I recommend you create your own config, as this one is tailored to my needs and may include non-standard configurations. You'll gain a deeper understanding of both Nix and Linux if you build your own config. It's also fun, so that's a plus!

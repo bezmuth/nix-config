@@ -18,6 +18,7 @@
           Strict-Transport-Security max-age=31536000;
         }
         redir /.well-known/webfinger /public.php?service=webfinger 301
+        bind 100.103.106.16
       '';
     };
   };
