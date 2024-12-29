@@ -4,17 +4,17 @@
   pkgs,
   ...
 }: {
+  environment.systemPackages = [
+    pkgs.jellyfin
+    pkgs.jellyfin-web
+    pkgs.jellyfin-ffmpeg
+  ];
   services = {
     jellyfin = {
       enableA= true;
       group = "srv-data";
       dataDir = "/home/files/jellyfin";
     };
-    environment.systemPackages = [
-      pkgs.jellyfin
-      pkgs.jellyfin-web
-      pkgs.jellyfin-ffmpeg
-    ];
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
