@@ -11,7 +11,7 @@
   ];
   services = {
     jellyfin = {
-      enableA= true;
+      enable= true;
       group = "srv-data";
       dataDir = "/home/files/jellyfin";
     };
