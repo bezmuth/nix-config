@@ -12,7 +12,7 @@
   services = {
     jellyfin = {
       enable= true;
-      group = "srv-data";
+      user = "bezmuth";
       dataDir = "/home/files/jellyfin";
     };
     caddy = {
