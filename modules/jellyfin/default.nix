@@ -13,7 +13,6 @@
     jellyfin = {
       enable= true;
       user = "bezmuth";
-      dataDir = "/home/files/jellyfin";
     };
     caddy = {
       enable = true;
