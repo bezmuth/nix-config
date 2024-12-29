@@ -1,12 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-args @ {config, ...}: {
+args @ {config, pkgs, ...}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (import ../../modules/nextcloud args)
     (import ../../modules/seedbox args)
+    (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // {localPort = 10000;}))
     (import ../../modules/calibre-web (args // {localPort = 10001;}))
     (import ../../modules/freshrss (args // {localPort = 10002;}))
@@ -53,6 +54,22 @@ args @ {config, ...}: {
     80
     443
   ];
+
+  # GPU decode
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+  hardware.graphics = {
+    enable = true;
+    extraPackages = with pkgs; [
+      intel-media-driver
+      intel-vaapi-driver
+      vaapiVdpau
+      intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
+      vpl-gpu-rt # QSV on 11th gen or newer
+      intel-media-sdk # QSV up to 11th gen
+    ];
+  };
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
