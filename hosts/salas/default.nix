@@ -39,7 +39,10 @@ args @ {config, pkgs, ...}: {
   };
   users.users.caddy.extraGroups = ["acme"];
   services = {
-    openssh.enable = true;
+    openssh = {
+      enable = true;
+      settings.macs = (pkgs.options.openssh.settings.type.getSubOptions []).Macs.default ++ ["hmac-sha2-512"];
+    };
     cloudflare-dyndns = {
       enable = true;
       domains = [
