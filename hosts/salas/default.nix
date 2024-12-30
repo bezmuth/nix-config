@@ -41,7 +41,12 @@ args @ {config, pkgs, ...}: {
   services = {
     openssh = {
       enable = true;
-      settings.macs = (pkgs.options.openssh.settings.type.getSubOptions []).Macs.default ++ ["hmac-sha2-512"];
+      settings.macs = [
+        "hmac-sha2-512-etm@openssh.com"
+        "hmac-sha2-256-etm@openssh.com"
+        "umac-128-etm@openssh.com"
+        "hmac-sha2-512"
+      ];
     };
     cloudflare-dyndns = {
       enable = true;
