@@ -7,36 +7,62 @@ packages = [
   'alejandra',
   'deadnix',
   'statix',
-  'vulnix',
 ]
 [[commands]]
-help = "Rebuilds nixos system."
+help = "Rebuilds nixos system. First arg is the target hostname"
 name = "rebuild"
 command = """
   #!/usr/bin/env bash
+  if [ "$#" -eq 0 ]; then
+    TARGET="$HOSTNAME"
+  else
+    TARGET="$1"
+  fi
   echo "--- Git Status ---"
   git status -s
-  echo "$HOSTNAME rebuilding"
-  sudo nixos-rebuild switch --flake . --show-trace
+  echo "$TARGET rebuilding"
+  sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   doom sync
   deadnix
-  statix check -i hardware-configuration.nix container.nix
+  statix check -i hardware-configuration.nix
   notify-send 'Praise the rebuild' -t 10000
 """
 [[commands]]
-help = "Update and rebuild the nixos system"
+help = "Update and rebuild the nixos system. First arg is the target hostname"
 name = "upbuild"
 command = """
   #!/usr/bin/env bash
   nix flake update
+  if [ "$#" -eq 0 ]; then
+    TARGET="$HOSTNAME"
+  else
+    TARGET="$1"
+  fi
   echo "--- Git Status ---"
   git status -s
-  echo "$HOSTNAME updating and rebuilding"
-  sudo nixos-rebuild switch --flake . --show-trace
+  echo "$TARGET rebuilding"
+  sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   doom sync
   deadnix
-  statix check -i hardware-configuration.nix container.nix
+  statix check -i hardware-configuration.nix
   notify-send 'Praise the update' -t 10000
+"""
+[[commands]]
+help = "Rebuilds a remote system, with most recent git pull"
+name = "sync"
+command = """
+  #!/usr/bin/env bash
+  if [ "$#" -eq 0 ]; then
+     echo "First argument must be the remote system hostname/ip"
+  else
+    TARGET="$1"
+  fi
+  echo "--- Git Status ---"
+  git status -s
+  echo "$TARGET rebuilding"
+  ssh $TARGET -t "cd nix-config/; sudo nixos-rebuild switch --flake . --show-trace"
+  sudo nixos-rebuild switch --flake .#$TARGET --show-trace
+  notify-send '$TARGET synced' -t 10000
 """
