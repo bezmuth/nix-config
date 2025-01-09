@@ -11,7 +11,7 @@
   ];
   services = {
     jellyfin = {
-      enable= true;
+      enable = true;
       user = "bezmuth";
     };
     caddy = {

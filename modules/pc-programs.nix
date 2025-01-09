@@ -29,6 +29,7 @@
       variant = "mocha";
     })
     kdePackages.tokodon
+    qbittorrent
     alacritty
     cava
     playerctl
