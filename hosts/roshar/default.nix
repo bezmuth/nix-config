@@ -8,9 +8,10 @@
   ];
 
   networking.hostName = "Roshar"; # Define your hostname.
- environment.systemPackages = with pkgs; [ gwe # nvidia overclocking
-                                           nvtop
-                                         ];
+  environment.systemPackages = with pkgs; [
+    tuxclocker # nvidia overclocking
+    nvtop
+  ];
 
   hardware = {
     bluetooth.enable = true;
