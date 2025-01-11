@@ -28,6 +28,9 @@
       size = "compact";
       variant = "mocha";
     })
+    temurin-jre-bin-17
+    prismlauncher
+    heroic
     kdePackages.tokodon
     qbittorrent
     alacritty

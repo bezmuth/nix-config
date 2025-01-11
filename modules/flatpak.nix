@@ -10,7 +10,6 @@ _: {
       "com.usebottles.bottles"
       "net.lutris.Lutris"
       "com.hunterwittenborn.Celeste"
-      "org.prismlauncher.PrismLauncher"
       "io.github.martinrotter.rssguard"
     ];
   };
