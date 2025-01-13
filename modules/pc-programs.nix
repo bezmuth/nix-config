@@ -44,6 +44,7 @@
     pulseaudio
     nextcloud-client
     jetbrains.idea-community
+    jellyfin-media-player
   ];
   fonts.packages = with pkgs; [
     iosevka

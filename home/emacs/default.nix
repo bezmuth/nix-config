@@ -22,6 +22,8 @@
       zls
       rust-analyzer
       jdt-language-server
+      openjdk
+      maven
     ];
     # Note that session variables and path can be a bit wonky to get going. To be
     # on the safe side, logging out and in again usually works.
