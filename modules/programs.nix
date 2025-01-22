@@ -5,6 +5,7 @@
   ...
 }: {
   programs = {
+    ssh.startAgent = true;
     nh = {
       enable = true;
       clean.enable = true;
@@ -47,7 +48,6 @@
       };
     };
   };
-  ssh.startAgent = true;
   environment.systemPackages = with pkgs; [
     inputs.agenix.packages.${system}.default
     vim
