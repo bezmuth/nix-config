@@ -11,6 +11,7 @@
   environment.systemPackages = with pkgs; [
     tuxclocker # nvidia overclocking
     nvtop
+    ollama-cuda
   ];
 
   hardware = {

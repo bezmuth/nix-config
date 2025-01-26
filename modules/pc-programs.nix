@@ -20,6 +20,7 @@
     dconf.enable = true;
     gamemode.enable = true;
     gamemode.enableRenice = true;
+    virt-manager.enable = true;
   };
   environment.systemPackages = with pkgs; [
     (papirus-icon-theme.override {color = "pink";})
@@ -45,6 +46,7 @@
     nextcloud-client
     jetbrains.idea-community
     jellyfin-media-player
+    webcord-vencord
   ];
   fonts.packages = with pkgs; [
     iosevka

@@ -18,6 +18,9 @@
   hardware.pulseaudio.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
+  virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
+
   services = {
     power-profiles-daemon.enable = true;
     ratbagd.enable = true;
