@@ -63,5 +63,5 @@ command = """
   git status -s
   echo "$TARGET rebuilding"
   ssh $TARGET -t "cd nix-config/; git reset --hard && git pull && sudo nixos-rebuild switch --flake . --show-trace"
-  notify-send '$TARGET synced' -t 10000
+  notify-send "$TARGET synced" -t 10000
 """
