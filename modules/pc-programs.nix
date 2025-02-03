@@ -48,7 +48,8 @@
     jellyfin-media-player
     webcord-vencord
     thunderbird
-    protonmail-bridge
+    protonmail-bridge-gui
+    android-studio
   ];
   fonts.packages = with pkgs; [
     iosevka
