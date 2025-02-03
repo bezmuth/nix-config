@@ -38,6 +38,8 @@
         xterm.enable = false;
       };
       displayManager = {
+        autoLogin.enable = true;
+        autoLogin.user = "bezmuth";
         sddm.enable = true;
       };
     };
