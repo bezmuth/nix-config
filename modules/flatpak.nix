@@ -9,8 +9,8 @@ _: {
       "rocks.koreader.KOReader"
       "com.usebottles.bottles"
       "net.lutris.Lutris"
-      "com.hunterwittenborn.Celeste"
       "io.github.martinrotter.rssguard"
+      "org.torproject.torbrowser-launcher"
     ];
   };
   environment.sessionVariables.PATH = [

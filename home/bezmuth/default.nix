@@ -17,7 +17,6 @@
       protonvpn-gui
       libreoffice-fresh
       anki-bin
-      tor-browser-bundle-bin
       piper
       htop
       r2modman

@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }: {
@@ -11,36 +12,32 @@
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "ehci_pci"
-    "xhci_pci"
-    "uas"
-    "sd_mod"
-    "sdhci_pci"
-  ];
+  # Bootloader.
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.initrd.luks.devices."luks-6c114231-95b2-44f4-a181-a697254160ab".device = "/dev/disk/by-uuid/6c114231-95b2-44f4-a181-a697254160ab";
+
+  boot.initrd.availableKernelModules = ["nvme" "ehci_pci" "xhci_pci" "sdhci_pci"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-amd"];
   boot.extraModulePackages = [];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/7d6177ec-46f1-4972-8cdd-9dab67913f47";
+    device = "/dev/disk/by-uuid/9d1c08a1-d1fe-4dc3-8106-2fda1ff8e195";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-92625fb6-9743-4a7a-8eb4-ba9507e8a79e".device = "/dev/disk/by-uuid/92625fb6-9743-4a7a-8eb4-ba9507e8a79e";
+  boot.initrd.luks.devices."luks-047a0176-ded9-43ca-82bb-ecfa71d7e0ed".device = "/dev/disk/by-uuid/047a0176-ded9-43ca-82bb-ecfa71d7e0ed";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/8E7B-8107";
+    device = "/dev/disk/by-uuid/7CD4-D60B";
     fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
-    ];
+    options = ["fmask=0077" "dmask=0077"];
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/e7846c64-324e-437e-a240-4b43fe4005b0";}
+    {device = "/dev/disk/by-uuid/b5d0f03e-7a1c-47a2-b531-6c7f62c04208";}
   ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
@@ -54,9 +51,4 @@
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
-
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-8e855ea8-071c-474e-8517-13fa470cf51c".device = "/dev/disk/by-uuid/8e855ea8-071c-474e-8517-13fa470cf51c";
 }

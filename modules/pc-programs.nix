@@ -47,6 +47,8 @@
     jetbrains.idea-community
     jellyfin-media-player
     webcord-vencord
+    thunderbird
+    protonmail-bridge
   ];
   fonts.packages = with pkgs; [
     iosevka
