@@ -24,6 +24,14 @@
       fsType = "ext4";
     };
 
+  fileSystems."/run/media/bezmuth/564b6e1c-ed35-4593-afcd-149bfbc56ed0" =
+    { device = "/dev/disk/by-uuid/564b6e1c-ed35-4593-afcd-149bfbc56ed0";
+      fsType = "ext4";
+      options = ["users" "nofail" "exec" "auto"];
+    };
+
+
+
   boot.initrd.luks.devices."luks-a9b5b899-4070-4da3-a153-f34cb9a4c3c2".device = "/dev/disk/by-uuid/a9b5b899-4070-4da3-a153-f34cb9a4c3c2";
 
   fileSystems."/boot" =

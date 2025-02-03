@@ -83,3 +83,4 @@
   "Display the weekly org-agenda and all todos."
   (org-agenda nil "n"))
 (add-hook 'emacs-startup-hook #'emacs-startup-screen)
+(setq confirm-kill-emacs nil)
