@@ -38,7 +38,7 @@
         xterm.enable = false;
       };
       displayManager = {
-        lightdm.enable = true;
+        sddm.enable = true;
       };
     };
     xserver.excludePackages = [pkgs.xterm];
