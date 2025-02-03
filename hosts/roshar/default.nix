@@ -10,7 +10,7 @@
   networking.hostName = "Roshar"; # Define your hostname.
   environment.systemPackages = with pkgs; [
     tuxclocker # nvidia overclocking
-    nvtop
+    nvtopPackages.full
   ];
 
   hardware = {

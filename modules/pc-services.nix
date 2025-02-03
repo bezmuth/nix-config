@@ -15,7 +15,7 @@
     ];
   };
 
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
 
   virtualisation.libvirtd.enable = true;
@@ -37,11 +37,11 @@
       desktopManager = {
         xterm.enable = false;
       };
-      displayManager = {
-        autoLogin.enable = true;
-        autoLogin.user = "bezmuth";
-        sddm.enable = true;
-      };
+    };
+    displayManager = {
+      autoLogin.enable = true;
+      autoLogin.user = "bezmuth";
+      sddm.enable = true;
     };
     xserver.excludePackages = [pkgs.xterm];
     # Configure keymap in X11

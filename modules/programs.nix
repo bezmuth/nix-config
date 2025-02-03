@@ -16,7 +16,7 @@
       nix-direnv.enable = true;
     };
     bash = {
-      enableCompletion = true;
+      completion.enable = true;
       shellAliases = {
         rb = "cd ~/nix-config/ && nix develop --command bash -c 'rebuild'";
         ub = "cd ~/nix-config/ && nix develop --command bash -c 'upbuild'";
