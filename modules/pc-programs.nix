@@ -34,7 +34,6 @@
     heroic
     kdePackages.tokodon
     qbittorrent
-    alacritty
     cava
     playerctl
     adwaita-icon-theme
