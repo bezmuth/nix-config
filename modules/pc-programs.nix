@@ -32,7 +32,6 @@
     temurin-jre-bin-17
     prismlauncher
     heroic
-    kdePackages.tokodon
     qbittorrent
     cava
     playerctl
