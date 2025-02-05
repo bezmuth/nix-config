@@ -48,6 +48,7 @@
     thunderbird
     protonmail-bridge-gui
     android-studio
+    nur.repos.shadowrz.klassy-qt6
   ];
   fonts.packages = with pkgs; [
     iosevka
