@@ -84,3 +84,28 @@
   (org-agenda nil "n"))
 (add-hook 'emacs-startup-hook #'emacs-startup-screen)
 (setq confirm-kill-emacs nil)
+
+(use-package! org-roam
+  :config
+  ;; Org roam capture templates
+  ;; https://org-roam.discourse.group/t/org-roam-basics-how-org-roam-capture-templates-work/3670
+  (push
+   '("d"                                              ;; key
+     "default"                                        ;; description
+     plain                                            ;; type of content to insert
+     "%?"                                             ;; the text content to insert
+     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" ;; File name and header content
+                        "#+title: ${title}\n")
+     :unnarrowed t)
+   org-roam-capture-templates)
+
+  (push
+   '("l"                                              ;; key
+     "blog link"                                        ;; description
+     plain                                            ;; type of content to insert
+     "%?"                                             ;; the text content to insert
+     :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org" ;; File name and header content
+                        "#+title: ${title}\n#+filetags: :links:\n")
+     :unnarrowed t)
+   org-roam-capture-templates)
+  )

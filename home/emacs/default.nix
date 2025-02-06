@@ -24,6 +24,9 @@
       jdt-language-server
       openjdk
       maven
+      aspell
+      aspellDicts.en
+      aspellDicts.en-computers
     ];
     # Note that session variables and path can be a bit wonky to get going. To be
     # on the safe side, logging out and in again usually works.
