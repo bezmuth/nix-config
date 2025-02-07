@@ -23,7 +23,7 @@ command = """
   echo "$TARGET rebuilding"
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  doom sync
+  ~/.config/emacs/bin/doom sync
   deadnix
   statix check -i hardware-configuration.nix
   notify-send 'Praise the rebuild' -t 10000
@@ -44,7 +44,7 @@ command = """
   echo "$TARGET rebuilding"
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  doom sync
+  ~/.config/emacs/bin/doom sync
   deadnix
   statix check -i hardware-configuration.nix
   notify-send 'Praise the update' -t 10000
