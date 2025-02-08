@@ -14,7 +14,7 @@ args @ {
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // {localPort = 10000;}))
     (import ../../modules/calibre-web (args // {localPort = 10001;}))
-    (import ../../modules/freshrss (args // {localPort = 10002;}))
+    (import ../../modules/miniflux (args // {localPort = 10002;}))
     (import ../../modules/gotosocial (args // {localPort = 10003;}))
   ];
 
@@ -57,8 +57,10 @@ args @ {
       domains = [
         "bezmuth.uk"
         "social.bezmuth.uk"
+        "miniflux.bezmuth.uk"
       ];
       apiTokenFile = config.age.secrets.cloudflare-token.path;
+      proxied = true;
     };
   };
   users.groups.srv-data = {};
