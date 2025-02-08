@@ -12,6 +12,7 @@
       config = {
         LISTEN_ADDR = "localhost:${builtins.toString localPort}";
       };
+      adminCredentialsFile = "/home/bezmuth/miniflux.txt";
     };
     caddy = {
       enable = true;
