@@ -49,6 +49,7 @@
     protonmail-bridge-gui
     android-studio
     nur.repos.shadowrz.klassy-qt6
+    proton-pass
   ];
   fonts.packages = with pkgs; [
     iosevka

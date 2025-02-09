@@ -7,7 +7,7 @@
 }: {
   age.secrets.default-password.file = ../../secrets/default-password.age;
   services = {
-    miniflux ={
+    miniflux = {
       enable = true;
       config = {
         LISTEN_ADDR = "localhost:${builtins.toString localPort}";
