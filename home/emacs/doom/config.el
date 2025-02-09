@@ -109,3 +109,8 @@
      :unnarrowed t)
    org-roam-capture-templates)
   )
+
+(use-package! org-noter
+  :config
+  (map! :map pdf-view-mode-map
+        :nvi "i" #'org-noter-insert-note))
