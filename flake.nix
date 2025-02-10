@@ -53,7 +53,6 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         agenix.nixosModules.default
-        miniflux-remove-youtube.nixosModules.miniflux-remove-youtube
       ]);
 
     server-modules =
@@ -63,7 +62,8 @@
         ./modules/programs.nix
       ]
       ++ (with inputs; [
-        inputs.agenix.nixosModules.default
+        miniflux-remove-youtube.nixosModules.miniflux-remove-youtube
+        agenix.nixosModules.default
       ]);
   in
     inputs.utils.lib.mkFlake {
