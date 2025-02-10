@@ -5,7 +5,10 @@
   acmeHost ? "bezmuth.uk",
   ...
 }: {
-  age.secrets.miniflux-token.file = ../../secrets/miniflux-token.age;
+  age.secrets.miniflux-token = {
+    file = ../../secrets/miniflux-token.age;
+    owner = "miniflux-remove-youtube";
+  };
   services = {
     miniflux-remove-youtube = {
       enable = true;
