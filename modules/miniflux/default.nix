@@ -9,7 +9,7 @@
   services = {
     miniflux-remove-youtube = {
       enable = true;
-      url = "http://localhost:${builtins.toString localPort}/";
+      miniflux-url = "http://localhost:${builtins.toString localPort}/";
       tokenfile-path = config.age.secrets.miniflux-token.path;
     };
     miniflux = {
