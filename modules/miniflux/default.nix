@@ -11,6 +11,7 @@
       enable = true;
       config = {
         LISTEN_ADDR = "localhost:${builtins.toString localPort}";
+        FETCH_YOUTUBE_WATCH_TIME = "1";
       };
       adminCredentialsFile = "/home/bezmuth/miniflux.txt";
     };
