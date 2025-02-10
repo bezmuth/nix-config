@@ -53,6 +53,7 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         agenix.nixosModules.default
+        miniflux-remove-youtube.nixosModules.default
       ]);
 
     server-modules =
