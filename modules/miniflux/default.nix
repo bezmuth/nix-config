@@ -5,8 +5,13 @@
   acmeHost ? "bezmuth.uk",
   ...
 }: {
-  age.secrets.default-password.file = ../../secrets/default-password.age;
+  age.secrets.miniflux-token.file = ../../secrets/miniflux-token.age;
   services = {
+    miniflux-remove-youtube = {
+      enable = true;
+      url = "http://localhost:${builtins.toString localPort}/";
+      tokenfile-path = config.age.secrets.miniflux-token.path;
+    };
     miniflux = {
       enable = true;
       config = {

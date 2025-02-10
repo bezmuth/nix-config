@@ -22,6 +22,7 @@
       flake = false;
     };
     agenix.url = "github:ryantm/agenix";
+    miniflux-remove-youtube.url = "github:bezmuth/miniflux-remove-yt-shorts";
   };
 
   outputs = inputs @ {
@@ -75,6 +76,7 @@
 
       sharedOverlays = [
         inputs.devshell.overlays.default
+        inputs.miniflux-remove-youtube.overlays.default
         (import ./pkgs)
         inputs.nur.overlays.default
       ];

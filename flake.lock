@@ -177,6 +177,25 @@
         "type": "github"
       }
     },
+    "miniflux-remove-youtube": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2",
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1739222693,
+        "narHash": "sha256-8UBQIZpvM/84EuFVK2JcV9zaByXKNLAGUVyzTwUaJtA=",
+        "owner": "bezmuth",
+        "repo": "miniflux-remove-yt-shorts",
+        "rev": "c06aeacfac68aa5d0386becf394570cb1f7fa513",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bezmuth",
+        "repo": "miniflux-remove-yt-shorts",
+        "type": "github"
+      }
+    },
     "nix-flatpak": {
       "locked": {
         "lastModified": 1738175805,
@@ -212,6 +231,20 @@
       "locked": {
         "lastModified": 1739020877,
         "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
+        "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
+        "revCount": 750629,
+        "type": "tarball",
+        "url": "https://api.flakehub.com/f/pinned/NixOS/nixpkgs/0.1.750629%2Brev-a79cfe0ebd24952b580b1cf08cd906354996d547/0194e6d9-ae76-740f-9d31-342bb2e68661/source.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://flakehub.com/f/NixOS/nixpkgs/0.1.%2A.tar.gz"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
+        "lastModified": 1739020877,
+        "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
         "owner": "nixos",
         "repo": "nixpkgs",
         "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
@@ -224,7 +257,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1723362943,
         "narHash": "sha256-dFZRVSgmJkyM0bkPpaYRtG/kRMRTorUIDj8BxoOt1T4=",
@@ -265,7 +298,7 @@
     "remarkable-utility": {
       "inputs": {
         "flake-utils": "flake-utils",
-        "nixpkgs": "nixpkgs_3"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1735284641,
@@ -287,11 +320,33 @@
         "devshell": "devshell",
         "doom-emacs-src": "doom-emacs-src",
         "home-manager": "home-manager_2",
+        "miniflux-remove-youtube": "miniflux-remove-youtube",
         "nix-flatpak": "nix-flatpak",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "nur": "nur",
         "remarkable-utility": "remarkable-utility",
         "utils": "utils"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "miniflux-remove-youtube",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739154531,
+        "narHash": "sha256-QGeN6e0nMJlNLzm3Y2A7P6riXhQXMeCXLZ7yajZYFQM=",
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "rev": "035dac86ab7ce5c1e8a4d59dfe85e6911a3526ea",
+        "type": "github"
+      },
+      "original": {
+        "owner": "oxalica",
+        "repo": "rust-overlay",
+        "type": "github"
       }
     },
     "systems": {
