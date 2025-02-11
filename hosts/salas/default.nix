@@ -41,16 +41,28 @@ args @ {
       credentialFiles = {"CF_DNS_API_TOKEN_FILE" = config.age.secrets.dns-token.path;};
     };
   };
-  users.users.caddy.extraGroups = ["acme"];
+  users = {
+    groups.srv-data = {};
+    users = {
+      caddy.extraGroups = ["acme"];
+      "bezmuth".openssh.authorizedKeys.keys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMHbPVlywhuui3+MSBP/cMo3PsbDC4L+UzD7cmp6f306"
+      ];
+    };
+  };
   services = {
     openssh = {
       enable = true;
-      settings.Macs = [
+      settings = {
+        Macs = [
         "hmac-sha2-512-etm@openssh.com"
         "hmac-sha2-256-etm@openssh.com"
         "umac-128-etm@openssh.com"
         "hmac-sha2-512"
       ];
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+      };
     };
     cloudflare-dyndns = {
       enable = true;
@@ -63,13 +75,12 @@ args @ {
       proxied = true;
     };
   };
-  users.groups.srv-data = {};
   networking.firewall.allowedTCPPorts = [
     80
     443
   ];
 
-  # GPU decode
+  # GPU decode/encode
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
@@ -83,6 +94,22 @@ args @ {
       vpl-gpu-rt # QSV on 11th gen or newer
       intel-media-sdk # QSV up to 11th gen
     ];
+  };
+
+  # reboot once a day
+  systemd = {
+    services.reboot-daily = {
+      description = "Reboot the system";
+      serviceConfig.ExecStart = "/run/current-system/sw/bin/reboot";
+    };
+    timers."reboot-daily" = {
+      wantedBy = ["timers.target"];
+      description = "Reboot the system every day";
+      timerConfig = {
+        OnCalendar = "04:00";
+        unit = "reboot-daily";
+      };
+    };
   };
 
   system.stateVersion = "24.11"; # Did you read the comment?
