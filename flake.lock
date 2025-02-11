@@ -183,11 +183,11 @@
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1739294404,
-        "narHash": "sha256-7OJGuO/+rcqXmydJU2YzzvnGHO6L5xa+9PjghNd1Huc=",
+        "lastModified": 1739294894,
+        "narHash": "sha256-3Y/nrmffwXZVKyhlQgYoi/eulUWdSY20yE9LHI/caDY=",
         "owner": "bezmuth",
         "repo": "miniflux-remove-yt-shorts",
-        "rev": "71b516ab505a1f94e2046709d5f831cd9f66d1ee",
+        "rev": "639ca47ac9c2a255dd700714905a2c7718d3be30",
         "type": "github"
       },
       "original": {
