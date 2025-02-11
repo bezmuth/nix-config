@@ -17,11 +17,14 @@
 
   services.pulseaudio.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
+  environment.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
+  security.pam.sshAgentAuth.enable = true;
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
   services = {
+    gnome.gnome-keyring.enable = true;
     power-profiles-daemon.enable = true;
     ratbagd.enable = true;
     pipewire = {
