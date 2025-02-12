@@ -22,7 +22,7 @@
       flake = false;
     };
     agenix.url = "github:ryantm/agenix";
-    miniflux-remove-youtube.url = "github:bezmuth/miniflux-remove-yt-shorts";
+    miniflux-yt-plus.url = "github:bezmuth/miniflux-yt-plus";
   };
 
   outputs = inputs @ {
@@ -62,7 +62,7 @@
         ./modules/programs.nix
       ]
       ++ (with inputs; [
-        miniflux-remove-youtube.nixosModules.miniflux-remove-youtube
+        miniflux-yt-plus.nixosModules.miniflux-yt-plus
         agenix.nixosModules.default
       ]);
   in
@@ -77,7 +77,7 @@
 
       sharedOverlays = [
         inputs.devshell.overlays.default
-        inputs.miniflux-remove-youtube.overlays.default
+        inputs.miniflux-yt-plus.overlays.default
         (import ./pkgs)
         inputs.nur.overlays.default
       ];

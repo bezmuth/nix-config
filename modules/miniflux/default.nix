@@ -7,13 +7,14 @@
 }: {
   age.secrets.miniflux-token = {
     file = ../../secrets/miniflux-token.age;
-    owner = "miniflux-remove-youtube";
+    owner = "miniflux-yt-plus";
   };
   services = {
-    miniflux-remove-youtube = {
+    miniflux-yt-plus = {
       enable = true;
       miniflux-url = "http://localhost:${builtins.toString localPort}/";
       tokenfile-path = config.age.secrets.miniflux-token.path;
+      remove-livestreams = true;
     };
     miniflux = {
       enable = true;

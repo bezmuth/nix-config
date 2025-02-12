@@ -164,11 +164,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1739287084,
-        "narHash": "sha256-CtRNJsqsXIArJV+AKWZVBMO8PD1FQB69br+WMtTJEgI=",
+        "lastModified": 1739381933,
+        "narHash": "sha256-4gvobxITgcrNGfwsVG5a46QzQCX89btIYw23p0ilbcc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8f351726c5841d86854e7fa6003ea472352f5208",
+        "rev": "15b59d4191b993ebdfcb1f61b834fced217882ba",
         "type": "github"
       },
       "original": {
@@ -177,32 +177,32 @@
         "type": "github"
       }
     },
-    "miniflux-remove-youtube": {
+    "miniflux-yt-plus": {
       "inputs": {
         "nixpkgs": "nixpkgs_2",
         "rust-overlay": "rust-overlay"
       },
       "locked": {
-        "lastModified": 1739294894,
-        "narHash": "sha256-3Y/nrmffwXZVKyhlQgYoi/eulUWdSY20yE9LHI/caDY=",
+        "lastModified": 1739387512,
+        "narHash": "sha256-P7u+xRrNRTY9bqrKzU4lBlnKdphGnO07UaqFT29qT84=",
         "owner": "bezmuth",
-        "repo": "miniflux-remove-yt-shorts",
-        "rev": "639ca47ac9c2a255dd700714905a2c7718d3be30",
+        "repo": "miniflux-yt-plus",
+        "rev": "1c84a47c1f12692ef7014ddb6fd9b0830a47639b",
         "type": "github"
       },
       "original": {
         "owner": "bezmuth",
-        "repo": "miniflux-remove-yt-shorts",
+        "repo": "miniflux-yt-plus",
         "type": "github"
       }
     },
     "nix-flatpak": {
       "locked": {
-        "lastModified": 1739126374,
-        "narHash": "sha256-jwvjuCKgyfsie7Ro6IQuKEodV80YXISApTGMJebngH0=",
+        "lastModified": 1739310483,
+        "narHash": "sha256-0N4+nJFUmzxt4RV00dEEd9KRoViQ1CtA3C35aA1d/m4=",
         "owner": "gmodena",
         "repo": "nix-flatpak",
-        "rev": "2cd8e2d08cb5ff22f0e96ecb2e754e7188b05380",
+        "rev": "09edf243b90b3443a1ea1cf73643f2490b96a99c",
         "type": "github"
       },
       "original": {
@@ -243,11 +243,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1739020877,
-        "narHash": "sha256-mIvECo/NNdJJ/bXjNqIh8yeoSjVLAuDuTUzAo7dzs8Y=",
+        "lastModified": 1739214665,
+        "narHash": "sha256-26L8VAu3/1YRxS8MHgBOyOM8xALdo6N0I04PgorE7UM=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "a79cfe0ebd24952b580b1cf08cd906354996d547",
+        "rev": "64e75cd44acf21c7933d61d7721e812eac1b5a0a",
         "type": "github"
       },
       "original": {
@@ -320,7 +320,7 @@
         "devshell": "devshell",
         "doom-emacs-src": "doom-emacs-src",
         "home-manager": "home-manager_2",
-        "miniflux-remove-youtube": "miniflux-remove-youtube",
+        "miniflux-yt-plus": "miniflux-yt-plus",
         "nix-flatpak": "nix-flatpak",
         "nixpkgs": "nixpkgs_3",
         "nur": "nur",
@@ -331,7 +331,7 @@
     "rust-overlay": {
       "inputs": {
         "nixpkgs": [
-          "miniflux-remove-youtube",
+          "miniflux-yt-plus",
           "nixpkgs"
         ]
       },
