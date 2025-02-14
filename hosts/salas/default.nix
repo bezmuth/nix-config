@@ -16,6 +16,7 @@ args @ {
     (import ../../modules/calibre-web (args // {localPort = 10001;}))
     (import ../../modules/miniflux (args // {localPort = 10002;}))
     (import ../../modules/gotosocial (args // {localPort = 10003;}))
+    (import ../../modules/actual (args // {localPort = 10004;}))
   ];
 
   # Bootloader.
