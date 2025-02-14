@@ -8,7 +8,7 @@
   services = {
     actual = {
       enable = true;
-      port = localPort;
+      settings.port = localPort;
     };
     caddy = {
       enable = true;
