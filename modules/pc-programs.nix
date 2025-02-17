@@ -50,6 +50,7 @@
     android-studio
     nur.repos.shadowrz.klassy-qt6
     proton-pass
+    bleachbit
   ];
   fonts.packages = with pkgs; [
     iosevka

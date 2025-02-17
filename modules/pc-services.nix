@@ -24,7 +24,6 @@
   virtualisation.spiceUSBRedirection.enable = true;
 
   services = {
-    gnome.gnome-keyring.enable = true;
     power-profiles-daemon.enable = true;
     ratbagd.enable = true;
     pipewire = {
