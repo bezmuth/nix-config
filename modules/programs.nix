@@ -21,7 +21,7 @@
         rb = "cd ~/nix-config/ && nix develop --command bash -c 'rebuild'";
         ub = "cd ~/nix-config/ && nix develop --command bash -c 'upbuild'";
       };
-      interactiveShellInit = "${pkgs.pfetch-rs}/bin/pfetch && ssh-agent > /dev/null";
+      interactiveShellInit = "${pkgs.pfetch-rs}/bin/pfetch && eval $(ssh-agent)";
     };
     starship = {
       enable = true;
