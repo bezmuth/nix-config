@@ -16,7 +16,7 @@
         dbuser = "nextcloud";
         dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
         dbname = "nextcloud";
-        adminpassFile = "/home/bezmuth/nextcloud.txt";
+        adminpassFile = "/nextcloud.txt";
         adminuser = "bezmuth";
         trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
         extraTrustedDomains = ["nextcloud.bezmuth.uk"];
