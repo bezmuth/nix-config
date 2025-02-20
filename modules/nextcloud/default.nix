@@ -29,6 +29,9 @@
       extraAppsEnable = true;
     };
     nginx.virtualHosts."${url}" = {
+      forceSSL = true;
+      sslCertificate = "/etc/nc-selfsigned.crt";
+	    sslCertificateKey = "/etc/nc-selfsigned.key";
       listen = [
       {
         addr = "127.0.0.1";
