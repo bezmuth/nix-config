@@ -1,25 +1,58 @@
 {
+  pkgs,
+  localPort ? 0,
   url ? "nextcloud.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
 }: {
-  imports = [./container.nix];
-  services.caddy = {
-    enable = true;
-    virtualHosts."${url}" = {
-      useACMEHost = "${acmeHost}";
-      extraConfig = ''
-        reverse_proxy 172.19.0.2:443 {
-          transport http {
-            tls_insecure_skip_verify
-          }
-        }
-        header {
-          Strict-Transport-Security max-age=31536000;
-        }
-        redir /.well-known/webfinger /public.php?service=webfinger 301
-        bind 100.103.106.16
-      '';
+  services = {
+    nextcloud = {
+      enable = true;
+      configureRedis = true;
+      package = pkgs.nextcloud30;
+      hostName = "nix-nextcloud";
+      config = {
+        dbtype = "pgsql";
+        dbuser = "nextcloud";
+        dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
+        dbname = "nextcloud";
+        adminpassFile = "/home/bezmuth/nextcloud.txt";
+        adminuser = "bezmuth";
+        trustedProxies = [ "localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk" ];
+        extraTrustedDomains = [ "nextcloud.bezmuth.uk" ];
+        overwriteProtocol = "https";
+      };
     };
+    postgresql = {
+      enable = true;
+      ensureDatabases = [ "nextcloud" ];
+      ensureUsers = [
+        { name = "nextcloud";
+          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+        }
+      ];
+    };
+    nginx.virtualHosts."nix-nextcloud".listen = [ { addr = "127.0.0.1"; port = localPort; }];
+    caddy = {
+      enable = true;
+      virtualHosts."${url}" = {
+        useACMEHost = "${acmeHost}";
+        extraConfig = ''
+        redir /.well-known/carddav /remote.php/dav 301
+        redir /.well-known/caldav /remote.php/dav 301
+        redir /.well-known/webfinger /index.php/.well-known/webfinger 301
+        redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
+
+        encode gzip
+        reverse_proxy localhost:${localPort}
+        '';
+      };
+    };
+  };
+
+  # ensure that postgres is running *before* running the setup
+  systemd.services."nextcloud-setup" = {
+    requires = ["postgresql.service"];
+    after = ["postgresql.service"];
   };
 }
