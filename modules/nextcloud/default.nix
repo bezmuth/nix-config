@@ -45,7 +45,7 @@
           redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
 
           encode gzip
-          reverse_proxy localhost:${builtins.toString localPort}
+          reverse_proxy http://127.0.0.1:${builtins.toString localPort}
         '';
       };
     };
