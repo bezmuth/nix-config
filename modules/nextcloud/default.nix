@@ -11,7 +11,7 @@
       enable = true;
       configureRedis = true;
       package = pkgs.nextcloud30;
-      hostName = "nix-nextcloud";
+      hostName = url;
       maxUploadSize = "20G";
       config = {
         dbtype = "sqlite";
@@ -28,7 +28,7 @@
       };
       extraAppsEnable = true;
     };
-    nginx.virtualHosts."nix-nextcloud".listen = [
+    nginx.virtualHosts."${url}".listen = [
       {
         addr = "127.0.0.1";
         port = localPort;
@@ -45,7 +45,7 @@
           redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
 
           encode gzip
-          reverse_proxy http://127.0.0.1:${builtins.toString localPort}
+          reverse_proxy 127.0.0.1:${builtins.toString localPort}
           bind 100.103.106.16
         '';
       };
