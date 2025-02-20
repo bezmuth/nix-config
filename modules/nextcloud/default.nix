@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   localPort ? 0,
   url ? "nextcloud.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
@@ -11,6 +12,7 @@
       configureRedis = true;
       package = pkgs.nextcloud30;
       hostName = "nix-nextcloud";
+      maxUploadSize = "20G";
       config = {
         dbtype = "sqlite";
         adminpassFile = "/nextcloud.txt";
@@ -21,6 +23,10 @@
         extraTrustedDomains = ["nextcloud.bezmuth.uk"];
         overwriteProtocol = "https";
       };
+      extraApps = {
+        inherit (config.services.nextcloud.package.packages.apps) contacts bookmarks notes phonetrack previewgenerator;
+      };
+      extraAppsEnable = true;
     };
     nginx.virtualHosts."nix-nextcloud".listen = [
       {
