@@ -5,15 +5,7 @@
   url ? "nextcloud.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}:   let
-      tls-cert = {alt ? []}: (pkgs.runCommand "selfSignedCert" { buildInputs = [ pkgs.openssl ]; } ''
-    mkdir -p $out
-    openssl req -x509 -newkey ec -pkeyopt ec_paramgen_curve:secp384r1 -days 365 -nodes \
-      -keyout $out/cert.key -out $out/cert.crt \
-      -subj "/CN=localhost" -addext "subjectAltName=DNS:localhost,${builtins.concatStringsSep "," (["IP:127.0.0.1"] ++ alt)}"
-  '');
-      in
- {
+}: {
   services = {
     nextcloud = {
       enable = true;
@@ -36,18 +28,13 @@
       };
       extraAppsEnable = true;
     };
-    nginx.virtualHosts."${url}" = let
-      cert = tls-cert {alt = ["IP:192.168.1.253"]};
-    in {
-      sslCertificate = "${cert}/cert.crt";
-      sslCertificateKey = "${cert}/cert.key";
-      forceSSL = true;
+    nginx.virtualHosts."${url}" = {
       listen = [
-        {
-          addr = "127.0.0.1";
-          port = localPort;
-        }
-      ];
+      {
+        addr = "127.0.0.1";
+        port = localPort;
+      }
+    ];
     };
     caddy = {
       enable = true;
