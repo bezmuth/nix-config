@@ -18,33 +18,39 @@
         dbname = "nextcloud";
         adminpassFile = "/home/bezmuth/nextcloud.txt";
         adminuser = "bezmuth";
-        trustedProxies = [ "localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk" ];
-        extraTrustedDomains = [ "nextcloud.bezmuth.uk" ];
+        trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
+        extraTrustedDomains = ["nextcloud.bezmuth.uk"];
         overwriteProtocol = "https";
       };
     };
     postgresql = {
       enable = true;
-      ensureDatabases = [ "nextcloud" ];
+      ensureDatabases = ["nextcloud"];
       ensureUsers = [
-        { name = "nextcloud";
-          ensurePermissions."DATABASE nextcloud" = "ALL PRIVILEGES";
+        {
+          name = "nextcloud";
+          ensureDBOwnership = true;
         }
       ];
     };
-    nginx.virtualHosts."nix-nextcloud".listen = [ { addr = "127.0.0.1"; port = localPort; }];
+    nginx.virtualHosts."nix-nextcloud".listen = [
+      {
+        addr = "127.0.0.1";
+        port = localPort;
+      }
+    ];
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
         useACMEHost = "${acmeHost}";
         extraConfig = ''
-        redir /.well-known/carddav /remote.php/dav 301
-        redir /.well-known/caldav /remote.php/dav 301
-        redir /.well-known/webfinger /index.php/.well-known/webfinger 301
-        redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
+          redir /.well-known/carddav /remote.php/dav 301
+          redir /.well-known/caldav /remote.php/dav 301
+          redir /.well-known/webfinger /index.php/.well-known/webfinger 301
+          redir /.well-known/nodeinfo /index.php/.well-known/nodeinfo 301
 
-        encode gzip
-        reverse_proxy localhost:${localPort}
+          encode gzip
+          reverse_proxy localhost:${localPort}
         '';
       };
     };
