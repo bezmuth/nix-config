@@ -12,26 +12,15 @@
       package = pkgs.nextcloud30;
       hostName = "nix-nextcloud";
       config = {
-        dbtype = "pgsql";
-        dbuser = "nextcloud";
-        dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
-        dbname = "nextcloud";
+        dbtype = "sqlite";
         adminpassFile = "/nextcloud.txt";
         adminuser = "bezmuth";
-        trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
-        extraTrustedDomains = ["nextcloud.bezmuth.uk"];
-        overwriteProtocol = "https";
+        settings = {
+          trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
+          extraTrustedDomains = ["nextcloud.bezmuth.uk"];
+          overwriteProtocol = "https";
+        };
       };
-    };
-    postgresql = {
-      enable = true;
-      ensureDatabases = ["nextcloud"];
-      ensureUsers = [
-        {
-          name = "nextcloud";
-          ensureDBOwnership = true;
-        }
-      ];
     };
     nginx.virtualHosts."nix-nextcloud".listen = [
       {
@@ -54,11 +43,5 @@
         '';
       };
     };
-  };
-
-  # ensure that postgres is running *before* running the setup
-  systemd.services."nextcloud-setup" = {
-    requires = ["postgresql.service"];
-    after = ["postgresql.service"];
   };
 }
