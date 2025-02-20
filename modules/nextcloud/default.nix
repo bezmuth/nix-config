@@ -15,11 +15,11 @@
         dbtype = "sqlite";
         adminpassFile = "/nextcloud.txt";
         adminuser = "bezmuth";
-        settings = {
-          trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
-          extraTrustedDomains = ["nextcloud.bezmuth.uk"];
-          overwriteProtocol = "https";
-        };
+      };
+      settings = {
+        trustedProxies = ["localhost" "127.0.0.1" "100.103.106.16" "nextcloud.bezmuth.uk"];
+        extraTrustedDomains = ["nextcloud.bezmuth.uk"];
+        overwriteProtocol = "https";
       };
     };
     nginx.virtualHosts."nix-nextcloud".listen = [
