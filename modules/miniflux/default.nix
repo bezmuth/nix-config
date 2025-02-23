@@ -21,7 +21,6 @@
       config = {
         LISTEN_ADDR = "localhost:${builtins.toString localPort}";
         FETCH_YOUTUBE_WATCH_TIME = "1";
-        YOUTUBE_EMBED_URL_OVERRIDE = "https://inv.nadeko.net/embed/";
       };
       adminCredentialsFile = "/home/bezmuth/miniflux.txt";
     };
