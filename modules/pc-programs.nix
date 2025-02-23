@@ -4,6 +4,7 @@
     ./flatpak.nix
   ];
   programs = {
+    ssh.startAgent = true;
     xwayland.enable = true;
     kdeconnect.enable = true;
     steam = {
