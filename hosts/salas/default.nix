@@ -9,7 +9,6 @@ args @ {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    (import ../../modules/nextcloud args)
     (import ../../modules/seedbox args)
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // {localPort = 10000;}))
@@ -17,6 +16,7 @@ args @ {
     (import ../../modules/miniflux (args // {localPort = 10002;}))
     (import ../../modules/gotosocial (args // {localPort = 10003;}))
     (import ../../modules/actual (args // {localPort = 10004;}))
+    (import ../../modules/nextcloud (args // {localPort = 10005;}))
   ];
 
   # Bootloader.
