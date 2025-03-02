@@ -2,6 +2,7 @@
   imports = [
     ./programs.nix
     ./flatpak.nix
+    ./librewolf
   ];
   programs = {
     ssh.startAgent = true;

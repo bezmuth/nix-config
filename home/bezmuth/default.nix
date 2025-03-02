@@ -13,7 +13,6 @@
       wine64
       kdePackages.ark
       gparted
-      firefox
       protonvpn-gui
       libreoffice-fresh
       anki-bin
