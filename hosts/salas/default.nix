@@ -17,6 +17,7 @@ args @ {
     (import ../../modules/gotosocial (args // {localPort = 10003;}))
     (import ../../modules/actual (args // {localPort = 10004;}))
     (import ../../modules/nextcloud (args // {localPort = 10005;}))
+    ../../modules/paper
   ];
 
   # Bootloader.

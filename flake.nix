@@ -23,6 +23,7 @@
     };
     agenix.url = "github:ryantm/agenix";
     miniflux-yt-plus.url = "github:bezmuth/miniflux-yt-plus";
+    nix-minecraft.url = "github:Infinidoge/nix-minecraft";
   };
 
   outputs = inputs @ {
@@ -64,6 +65,7 @@
       ++ (with inputs; [
         miniflux-yt-plus.nixosModules.miniflux-yt-plus
         agenix.nixosModules.default
+        nix-minecraft.nixosModules.minecraft-servers
       ]);
   in
     inputs.utils.lib.mkFlake {
@@ -80,6 +82,7 @@
         inputs.miniflux-yt-plus.overlays.default
         (import ./pkgs)
         inputs.nur.overlays.default
+        inputs.nix-minecraft.overlay
       ];
 
       hosts = {
