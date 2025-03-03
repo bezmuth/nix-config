@@ -44,7 +44,7 @@
     xdg-utils # for openning default programms when clicking links
     pulseaudio
     nextcloud-client
-    jetbrains.idea-community
+    #jetbrains.idea-community
     jellyfin-media-player
     webcord-vencord
     thunderbird
