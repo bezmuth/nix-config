@@ -1,8 +1,4 @@
-{
-  pkgs,
-  inputs,
-  ...
-}: {
+{pkgs, ...}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -10,17 +6,7 @@
     homeDirectory = "/home/bezmuth";
     # Packages that should be installed to the user profile.
     packages = with pkgs; [
-      wine64
-      kdePackages.ark
-      gparted
-      protonvpn-gui
-      libreoffice-fresh
-      anki-bin
-      piper
-      htop
-      r2modman
-      inputs.remarkable-utility.packages.${system}.default
-      spotify
+      grc
     ];
   };
 

@@ -10,7 +10,6 @@ _: {
       "com.usebottles.bottles"
       "net.lutris.Lutris"
       "io.github.martinrotter.rssguard"
-      "org.torproject.torbrowser-launcher"
       "org.kde.tokodon"
     ];
   };

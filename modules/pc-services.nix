@@ -1,24 +1,15 @@
 {
-  config,
   pkgs,
   ...
 }: {
   imports = [
     ./services.nix
   ];
-  xdg.portal = {
-    enable = true;
-    config.common.default = "*";
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-gtk
-    ];
-  };
 
   services.pulseaudio.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
-  environment.sessionVariables.SSH_AUTH_SOCK = "/run/user/1000/keyring/ssh";
   security.pam.sshAgentAuth.enable = true;
+  security.rtkit.enable = true;
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
@@ -33,7 +24,6 @@
       pulse.enable = true;
     };
     desktopManager.plasma6.enable = true;
-    # lightdm
     xserver = {
       enable = true;
       desktopManager = {

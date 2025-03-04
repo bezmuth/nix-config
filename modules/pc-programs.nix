@@ -1,11 +1,14 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  inputs,
+  ...
+}: {
   imports = [
     ./programs.nix
     ./flatpak.nix
     ./librewolf
   ];
   programs = {
-    ssh.startAgent = true;
     xwayland.enable = true;
     kdeconnect.enable = true;
     steam = {
@@ -18,7 +21,6 @@
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;
     };
-    light.enable = true;
     dconf.enable = true;
     gamemode.enable = true;
     gamemode.enableRenice = true;
@@ -31,21 +33,14 @@
       size = "compact";
       variant = "mocha";
     })
+    tor-browser
     temurin-jre-bin-17
     prismlauncher
     heroic
-    qbittorrent
-    cava
-    playerctl
-    adwaita-icon-theme
     mpv
     ispell
-    veracrypt
-    xdg-utils # for openning default programms when clicking links
-    pulseaudio
     nextcloud-client
     #jetbrains.idea-community
-    jellyfin-media-player
     webcord-vencord
     thunderbird
     protonmail-bridge-gui
@@ -53,6 +48,13 @@
     nur.repos.shadowrz.klassy-qt6
     proton-pass
     bleachbit
+    protonvpn-gui
+    gparted
+    anki-bin
+    libreoffice-fresh
+    inputs.remarkable-utility.packages.${system}.default
+    r2modman
+    spotify
   ];
   fonts.packages = with pkgs; [
     iosevka
