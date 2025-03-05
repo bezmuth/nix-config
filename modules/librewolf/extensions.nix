@@ -9,11 +9,6 @@
     install_url = "https://addons.mozilla.org/firefox/downloads/file/3617936/defund_wikipedia-latest.xpi";
     installation_mode = "force_installed";
   };
-  # Privacy Badger
-  "jid1-MnnxcxisBPnSXQ@jetpack" = {
-    install_url = "https://addons.mozilla.org/firefox/downloads/file/4321653/privacy_badger17-latest.xpi";
-    installation_mode = "force_installed";
-  };
   # Refined GitHub
   "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
     install_url = "https://addons.mozilla.org/firefox/downloads/file/4317387/refined_github-latest.xpi";
@@ -37,6 +32,11 @@
   # Youtube High Definition
   "{7b1bf0b6-a1b9-42b0-b75d-252036438bdc}" = {
     install_url = "https://addons.mozilla.org/firefox/downloads/file/4344731/youtube_high_definition-latest.xpi";
+    installation_mode = "force_installed";
+  };
+  # Sponsor block
+  "sponsorBlocker@ajay.app" = {
+    install_url = "https://addons.mozilla.org/firefox/downloads/file/4424639/sponsorblock-latest.xpi";
     installation_mode = "force_installed";
   };
   # librewolf seems to be a bit broken https://github.com/NixOS/nixpkgs/issues/344417
