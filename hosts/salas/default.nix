@@ -49,6 +49,7 @@ args @ {
       caddy.extraGroups = ["acme"];
       "bezmuth".openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMHbPVlywhuui3+MSBP/cMo3PsbDC4L+UzD7cmp6f306"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMITEYvCJKcSflIpiFjqtMLJJ0GxC12y7Lq4mtHGcT+U"
       ];
     };
   };
