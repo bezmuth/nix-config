@@ -24,6 +24,7 @@
     agenix.url = "github:ryantm/agenix";
     miniflux-yt-plus.url = "github:bezmuth/miniflux-yt-plus";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs = inputs @ {
@@ -42,6 +43,7 @@
             useUserPackages = true;
             backupFileExtension = "hmbak";
             users.bezmuth.imports = [
+              inputs.catppuccin.homeManagerModules.catppuccin
               ./home
             ];
             sharedModules = [inputs.agenix.homeManagerModules.age];
@@ -55,6 +57,7 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         agenix.nixosModules.default
+        catppuccin.nixosModules.catppuccin
       ]);
 
     server-modules =

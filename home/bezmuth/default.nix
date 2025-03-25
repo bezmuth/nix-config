@@ -29,14 +29,20 @@
 
   gtk = {
     enable = true;
-    cursorTheme = {
-      package = pkgs.capitaine-cursors;
-      name = "capitaine-cursors-white";
-      size = 32;
-    };
     iconTheme = {
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme.override {color = "pink";};
     };
   };
+
+  catppuccin = {
+    flavor = "mocha";
+    accent = "pink";
+    swaylock.enable = true;
+    thunderbird.enable = true;
+    gtk.enable = true;
+    zathura.enable = true;
+    alacritty.enable = true;
+  };
+  programs.alacritty.enable = true;
 }

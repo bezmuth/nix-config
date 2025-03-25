@@ -44,12 +44,10 @@
     mpv
     ispell
     nextcloud-client
-    #jetbrains.idea-community
     webcord-vencord
     thunderbird
     protonmail-bridge
     android-studio
-    nur.repos.shadowrz.klassy-qt6
     proton-pass
     bleachbit
     protonvpn-gui
@@ -69,4 +67,5 @@
       emacs-all-the-icons-fonts
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+  catppuccin.flavor = "mocha";
 }

@@ -15,7 +15,6 @@
       grim # screenshot functionality
       slurp # screenshot functionality
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      mako # notification system developed by swaywm maintainer
       alacritty
       wmenu
       light
@@ -37,10 +36,10 @@
       # Use kitty as default terminal
       terminal = "alacritty";
       colors.focused = {
-        background = "#89dceb";
-        border = "#89dceb";
-        childBorder = "#89dceb";
-        indicator = "#89dceb";
+        background = "#f5c2e7";
+        border = "#f5c2e7";
+        childBorder = "#f5c2e7";
+        indicator = "#f5c2e7";
         text = "#000000";
       };
       startup = [

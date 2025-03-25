@@ -39,15 +39,16 @@
 
       window#waybar {
         background-color: @base;
-        border-bottom: @surface1;
+        border-bottom: @pink;
         color: #ffffff;
         transition-property: background-color;
         transition-duration: .5s;
       }
-      #workspaces button.active {
-        background-color: @surface0;
-        box-shadow: inset 0 -3px @surface1;
+
+      #workspaces button.focused {
+        box-shadow: inset 0 -3px @pink;
       }
+
       #scratchpad {
         background-color: @base;
         color: @text;
@@ -138,7 +139,7 @@
           };
         };
         clock = {
-          format = "{:%Y-%m-%d | %H:%M}";
+          format = "{:%H:%M}";
           format-alt = "{:%Y-%m-%d}";
           tooltip-format = "{:%Y-%m-%d | %H:%M}";
         };
