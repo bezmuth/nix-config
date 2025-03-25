@@ -32,12 +32,12 @@
     # on the safe side, logging out and in again usually works.
     # Otherwise, to fast-track changes, run:
     # . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    sessionVariables = {
-      DOOMDIR = "${config.xdg.configHome}/doom";
-      EMACSDIR = "${config.xdg.configHome}/emacs";
-      DOOMLOCALDIR = "${config.xdg.dataHome}/doom";
-      DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
-    };
+    #sessionVariables = {
+    #  DOOMDIR = "${config.xdg.configHome}/doom";
+    #  EMACSDIR = "${config.xdg.configHome}/emacs";
+    #  DOOMLOCALDIR = "${config.xdg.dataHome}/doom";
+    #  DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
+    #};
     sessionPath = ["${config.xdg.configHome}/emacs/bin"];
   };
   programs.emacs.enable = true;

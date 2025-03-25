@@ -6,8 +6,11 @@
   osConfig,
   ...
 }: {
-  imports = [../waybar ../mako];
+  imports = [../waybar ../mako ../swaylock];
   home = {
+    file = {
+      ".config/sway/idle.sh".source = ./idle.sh;
+    };
     packages = with pkgs; [
       grim # screenshot functionality
       slurp # screenshot functionality
@@ -33,6 +36,13 @@
       menu = "wmenu-run";
       # Use kitty as default terminal
       terminal = "alacritty";
+      colors.focused = {
+        background = "#89dceb";
+        border = "#89dceb";
+        childBorder = "#89dceb";
+        indicator = "#89dceb";
+        text = "#000000";
+      };
       startup = [
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
@@ -45,6 +55,8 @@
         {command = "thunderbird";}
         {command = "protonmail-bridge --grpc";}
         {command = "emacs";}
+        # Idle
+        {command = "$HOME/.config/sway/idle.sh";}
       ];
       assigns = {
         "10" = [{app_id = "thunderbird";}];
@@ -59,6 +71,7 @@
           "${m}+p" = "exec playerctl previous";
           "grave" = "scratchpad show";
           "Shift+grave" = "move scratchpad";
+          "${m}+end" = "exec swaylock";
 
           # function keys
           "XF86MonBrightnessDown" = "exec light -U 10";
