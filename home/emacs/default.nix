@@ -41,7 +41,7 @@
     sessionPath = ["${config.xdg.configHome}/emacs/bin"];
   };
   programs.emacs.enable = true;
-  programs.emacs.package = pkgs.emacs29-pgtk;
+  programs.emacs.package = pkgs.emacs30-pgtk;
 
   # Note! This must match $DOOMDIR
   xdg.configFile."doom".source = ./doom;

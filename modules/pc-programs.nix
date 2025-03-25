@@ -9,6 +9,10 @@
     ./librewolf
   ];
   programs = {
+    sway = {
+      enable = true;
+      wrapperFeatures.gtk = true;
+    };
     xwayland.enable = true;
     kdeconnect.enable = true;
     steam = {
@@ -27,12 +31,12 @@
     virt-manager.enable = true;
   };
   environment.systemPackages = with pkgs; [
-    (papirus-icon-theme.override {color = "pink";})
     (catppuccin-gtk.override {
       accents = ["pink"];
       size = "compact";
       variant = "mocha";
     })
+    file-roller
     tor-browser
     temurin-jre-bin-17
     prismlauncher
@@ -43,7 +47,7 @@
     #jetbrains.idea-community
     webcord-vencord
     thunderbird
-    protonmail-bridge-gui
+    protonmail-bridge
     android-studio
     nur.repos.shadowrz.klassy-qt6
     proton-pass
@@ -55,10 +59,14 @@
     inputs.remarkable-utility.packages.${system}.default
     r2modman
     spotify
+    htop
+    powertop
   ];
-  fonts.packages = with pkgs; [
-    iosevka
-    font-awesome
-    emacs-all-the-icons-fonts
-  ];
+  fonts.packages = with pkgs;
+    [
+      iosevka
+      font-awesome
+      emacs-all-the-icons-fonts
+    ]
+    ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
 }

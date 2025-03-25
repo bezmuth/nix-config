@@ -24,7 +24,7 @@
         hardcore = true;
         force-gamemode = true;
         view-distance = 12;
-        pause-when-empty-seconds=20;
+        pause-when-empty-seconds = 20;
       };
 
       # Specify the custom minecraft server package

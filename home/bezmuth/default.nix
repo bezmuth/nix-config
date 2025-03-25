@@ -13,4 +13,17 @@
   fonts.fontconfig.enable = true;
   dconf.enable = true;
   services.mpris-proxy.enable = true;
+
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors-white";
+      size = 32;
+    };
+    iconTheme = {
+      name = "Papirus-Dark";
+      package = pkgs.papirus-icon-theme.override {color = "pink";};
+    };
+  };
 }

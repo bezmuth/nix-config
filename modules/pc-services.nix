@@ -20,7 +20,6 @@
       alsa.support32Bit = true;
       pulse.enable = true;
     };
-    desktopManager.plasma6.enable = true;
     xserver = {
       enable = true;
       desktopManager = {
@@ -44,5 +43,6 @@
     avahi.publish.enable = true;
     avahi.publish.userServices = true;
     printing.enable = true;
+    gnome.gnome-keyring.enable = true;
   };
 }
