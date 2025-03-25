@@ -2,8 +2,16 @@
 {
   config,
   pkgs,
+  inputs,
   ...
 }: {
+  programs = {
+    emacs.enable = true;
+    emacs.package = pkgs.emacs30-pgtk;
+    # this is need for the sessionvariables to work with emacs
+    bash.enable = true;
+  };
+
   home = {
     packages = with pkgs; [
       pandoc
@@ -28,27 +36,19 @@
       aspellDicts.en-computers
       gcc
     ];
-    # Note that session variables and path can be a bit wonky to get going. To be
-    # on the safe side, logging out and in again usually works.
-    # Otherwise, to fast-track changes, run:
-    # . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-    #sessionVariables = {
-    #  DOOMDIR = "${config.xdg.configHome}/doom";
-    #  EMACSDIR = "${config.xdg.configHome}/emacs";
-    #  DOOMLOCALDIR = "${config.xdg.dataHome}/doom";
-    #  DOOMPROFILELOADFILE = "${config.xdg.stateHome}/doom-profiles-load.el";
-    #};
     sessionPath = ["${config.xdg.configHome}/emacs/bin"];
+
+    # this can be messy, make sure you relog after first switch
+    sessionVariables = {
+      DOOMDIR = "${config.xdg.configHome}/doom";
+      EMACSDIR = "${config.xdg.configHome}/emacs";
+      DOOMLOCALDIR = "$HOME/.local/share/doom";
+      DOOMPROFILELOADFILE = "$HOME/.local/share/doom/profiles/load.el";
+      # Get the miniflux fever token
+      MINIFLUX_TOKEN = ''$(${pkgs.coreutils}/bin/cat ${config.age.secrets.miniflux-emacs-token.path})'';
+    };
   };
-  programs.emacs.enable = true;
-  programs.emacs.package = pkgs.emacs30-pgtk;
 
-  # Note! This must match $DOOMDIR
+  xdg.configFile."emacs".source = inputs.doom-emacs-src;
   xdg.configFile."doom".source = ./doom;
-
-  # Note! This must match $EMACSDIR
-  #xdg.configFile."emacs".source = builtins.fetchGit {
-  #  url = "https://github.com/doomemacs/doomemacs.git";
-  #  rev = "ba1dca322f9a07bc2b7bec6a98f2c3c55c0bbd77";
-  #};
 }

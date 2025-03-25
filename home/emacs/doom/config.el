@@ -1,3 +1,4 @@
+;;; -*- mode: emacs-lisp; -*-
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -32,9 +33,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-opera-light)
 
-(set-face-attribute 'default nil :font "Iosevka" :height 120 :weight 'bold)
+(setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'bold))
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -110,7 +111,110 @@
    org-roam-capture-templates)
   )
 
+
 (use-package! org-noter
   :config
   (map! :map pdf-view-mode-map
         :nvi "i" #'org-noter-insert-note))
+
+;; elfeed-protocol
+(after! elfeed
+(setq elfeed-search-filter "-Youtube -podcasts +unread")
+
+;; curl recommend
+(setq elfeed-use-curl t)
+(elfeed-set-timeout 36000)
+(setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
+
+;; setup feeds
+(setq elfeed-protocol-feeds '(("fever+https://bezmuth@miniflux.bezmuth.uk"
+                               :api-url "https://miniflux.bezmuth.uk/fever/"
+                               :password (getenv "MINIFLUX_TOKEN"))))
+
+;; enable elfeed-protocol
+(setq elfeed-protocol-enabled-protocols '(fever newsblur owncloud ttrss))
+(elfeed-protocol-enable)
+)
+
+
+(defun capture-post-w3m ()
+  (interactive)
+  (let* ((buffer (get-buffer "*w3m*"))
+         (url (buffer-local-value 'w3m-current-url buffer))
+         (title (buffer-local-value 'w3m-current-title buffer)))
+    (org-roam-capture-
+     :node (org-roam-node-create :title title)
+     :templates
+     `(("d" "Default Template" plain "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                          ,(format "#+title: ${title}\n#+filetags: :links:\n%s\n" url))
+        :unnarrowed t)))))
+
+
+(defun capture-post-elfeed ()
+  (interactive)
+  (let* ((buffer (get-buffer "*elfeed-entry*"))
+         (elfeed-entry (buffer-local-value 'elfeed-show-entry buffer)))
+    (org-roam-capture-
+     :node (org-roam-node-create :title (elfeed-entry-title elfeed-entry))
+     :templates
+     `(("d" "Default Template" plain "%?"
+        :if-new (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                          ,(format "#+title: ${title}\n#+filetags: :links:%s:\n%s\n"
+                                   (symbol-name (car (elfeed-entry-tags elfeed-entry)))
+                                   (elfeed-entry-link elfeed-entry)))
+        :unnarrowed t)))))
+
+(map! :after w3m
+      :map w3m-lynx-like-map
+      :leader
+      "n r p" #'capture-post-w3m)
+
+(map! :after elfeed
+      :map elfeed-show-mode-map
+      :leader "n r p" #'capture-post-elfeed)
+
+;; Press u inside a elfeed article to mark it as unread
+(evil-define-key 'normal elfeed-show-mode-map (kbd "u") 'elfeed-show-tag--unread)
+
+(setq mastodon-instance-url "https://social.bezmuth.uk")  ;; Set your instance URL
+(setq mastodon-active-user "bezmuth")  ;; Set your Mastodon username
+(setq mastodon-tl--show-avatars t)
+(progn
+
+  ;; set font for emoji
+  ;; if before emacs 28, this should come after setting symbols, because emacs 28 now has 'emoji . before, emoji is part of 'symbol
+
+  (set-fontset-font
+   t
+   (if (< emacs-major-version 28)
+       '(#x1f300 . #x1fad0)
+     'emoji
+     )
+   (cond
+    ((member "Noto Color Emoji" (font-family-list)) "Noto Color Emoji")
+    ((member "Noto Emoji" (font-family-list)) "Noto Emoji"))))
+
+(setq display-time-24hr-format t)
+(after! doom-modeline
+  (setq doom-modeline-time-icon nil))
+(display-time)
+(display-battery-mode)
+(require 'mastodon-async)
+(after! mastodon
+  (map! :map mastodon-mode-map
+      :n "mm" (lambda ()
+                  (interactive)
+                  (mastodon-tl--more)))
+)
+
+
+(after! w3m
+  (setq w3m-search-default-engine "duckduckgo")
+  (setq w3m-display-mode 'plain)
+  (setq w3m-fill-column 80)
+  (setq w3m-display-image t)
+  )
+(setq browse-url-browser-function 'w3m-goto-url-new-session)
+
+(map! :leader "ow" 'w3m-search)

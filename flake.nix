@@ -44,6 +44,7 @@
             users.bezmuth.imports = [
               ./home
             ];
+            sharedModules = [inputs.agenix.homeManagerModules.age];
             extraSpecialArgs = {
               inherit inputs self;
             };

@@ -49,3 +49,6 @@
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)
 ;; (unpin! t)
 ;; (package! "mvn")
+(package! elfeed-protocol)
+(package! mastodon)
+(package! w3m)

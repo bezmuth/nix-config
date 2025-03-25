@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  config,
+  ...
+}: {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -8,6 +12,15 @@
     packages = with pkgs; [
       grc
     ];
+  };
+
+  age = {
+    secrets = {
+      miniflux-emacs-token = {
+        file = ../../secrets/miniflux-emacs-token.age;
+      };
+    };
+    identityPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
   };
 
   fonts.fontconfig.enable = true;
