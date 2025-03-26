@@ -10,7 +10,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud30;
+      package = pkgs.nextcloud31;
       hostName = url;
       maxUploadSize = "20G";
       config = {
