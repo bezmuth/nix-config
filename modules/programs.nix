@@ -15,21 +15,13 @@
       enable = true;
       nix-direnv.enable = true;
     };
-    fish.enable = true;
     bash = {
       completion.enable = true;
       shellAliases = {
         rb = "cd ~/nix-config/ && nix develop --command bash -c 'rebuild'";
         ub = "cd ~/nix-config/ && nix develop --command bash -c 'upbuild'";
       };
-      #interactiveShellInit = "${pkgs.pfetch-rs}/bin/pfetch";
-      interactiveShellInit = ''
-        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
-        then
-          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
-          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
-        fi
-      '';
+      interactiveShellInit = "${pkgs.pfetch-rs}/bin/pfetch";
     };
     starship = {
       enable = true;
@@ -64,5 +56,6 @@
     man-pages-posix
     veracrypt
     xdg-utils # for openning default programms when clicking links
+    htop
   ];
 }

@@ -9,6 +9,17 @@
     ./librewolf
   ];
   programs = {
+    # both the fish and bash bits are needed for fish to work
+    fish.enable = true;
+    bash = {
+      interactiveShellInit = ''
+        if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
+        then
+          shopt -q login_shell && LOGIN_OPTION='--login' || LOGIN_OPTION=""
+          exec ${pkgs.fish}/bin/fish $LOGIN_OPTION
+        fi
+      '';
+    };
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
@@ -57,8 +68,8 @@
     inputs.remarkable-utility.packages.${system}.default
     r2modman
     spotify
-    htop
     powertop
+    transmission-remote-gtk
   ];
   fonts.packages = with pkgs;
     [
