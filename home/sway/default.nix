@@ -106,12 +106,17 @@
 
       focus.wrapping = "force";
 
-      output."DP-1".scale = "1.5";
+      output = {
+        "*" = {bg = "${./wallpaper.png} fill #000000";};
+        "HDMI-A-1" = {
+          scale = "1.5";
+          pos = "0 0";
+        };
+        "eDP-1" = {pos = "320 1440";};
+      };
       defaultWorkspace = "workspace number 1";
 
       bars = [];
-
-      output."*" = {bg = "${./wallpaper.png} fill #000000";};
     };
   };
 }
