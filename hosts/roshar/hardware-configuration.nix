@@ -4,6 +4,7 @@
 {
   config,
   lib,
+  pkgs,
   modulesPath,
   ...
 }: {
@@ -16,34 +17,28 @@
   boot.kernelModules = ["kvm-intel"];
   boot.extraModulePackages = [];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.initrd.luks.devices."luks-ee0e9f9a-5eca-472e-982f-91d0ceb654f5".device = "/dev/disk/by-uuid/ee0e9f9a-5eca-472e-982f-91d0ceb654f5";
-
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/ed1c2fd6-1731-44bd-b878-c80e38f18009";
+    device = "/dev/disk/by-uuid/9c0a10d0-2718-41f7-a40c-b781bf68b5cc";
     fsType = "ext4";
   };
+
+  fileSystems."/boot" = {
+    device = "/dev/disk/by-uuid/85EB-F142";
+    fsType = "vfat";
+    options = ["fmask=0077" "dmask=0077"];
+  };
+
+  swapDevices = [
+    {device = "/dev/disk/by-uuid/148843ad-f1f6-46c3-ab75-5294eb7e7529";}
+  ];
 
   fileSystems."/run/media/bezmuth/564b6e1c-ed35-4593-afcd-149bfbc56ed0" = {
     device = "/dev/disk/by-uuid/564b6e1c-ed35-4593-afcd-149bfbc56ed0";
     fsType = "ext4";
     options = ["users" "nofail" "exec" "auto"];
   };
-
-  boot.initrd.luks.devices."luks-a9b5b899-4070-4da3-a153-f34cb9a4c3c2".device = "/dev/disk/by-uuid/a9b5b899-4070-4da3-a153-f34cb9a4c3c2";
-
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/7023-BF85";
-    fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
-  };
-
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/fe258a17-0a70-41d6-bb0e-51a79019fc23";}
-  ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
   # (the default) this is the recommended approach. When using systemd-networkd it's

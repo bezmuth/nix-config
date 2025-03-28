@@ -70,6 +70,7 @@
     spotify
     powertop
     transmission-remote-gtk
+    wdisplays
   ];
   fonts.packages = with pkgs;
     [

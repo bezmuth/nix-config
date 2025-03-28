@@ -28,6 +28,11 @@
     };
   };
 
+  programs.sway = {
+    extraOptions = ["--unsupported-gpu"];
+    extraSessionCommands = "export WLR_RENDERER=vulkan";
+  };
+
   services.xserver.videoDrivers = ["nvidia"];
 
   system.stateVersion = "22.05"; # Did you read the comment?
