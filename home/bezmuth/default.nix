@@ -2,7 +2,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -20,7 +21,7 @@
         file = ../../secrets/miniflux-emacs-token.age;
       };
     };
-    identityPaths = ["${config.home.homeDirectory}/.ssh/id_ed25519"];
+    identityPaths = [ "${config.home.homeDirectory}/.ssh/id_ed25519" ];
   };
 
   fonts.fontconfig.enable = true;
@@ -31,7 +32,7 @@
     enable = true;
     iconTheme = {
       name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme.override {color = "pink";};
+      package = pkgs.papirus-icon-theme.override { color = "pink"; };
     };
   };
 

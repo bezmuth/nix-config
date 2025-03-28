@@ -1,5 +1,6 @@
-{...}: {
-  imports = [./container.nix];
+{ ... }:
+{
+  imports = [ ./container.nix ];
   services = {
     caddy = {
       enable = true;

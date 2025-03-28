@@ -4,18 +4,25 @@
 {
   config,
   lib,
-  pkgs,
   modulesPath,
   ...
-}: {
+}:
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
   ];
 
-  boot.initrd.availableKernelModules = ["xhci_pci" "ahci" "nvme" "usbhid" "uas" "sd_mod"];
-  boot.initrd.kernelModules = [];
-  boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = [];
+  boot.initrd.availableKernelModules = [
+    "xhci_pci"
+    "ahci"
+    "nvme"
+    "usbhid"
+    "uas"
+    "sd_mod"
+  ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-intel" ];
+  boot.extraModulePackages = [ ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -27,17 +34,25 @@
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/85EB-F142";
     fsType = "vfat";
-    options = ["fmask=0077" "dmask=0077"];
+    options = [
+      "fmask=0077"
+      "dmask=0077"
+    ];
   };
 
   swapDevices = [
-    {device = "/dev/disk/by-uuid/148843ad-f1f6-46c3-ab75-5294eb7e7529";}
+    { device = "/dev/disk/by-uuid/148843ad-f1f6-46c3-ab75-5294eb7e7529"; }
   ];
 
   fileSystems."/run/media/bezmuth/564b6e1c-ed35-4593-afcd-149bfbc56ed0" = {
     device = "/dev/disk/by-uuid/564b6e1c-ed35-4593-afcd-149bfbc56ed0";
     fsType = "ext4";
-    options = ["users" "nofail" "exec" "auto"];
+    options = [
+      "users"
+      "nofail"
+      "exec"
+      "auto"
+    ];
   };
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking

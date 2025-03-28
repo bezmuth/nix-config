@@ -2,7 +2,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   imports = [
     ./programs.nix
     ./flatpak.nix
@@ -28,7 +29,7 @@
     kdeconnect.enable = true;
     steam = {
       enable = true;
-      extraCompatPackages = [pkgs.proton-ge-bin];
+      extraCompatPackages = [ pkgs.proton-ge-bin ];
       fontPackages = [
         pkgs.corefonts
         pkgs.vistafonts
@@ -43,7 +44,7 @@
   };
   environment.systemPackages = with pkgs; [
     (catppuccin-gtk.override {
-      accents = ["pink"];
+      accents = [ "pink" ];
       size = "compact";
       variant = "mocha";
     })
@@ -71,13 +72,19 @@
     powertop
     transmission-remote-gtk
     wdisplays
+    qbittorrent
   ];
-  fonts.packages = with pkgs;
+  fonts.packages =
+    with pkgs;
     [
       iosevka
       font-awesome
       emacs-all-the-icons-fonts
     ]
     ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    flavor = "mocha";
+    accent = "pink";
+    tty.enable = true;
+  };
 }

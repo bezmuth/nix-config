@@ -3,7 +3,8 @@
   url ? "social.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   services = {
     gotosocial = {
       enable = true;

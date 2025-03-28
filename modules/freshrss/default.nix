@@ -4,7 +4,8 @@
   url ? "freshrss.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   age.secrets.default-password.file = ../../secrets/default-password.age;
   services = {
     freshrss = {

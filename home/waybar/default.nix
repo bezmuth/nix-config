@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   programs.waybar = {
     enable = true;
     #package = inputs.hyprland.packages.${pkgs.system}.waybar-hyprland;
@@ -108,10 +109,12 @@
         height = 20;
         layer = "top";
         position = "top";
-        tray = {spacing = 10;};
+        tray = {
+          spacing = 10;
+        };
         mode = "dock";
-        modules-center = ["clock"];
-        modules-left = ["sway/workspaces"];
+        modules-center = [ "clock" ];
+        modules-left = [ "sway/workspaces" ];
         modules-right = [
           "custom/spotify-metadata"
           "tray"
@@ -125,13 +128,22 @@
         "sway/scratchpad" = {
           format = "{icon}";
           show-empty = false;
-          format-icons = ["" ""];
+          format-icons = [
+            ""
+            ""
+          ];
         };
         battery = {
           format = "{capacity}% {icon}";
           format-alt = "{time} {icon}";
           format-charging = "{capacity}% ";
-          format-icons = ["" "" "" "" ""];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
           format-plugged = "{capacity}% ";
           states = {
             critical = 15;
@@ -159,7 +171,9 @@
             power-saver = "";
           };
         };
-        memory = {format = "{}% ";};
+        memory = {
+          format = "{}% ";
+        };
         network = {
           interval = 1;
           format-alt = "{ifname}: {ipaddr}/{cidr}";
@@ -174,7 +188,11 @@
           format-bluetooth-muted = " {icon} {format_source}";
           format-icons = {
             car = "";
-            default = ["" "" ""];
+            default = [
+              ""
+              ""
+              ""
+            ];
             handsfree = "";
             headphones = "";
             headset = "";
@@ -186,7 +204,9 @@
           format-source-muted = "";
           on-click = "pavucontrol";
         };
-        "sway/mode" = {format = ''<span style="italic">{}</span>'';};
+        "sway/mode" = {
+          format = ''<span style="italic">{}</span>'';
+        };
         "custom/spotify-metadata" = {
           format = " {}   ";
           max-length = 100;
@@ -222,7 +242,7 @@
         temperature = {
           critical-threshold = 80;
           format = "{temperatureC}°C ";
-          format-icons = [""];
+          format-icons = [ "" ];
         };
       }
     ];

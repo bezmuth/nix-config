@@ -5,7 +5,8 @@
   url ? "nextcloud.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   services = {
     nextcloud = {
       enable = true;
@@ -19,13 +20,22 @@
         adminuser = "bezmuth";
       };
       settings = {
-        trusted_proxies = ["127.0.0.1" "100.103.106.16"];
-        trusted_domains = ["nextcloud.bezmuth.uk"];
+        trusted_proxies = [
+          "127.0.0.1"
+          "100.103.106.16"
+        ];
+        trusted_domains = [ "nextcloud.bezmuth.uk" ];
         overwriteprotocol = "https";
         overwritehost = "nextcloud.bezmuth.uk:443";
       };
       extraApps = {
-        inherit (config.services.nextcloud.package.packages.apps) contacts bookmarks notes phonetrack previewgenerator;
+        inherit (config.services.nextcloud.package.packages.apps)
+          contacts
+          bookmarks
+          notes
+          phonetrack
+          previewgenerator
+          ;
       };
       extraAppsEnable = true;
     };

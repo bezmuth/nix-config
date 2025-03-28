@@ -3,7 +3,8 @@
   url ? "abs.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   services = {
     audiobookshelf = {
       enable = true;

@@ -3,7 +3,8 @@
   url ? "actual.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   services = {
     actual = {
       enable = true;

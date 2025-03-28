@@ -4,8 +4,6 @@ packages = [
   'libnotify',
   'vim',
   'git',
-  'alejandra',
-  'deadnix',
   'statix',
 ]
 [[commands]]
@@ -24,7 +22,6 @@ command = """
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   ~/.config/emacs/bin/doom sync
-  deadnix
   statix check -i hardware-configuration.nix
   notify-send 'Praise the rebuild' -t 10000
 """
@@ -45,7 +42,6 @@ command = """
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   ~/.config/emacs/bin/doom sync
-  deadnix
   statix check -i hardware-configuration.nix
   notify-send 'Praise the update' -t 10000
 """

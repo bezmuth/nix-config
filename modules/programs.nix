@@ -3,7 +3,8 @@
   inputs,
   lib,
   ...
-}: {
+}:
+{
   programs = {
     ssh.startAgent = true;
     nh = {

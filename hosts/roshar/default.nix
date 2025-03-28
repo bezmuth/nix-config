@@ -5,7 +5,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -28,12 +29,11 @@
     };
   };
 
-  programs.sway = {
-    extraOptions = ["--unsupported-gpu"];
-    extraSessionCommands = "export WLR_RENDERER=vulkan";
+  environment.variables = {
+    WLR_RENDERER = "vulkan";
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   system.stateVersion = "22.05"; # Did you read the comment?
 

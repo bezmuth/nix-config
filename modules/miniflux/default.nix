@@ -4,7 +4,8 @@
   url ? "miniflux.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   age.secrets.miniflux-token = {
     file = ../../secrets/miniflux-token.age;
     owner = "miniflux-yt-plus";

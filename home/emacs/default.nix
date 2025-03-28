@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   programs = {
     emacs.enable = true;
     emacs.package = pkgs.emacs30-pgtk;
@@ -22,7 +23,7 @@
       ripgrep
       # Indexing / search dependencies
       fd
-      (ripgrep.override {withPCRE2 = true;})
+      (ripgrep.override { withPCRE2 = true; })
       emacs-all-the-icons-fonts
       fontconfig
       sqlite
@@ -37,7 +38,7 @@
       gcc
       w3m
     ];
-    sessionPath = ["${config.xdg.configHome}/emacs/bin"];
+    sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
 
     # this can be messy, make sure you relog after first switch
     sessionVariables = {

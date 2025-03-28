@@ -3,7 +3,8 @@
   acmeHost ? "bezmuth.uk",
   pkgs,
   ...
-}: {
+}:
+{
   environment.systemPackages = [
     pkgs.jellyfin
     pkgs.jellyfin-web

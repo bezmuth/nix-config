@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   # Minecraft server settings
   services.minecraft-servers = {
     enable = true;

@@ -1,7 +1,9 @@
 # Mostly taken from https://github.com/pierrot-lc/librewolf-nix
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   extensions = import ./extensions.nix;
-in {
+in
+{
   environment.systemPackages = [
     (pkgs.wrapFirefox pkgs.librewolf-unwrapped {
       inherit (pkgs.librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;
@@ -9,9 +11,7 @@ in {
       libName = "librewolf";
       # Extra prefs can be found at `about:config`.
       extraPrefs =
-        /*
-        javascript
-        */
+        # javascript
         ''
           // pref("gfx.canvas.accelerated", true);
           // pref("gfx.webrender.enabled", true);

@@ -25,53 +25,62 @@
     miniflux-yt-plus.url = "github:bezmuth/miniflux-yt-plus";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     catppuccin.url = "github:catppuccin/nix";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    treefmt-nix.url = "github:numtide/treefmt-nix";
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    ...
-  }: let
-    pc-modules =
-      [
-        ./modules
-        ./modules/pc-services.nix
-        ./modules/pc-programs.nix
-        {
-          home-manager = {
-            useGlobalPkgs = true;
-            useUserPackages = true;
-            backupFileExtension = "hmbak";
-            users.bezmuth.imports = [
-              inputs.catppuccin.homeManagerModules.catppuccin
-              ./home
-            ];
-            sharedModules = [inputs.agenix.homeManagerModules.age];
-            extraSpecialArgs = {
-              inherit inputs self;
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      systems,
+      ...
+    }:
+    let
+      inherit (nixpkgs) lib;
+      pc-modules =
+        [
+          ./modules
+          ./modules/pc-services.nix
+          ./modules/pc-programs.nix
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              backupFileExtension = "hmbak";
+              users.bezmuth.imports = [
+                inputs.catppuccin.homeManagerModules.catppuccin
+                inputs.spicetify-nix.homeManagerModules.spicetify
+                ./home
+              ];
+              sharedModules = [ inputs.agenix.homeManagerModules.age ];
+              extraSpecialArgs = {
+                inherit inputs self;
+              };
             };
-          };
-        }
-      ]
-      ++ (with inputs; [
-        home-manager.nixosModules.default
-        nix-flatpak.nixosModules.nix-flatpak
-        agenix.nixosModules.default
-        catppuccin.nixosModules.catppuccin
-      ]);
+          }
+        ]
+        ++ (with inputs; [
+          home-manager.nixosModules.default
+          nix-flatpak.nixosModules.nix-flatpak
+          agenix.nixosModules.default
+          catppuccin.nixosModules.catppuccin
+        ]);
 
-    server-modules =
-      [
-        ./modules
-        ./modules/services.nix
-        ./modules/programs.nix
-      ]
-      ++ (with inputs; [
-        miniflux-yt-plus.nixosModules.miniflux-yt-plus
-        agenix.nixosModules.default
-        nix-minecraft.nixosModules.minecraft-servers
-      ]);
-  in
+      server-modules =
+        [
+          ./modules
+          ./modules/services.nix
+          ./modules/programs.nix
+        ]
+        ++ (with inputs; [
+          miniflux-yt-plus.nixosModules.miniflux-yt-plus
+          agenix.nixosModules.default
+          nix-minecraft.nixosModules.minecraft-servers
+        ]);
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+    in
     inputs.utils.lib.mkFlake {
       inherit self inputs;
       supportedSystems = [
@@ -79,7 +88,7 @@
       ];
       channelsConfig.allowUnfree = true;
 
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
+      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
       sharedOverlays = [
         inputs.devshell.overlays.default
@@ -90,20 +99,20 @@
       ];
 
       hosts = {
-        Mishim.modules = [./hosts/mishim] ++ pc-modules;
-        Roshar.modules = [./hosts/roshar] ++ pc-modules;
-        Salas.modules = [./hosts/salas] ++ server-modules;
+        Mishim.modules = [ ./hosts/mishim ] ++ pc-modules;
+        Roshar.modules = [ ./hosts/roshar ] ++ pc-modules;
+        Salas.modules = [ ./hosts/salas ] ++ server-modules;
       };
 
-      hostDefaults.modules = [];
+      hostDefaults.modules = [ ];
 
-      outputsBuilder = channels:
-        with channels.nixpkgs; {
+      outputsBuilder =
+        channels: with channels.nixpkgs; {
           defaultPackage = channels.nixpkgs.devshell.mkShell {
-            imports = [(channels.nixpkgs.devshell.importTOML ./devshell.toml)];
+            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
           };
           devShell = channels.nixpkgs.devshell.mkShell {
-            imports = [(channels.nixpkgs.devshell.importTOML ./devshell.toml)];
+            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
           };
         };
     };

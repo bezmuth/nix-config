@@ -5,8 +5,13 @@
   lib,
   osConfig,
   ...
-}: {
-  imports = [../waybar ../mako ../swaylock];
+}:
+{
+  imports = [
+    ../waybar
+    ../mako
+    ../swaylock
+  ];
   home = {
     file = {
       ".config/sway/idle.sh".source = ./idle.sh;
@@ -46,23 +51,24 @@
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
         }
-        {command = "blueman-applet";}
-        {command = "nm-applet --indicator";}
-        {command = "kdeconnect-indicator";}
-        {command = "autotiling-rs";}
-        {command = "nextcloud";}
-        {command = "thunderbird";}
-        {command = "protonmail-bridge --grpc";}
-        {command = "emacs";}
+        { command = "blueman-applet"; }
+        { command = "nm-applet --indicator"; }
+        { command = "kdeconnect-indicator"; }
+        { command = "autotiling-rs"; }
+        { command = "nextcloud"; }
+        { command = "thunderbird"; }
+        { command = "protonmail-bridge --grpc"; }
+        { command = "emacs"; }
         # Idle
-        {command = "$HOME/.config/sway/idle.sh";}
+        { command = "$HOME/.config/sway/idle.sh"; }
       ];
       assigns = {
-        "10" = [{app_id = "thunderbird";}];
+        "10" = [ { app_id = "thunderbird"; } ];
       };
-      keybindings = let
-        m = config.wayland.windowManager.sway.config.modifier;
-      in
+      keybindings =
+        let
+          m = config.wayland.windowManager.sway.config.modifier;
+        in
         lib.mkOptionDefault {
           "${m}+t" = "split toggle";
           "${m}+bracketright" = "exec playerctl next";
@@ -86,10 +92,7 @@
         };
       input = {
         "type:keyboard" = {
-          xkb_layout =
-            if osConfig.networking.hostName == "Roshar"
-            then "us"
-            else "gb";
+          xkb_layout = if osConfig.networking.hostName == "Roshar" then "us" else "gb";
           xkb_options = "caps:escape";
         };
         "type:pointer" = {
@@ -107,17 +110,21 @@
       focus.wrapping = "force";
 
       output = {
-        "*" = {bg = "${./wallpaper.png} fill #000000";};
+        "*" = {
+          bg = "${./wallpaper.png} fill #000000";
+        };
         "HDMI-A-1" = {
           scale = "1.5";
           pos = "0 0";
         };
-        "eDP-1" = {pos = "320 1440";};
+        "eDP-1" = {
+          pos = "320 1440";
+        };
         "DP-2".scale = "1.5";
       };
       defaultWorkspace = "workspace number 1";
 
-      bars = [];
+      bars = [ ];
     };
   };
 }

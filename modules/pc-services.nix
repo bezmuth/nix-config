@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     ./services.nix
   ];
@@ -23,15 +24,20 @@
     xserver = {
       enable = true;
       desktopManager = {
+        xfce.enable = true;
         xterm.enable = false;
       };
     };
-    displayManager = {
-      autoLogin.enable = true;
-      autoLogin.user = "bezmuth";
-      sddm.enable = true;
+    greetd = {
+      package = pkgs.greetd.tuigreet;
+      enable = true;
+      settings = rec {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -r --asterisks --cmd 'sway --unsupported-gpu'";
+        };
+      };
     };
-    xserver.excludePackages = [pkgs.xterm];
+    xserver.excludePackages = [ pkgs.xterm ];
     # Configure keymap in X11
     xserver.xkb = {
       layout = "gb";

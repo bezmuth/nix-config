@@ -1,22 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-args @ {
+args@{
   config,
   pkgs,
   ...
-}: {
+}:
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (import ../../modules/seedbox args)
     (import ../../modules/jellyfin args)
-    (import ../../modules/audiobookshelf (args // {localPort = 10000;}))
-    (import ../../modules/calibre-web (args // {localPort = 10001;}))
-    (import ../../modules/miniflux (args // {localPort = 10002;}))
-    (import ../../modules/gotosocial (args // {localPort = 10003;}))
-    (import ../../modules/actual (args // {localPort = 10004;}))
-    (import ../../modules/nextcloud (args // {localPort = 10005;}))
+    (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
+    (import ../../modules/calibre-web (args // { localPort = 10001; }))
+    (import ../../modules/miniflux (args // { localPort = 10002; }))
+    (import ../../modules/gotosocial (args // { localPort = 10003; }))
+    (import ../../modules/actual (args // { localPort = 10004; }))
+    (import ../../modules/nextcloud (args // { localPort = 10005; }))
     ../../modules/paper
   ];
 
@@ -27,7 +28,7 @@ args @ {
   networking.networkmanager.enable = true;
 
   age = {
-    identityPaths = ["/home/bezmuth/.ssh/id_ed25519"];
+    identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
     secrets.cloudflare-token.file = ../../secrets/cloudflare-token.age;
     secrets.dns-token.file = ../../secrets/dns-token.age;
   };
@@ -37,16 +38,18 @@ args @ {
     defaults.email = "benkel97@protonmail.com";
     certs."bezmuth.uk" = {
       domain = "bezmuth.uk";
-      extraDomainNames = ["*.bezmuth.uk"];
+      extraDomainNames = [ "*.bezmuth.uk" ];
       dnsProvider = "cloudflare";
       dnsPropagationCheck = true;
-      credentialFiles = {"CF_DNS_API_TOKEN_FILE" = config.age.secrets.dns-token.path;};
+      credentialFiles = {
+        "CF_DNS_API_TOKEN_FILE" = config.age.secrets.dns-token.path;
+      };
     };
   };
   users = {
-    groups.srv-data = {};
+    groups.srv-data = { };
     users = {
-      caddy.extraGroups = ["acme"];
+      caddy.extraGroups = [ "acme" ];
       "bezmuth".openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHVuAgXZTD4uta2/G9CSdJM7cm28PJS2pTGsF9PO6GQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBI2o2Be33TpGgphq7mDo3XKzAnpPXM2pfJ6vgPI/HqC"
@@ -86,7 +89,7 @@ args @ {
 
   # GPU decode/encode
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
   hardware.graphics = {
     enable = true;
@@ -107,7 +110,7 @@ args @ {
       serviceConfig.ExecStart = "/run/current-system/sw/bin/reboot";
     };
     timers."reboot-daily" = {
-      wantedBy = ["timers.target"];
+      wantedBy = [ "timers.target" ];
       description = "Reboot the system every day";
       timerConfig = {
         OnCalendar = "04:00";

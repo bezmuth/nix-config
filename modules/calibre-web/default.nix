@@ -3,7 +3,8 @@
   url ? "calibre.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
-}: {
+}:
+{
   services = {
     calibre-web = {
       group = "srv-data";

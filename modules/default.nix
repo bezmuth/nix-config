@@ -3,7 +3,8 @@
   pkgs,
   config,
   ...
-}: {
+}:
+{
   # Point nix path to the home dir
   nix = {
     # set nix path properly
