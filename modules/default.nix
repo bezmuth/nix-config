@@ -5,6 +5,10 @@
   ...
 }:
 {
+  imports = [
+    ./programs.nix
+    ./services.nix
+  ];
   # Point nix path to the home dir
   nix = {
     # set nix path properly
@@ -36,7 +40,11 @@
   i18n.defaultLocale = "en_GB.utf8";
   console.keyMap = "uk";
   hardware.graphics.enable = true;
-  boot.tmp.cleanOnBoot = true;
+  boot = {
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    tmp.cleanOnBoot = true;
+  };
   users.defaultUserShell = pkgs.bash;
   users.users.bezmuth = {
     isNormalUser = true;

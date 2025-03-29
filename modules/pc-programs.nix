@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    ./programs.nix
     ./flatpak.nix
     ./librewolf
   ];

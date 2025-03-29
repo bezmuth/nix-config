@@ -1,14 +1,20 @@
-{ ... }:
+{ inputs, ... }:
+
 {
-  imports = [
-    ./bezmuth
-    ./emacs
-    ./zathura
-    ./fish
-    ./sway
-    ./spicetify
-  ];
-  home.stateVersion = "22.05";
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  home-manager = {
+    useGlobalPkgs = true;
+    useUserPackages = true;
+    backupFileExtension = "hmbak";
+    users.bezmuth.imports = [
+      ./home.nix
+    ];
+    sharedModules = [
+      inputs.agenix.homeManagerModules.age
+      inputs.catppuccin.homeManagerModules.catppuccin
+      inputs.spicetify-nix.homeManagerModules.spicetify
+    ];
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+  };
 }

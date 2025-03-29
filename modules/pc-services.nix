@@ -1,9 +1,5 @@
 { pkgs, ... }:
 {
-  imports = [
-    ./services.nix
-  ];
-
   services.pulseaudio.enable = false;
   systemd.services.NetworkManager-wait-online.enable = false;
   security.pam.sshAgentAuth.enable = true;

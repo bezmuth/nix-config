@@ -42,18 +42,14 @@
       pc-modules = [
         ./modules/pc-services.nix
         ./modules/pc-programs.nix
-        ./modules/home-manager.nix
+        ./home
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
-        agenix.nixosModules.default
         catppuccin.nixosModules.catppuccin
       ];
 
       server-modules = [
-        ./modules/services.nix
-        ./modules/programs.nix
         miniflux-yt-plus.nixosModules.miniflux-yt-plus
-        agenix.nixosModules.default
         nix-minecraft.nixosModules.minecraft-servers
       ];
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
@@ -78,10 +74,16 @@
         Salas.modules = [ ./hosts/salas ] ++ server-modules;
       };
 
-      hostDefaults.modules = [ ./modules ];
+      hostDefaults.modules = [
+        ./modules
+        agenix.nixosModules.default
+      ];
 
-      devShells.default = pkgs.devshell.mkShell {
-        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
-      };
+      outputsBuilder =
+        channels: with channels.nixpkgs; {
+          defaultPackage = channels.nixpkgs.devshell.mkShell {
+            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
+          };
+        };
     };
 }
