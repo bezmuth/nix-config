@@ -25,7 +25,7 @@ args@{
   systemd.services.caddy.serviceConfig = {
     Restart = "always";
     RestartSec = 5;
-  }
+  };
 
   # Bootloader.
 
