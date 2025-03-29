@@ -46,6 +46,10 @@
         transition-duration: .5s;
       }
 
+      #workspaces button {
+        padding: 0px 1px 0px 1px;
+      }
+
       #workspaces button.focused {
         box-shadow: inset 0 -3px @pink;
       }
@@ -99,10 +103,24 @@
           color: @rosewater;
       }
       #power-profiles-daemon.performance {
+          font-size: 18px;
           background-color: @red;
           color: @base;
       }
-
+      #power-profiles-daemon.power-saver {
+          font-size: 18px;
+          background-color: @green;
+          color: @base;
+      }
+      #power-profiles-daemon.balanced {
+          font-size: 18px;
+          background-color: @blue;
+          color: @base;
+      }
+      #backlight {
+          background-color: @yellow;
+          color: @base;
+      }
     '';
     settings = [
       {
@@ -123,8 +141,15 @@
           "cpu"
           "memory"
           "temperature"
+          "backlight"
           "battery"
         ];
+        "backlight" = {
+          format = "{percent}% 󰌵";
+          on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
+          on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 1%+";
+          tooltip = false;
+        };
         "sway/scratchpad" = {
           format = "{icon}";
           show-empty = false;
@@ -161,18 +186,18 @@
           tooltip = false;
         };
         power-profiles-daemon = {
-          format = " {icon}";
-          tooltip-format = "Power profile: {profile}nDriver: {driver}";
+          format = "{icon}";
+          tooltip-format = "Power profile: {profile}";
           tooltip = true;
           format-icons = {
-            default = "";
-            performance = "";
-            balanced = "";
-            power-saver = "";
+            default = "󰓅";
+            performance = "󰓅";
+            balanced = "󰾅";
+            power-saver = "󰾆";
           };
         };
         memory = {
-          format = "{}% ";
+          format = "{}% ";
         };
         network = {
           interval = 1;
@@ -213,11 +238,11 @@
           interval = 1;
           return-type = "json";
           exec = pkgs.writeShellScript "metadata.sh" ''
-            status=$(playerctl -p spotify status)
-            artist=$(playerctl -p spotify metadata xesam:artist)
-            title=$(playerctl -p spotify metadata xesam:title)
-            album=$(playerctl -p spotify metadata xesam:album)
-            time=$(playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
+            status=$(${pkgs.playerctl}/bin/playerctl -p spotify status)
+            artist=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:artist)
+            title=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:title)
+            album=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:album)
+            time=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
             if [[ -z $status ]]
             then
                # spotify is dead, we should die to.
@@ -226,13 +251,13 @@
             if [[ $status == "Playing" ]]
             then
                echo "{\"class\": \"playing\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-               pkill -RTMIN+5 waybar
+               /run/current-system/sw/bin/pkill -RTMIN+5 waybar
                exit
             fi
             if [[ $status == "Paused" ]]
             then
                echo "{\"class\": \"paused\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-               pkill -RTMIN+5 waybar
+               /run/current-system/sw/bin/pkill -RTMIN+5 waybar
                exit
             fi
           '';

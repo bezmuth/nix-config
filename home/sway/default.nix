@@ -22,13 +22,13 @@
       wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
       alacritty
       wmenu
-      light
       playerctl
       networkmanagerapplet
       blueman
       xfce.thunar
       light
       autotiling-rs
+      brightnessctl
     ];
   };
   wayland.windowManager.sway = {
@@ -79,8 +79,8 @@
           "${m}+end" = "exec swaylock";
 
           # function keys
-          "XF86MonBrightnessDown" = "exec light -U 10";
-          "XF86MonBrightnessUp" = "exec light -A 10";
+          "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
+          "XF86MonBrightnessUp" = "exec brightnessctl s 5%+";
           "XF86AudioRaiseVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ +1%";
           "XF86AudioLowerVolume" = "exec pactl set-sink-volume @DEFAULT_SINK@ -1%";
           "XF86AudioMute" = "exec pactl set-sink-mute @DEFAULT_SINK@ toggle";

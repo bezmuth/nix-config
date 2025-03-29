@@ -36,66 +36,40 @@
       systems,
       ...
     }:
+    with inputs;
     let
       inherit (nixpkgs) lib;
-      pc-modules =
-        [
-          ./modules
-          ./modules/pc-services.nix
-          ./modules/pc-programs.nix
-          {
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              backupFileExtension = "hmbak";
-              users.bezmuth.imports = [
-                inputs.catppuccin.homeManagerModules.catppuccin
-                inputs.spicetify-nix.homeManagerModules.spicetify
-                ./home
-              ];
-              sharedModules = [ inputs.agenix.homeManagerModules.age ];
-              extraSpecialArgs = {
-                inherit inputs self;
-              };
-            };
-          }
-        ]
-        ++ (with inputs; [
-          home-manager.nixosModules.default
-          nix-flatpak.nixosModules.nix-flatpak
-          agenix.nixosModules.default
-          catppuccin.nixosModules.catppuccin
-        ]);
-
-      server-modules =
-        [
-          ./modules
-          ./modules/services.nix
-          ./modules/programs.nix
-        ]
-        ++ (with inputs; [
-          miniflux-yt-plus.nixosModules.miniflux-yt-plus
-          agenix.nixosModules.default
-          nix-minecraft.nixosModules.minecraft-servers
-        ]);
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: inputs.treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
-    in
-    inputs.utils.lib.mkFlake {
-      inherit self inputs;
-      supportedSystems = [
-        "x86_64-linux"
+      pc-modules = [
+        ./modules/pc-services.nix
+        ./modules/pc-programs.nix
+        ./modules/home-manager.nix
+        home-manager.nixosModules.default
+        nix-flatpak.nixosModules.nix-flatpak
+        agenix.nixosModules.default
+        catppuccin.nixosModules.catppuccin
       ];
+
+      server-modules = [
+        ./modules/services.nix
+        ./modules/programs.nix
+        miniflux-yt-plus.nixosModules.miniflux-yt-plus
+        agenix.nixosModules.default
+        nix-minecraft.nixosModules.minecraft-servers
+      ];
+      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
+      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+    in
+    utils.lib.mkFlake {
+      inherit self inputs;
       channelsConfig.allowUnfree = true;
 
       formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
 
       sharedOverlays = [
-        inputs.devshell.overlays.default
-        inputs.miniflux-yt-plus.overlays.default
-        (import ./pkgs)
-        inputs.nur.overlays.default
-        inputs.nix-minecraft.overlay
+        devshell.overlays.default
+        miniflux-yt-plus.overlays.default
+        nur.overlays.default
+        nix-minecraft.overlay
       ];
 
       hosts = {
@@ -104,16 +78,10 @@
         Salas.modules = [ ./hosts/salas ] ++ server-modules;
       };
 
-      hostDefaults.modules = [ ];
+      hostDefaults.modules = [ ./modules ];
 
-      outputsBuilder =
-        channels: with channels.nixpkgs; {
-          defaultPackage = channels.nixpkgs.devshell.mkShell {
-            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
-          };
-          devShell = channels.nixpkgs.devshell.mkShell {
-            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
-          };
-        };
+      devShells.default = pkgs.devshell.mkShell {
+        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
+      };
     };
 }
