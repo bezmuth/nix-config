@@ -4,6 +4,7 @@
 args@{
   config,
   pkgs,
+  lib,
   ...
 }:
 {
@@ -23,7 +24,7 @@ args@{
 
   # restart cady when it fails
   systemd.services.caddy.serviceConfig = {
-    RestartSec = 20;
+    RestartSec = lib.mkForce "20s";
   };
 
   # Bootloader.
