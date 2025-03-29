@@ -23,8 +23,7 @@ args@{
 
   # restart cady when it fails
   systemd.services.caddy.serviceConfig = {
-    Restart = "always";
-    RestartSec = 5;
+    RestartSec = 20;
   };
 
   # Bootloader.
