@@ -145,8 +145,9 @@
         ];
         "backlight" = {
           format = "{percent}% 󰌵";
-          on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 1%-";
-          on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 1%+";
+          on-scroll-down = "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
+          on-scroll-up = "${pkgs.brightnessctl}/bin/brightnessctl set 5%+";
+          on-click = "${pkgs.brightnessctl}/bin/brightnessctl set 50%";
           tooltip = false;
         };
         "sway/scratchpad" = {
