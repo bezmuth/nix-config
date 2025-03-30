@@ -22,7 +22,6 @@
       flake = false;
     };
     agenix.url = "github:ryantm/agenix";
-    miniflux-yt-plus.url = "github:bezmuth/miniflux-yt-plus";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     catppuccin.url = "github:catppuccin/nix";
     spicetify-nix.url = "github:Gerg-L/spicetify-nix";
@@ -49,7 +48,6 @@
       ];
 
       server-modules = [
-        miniflux-yt-plus.nixosModules.miniflux-yt-plus
         nix-minecraft.nixosModules.minecraft-servers
       ];
       eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
@@ -63,7 +61,6 @@
 
       sharedOverlays = [
         devshell.overlays.default
-        miniflux-yt-plus.overlays.default
         nur.overlays.default
         nix-minecraft.overlay
       ];
