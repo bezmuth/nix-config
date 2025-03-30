@@ -7,7 +7,7 @@ _: {
       # Colors
       background-color=#1e1e2e
       text-color=#cdd6f4
-      border-color=#89b4fa
+      border-color=#f5c2e7
       progress-color=over #313244
       icons=1
       ignore-timeout=1
