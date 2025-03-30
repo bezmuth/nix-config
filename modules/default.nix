@@ -57,6 +57,7 @@
       "wireshark"
       "libvirtd"
       "docker"
+      "i2c"
     ];
   };
   security.polkit.enable = true;

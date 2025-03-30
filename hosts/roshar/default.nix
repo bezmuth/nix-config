@@ -16,6 +16,7 @@
   environment.systemPackages = with pkgs; [
     tuxclocker # nvidia overclocking
     nvtopPackages.full
+    ddcutil
   ];
 
   hardware = {
@@ -28,6 +29,10 @@
       open = true;
     };
   };
+
+  # get monitor brightness control working
+  hardware.i2c.enable = true;
+  boot.kernelModules = [ "i2c-dev" ];
 
   environment.variables = {
     WLR_RENDERER = "vulkan";
