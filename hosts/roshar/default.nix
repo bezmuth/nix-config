@@ -67,8 +67,4 @@
 
   system.stateVersion = "22.05"; # Did you read the comment?
 
-  #deadlock
-  boot.kernel.sysctl = {
-    "vm.max_map_count" = 1048576;
-  };
 }

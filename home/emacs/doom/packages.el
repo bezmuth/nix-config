@@ -53,3 +53,4 @@
 (package! mastodon)
 (package! w3m)
 (package! catppuccin-theme)
+(package! wgsl-mode)

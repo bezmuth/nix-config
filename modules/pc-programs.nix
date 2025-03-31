@@ -71,7 +71,7 @@
     powertop
     transmission-remote-gtk
     wdisplays
-    qbittorrent
+    transmission_4-gtk
   ];
   fonts.packages =
     with pkgs;

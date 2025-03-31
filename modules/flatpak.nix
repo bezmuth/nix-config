@@ -11,6 +11,7 @@ _: {
       "net.lutris.Lutris"
       "io.github.martinrotter.rssguard"
       "org.kde.tokodon"
+      "com.github.tchx84.Flatseal"
     ];
   };
   environment.sessionVariables.PATH = [
