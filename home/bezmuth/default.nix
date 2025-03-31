@@ -44,6 +44,7 @@
     gtk.enable = true;
     zathura.enable = true;
     alacritty.enable = true;
+    zellij.enable = true;
   };
   programs.alacritty.enable = true;
 }
