@@ -8,6 +8,7 @@
     ./flatpak.nix
     ./librewolf
   ];
+  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # enable wayland in electron apps (spotify)
   programs = {
     # both the fish and bash bits are needed for fish to work
     fish.enable = true;
@@ -72,6 +73,7 @@
     transmission-remote-gtk
     wdisplays
     transmission_4-gtk
+    ungoogled-chromium
   ];
   fonts.packages =
     with pkgs;

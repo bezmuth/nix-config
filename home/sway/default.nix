@@ -62,6 +62,14 @@
         # Idle
         { command = "$HOME/.config/sway/idle.sh"; }
       ];
+      window.commands = [
+        {
+          command = "floating enable";
+          criteria = {
+            title = "winit window";
+          };
+        }
+      ];
       assigns = {
         "10" = [ { app_id = "thunderbird"; } ];
       };
