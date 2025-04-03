@@ -19,6 +19,7 @@ args@{
     (import ../../modules/gotosocial (args // { localPort = 10003; }))
     (import ../../modules/actual (args // { localPort = 10004; }))
     (import ../../modules/nextcloud (args // { localPort = 10005; }))
+    (import ../../modules/rmfakecloud (args // { localPort = 10006; }))
     ../../modules/paper
   ];
 
