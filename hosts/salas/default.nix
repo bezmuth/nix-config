@@ -81,6 +81,7 @@ args@{
         "social.bezmuth.uk"
         "miniflux.bezmuth.uk"
         "calibre.bezmuth.uk"
+        "rm.bezmuth.uk"
       ];
       apiTokenFile = config.age.secrets.cloudflare-token.path;
       proxied = true;
