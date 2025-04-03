@@ -24,6 +24,8 @@
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
+      extraOptions = ["--unsupported-gpu"];
+      extraSessionCommands = "export WLR_RENDERER=vulkan";
     };
     xwayland.enable = true;
     kdeconnect.enable = true;
