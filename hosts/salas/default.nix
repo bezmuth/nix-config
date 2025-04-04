@@ -75,17 +75,17 @@ args@{
         PasswordAuthentication = false;
       };
     };
-    cloudflare-dyndns = {
+    cfdyndns = {
       enable = true;
-      domains = [
+      records = [
         "bezmuth.uk"
         "social.bezmuth.uk"
         "miniflux.bezmuth.uk"
         "calibre.bezmuth.uk"
         "rm.bezmuth.uk"
       ];
-      apiTokenFile = config.age.secrets.cloudflare-token.path;
-      proxied = true;
+      email = "benkel97@protonmail.com";
+      apiKeyFile = config.age.secrets.cloudflare-token.path;
     };
   };
   networking.firewall.allowedTCPPorts = [
