@@ -76,6 +76,7 @@
     wdisplays
     transmission_4-gtk
     ungoogled-chromium
+    cloudflare-dyndns-custom
   ];
   fonts.packages =
     with pkgs;
