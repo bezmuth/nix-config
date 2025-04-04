@@ -85,7 +85,7 @@ args@{
         "rm.bezmuth.uk"
       ];
       email = "benkel97@protonmail.com";
-      apiKeyFile = config.age.secrets.cloudflare-token.path;
+      apiTokenFile = config.age.secrets.cloudflare-token.path;
     };
   };
   networking.firewall.allowedTCPPorts = [
