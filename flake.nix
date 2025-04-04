@@ -63,6 +63,7 @@
         devshell.overlays.default
         nur.overlays.default
         nix-minecraft.overlay
+        ./pkgs
       ];
 
       hosts = {

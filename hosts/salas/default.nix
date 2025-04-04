@@ -76,6 +76,7 @@ args@{
       };
     };
     cloudflare-dyndns = {
+      package = pkgs.cloudflare-dyndns-custom;
       enable = true;
       domains = [
         "bezmuth.uk"
