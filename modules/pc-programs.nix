@@ -24,7 +24,7 @@
     sway = {
       enable = true;
       wrapperFeatures.gtk = true;
-      extraOptions = ["--unsupported-gpu"];
+      extraOptions = [ "--unsupported-gpu" ];
       extraSessionCommands = "export WLR_RENDERER=vulkan";
     };
     xwayland.enable = true;
@@ -75,7 +75,6 @@
     transmission-remote-gtk
     wdisplays
     transmission_4-gtk
-    ungoogled-chromium
   ];
   fonts.packages =
     with pkgs;
