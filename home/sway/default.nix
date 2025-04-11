@@ -3,7 +3,6 @@
   pkgs,
   config,
   lib,
-  osConfig,
   ...
 }:
 {
@@ -101,13 +100,13 @@
           "Alt+Print" = "exec ''grim - | wl-copy -t image/png''";
         };
       input = {
-        "12815:20571:Evision_RGB_Keyboard_Mouse" = {
-          xkb_layout = "us";
+        "type:keyboard" = {
+          xkb_layout = "gb";
           xkb_options = "caps:escape";
         };
         # lan-mouse config
         "0:0:wlr_virtual_keyboard_v1" = {
-          xkb_layout = if osConfig.networking.hostName == "Roshar" then "gb" else "us";
+          xkb_layout = "gb";
           xkb_options = "caps:escape";
         };
         "6058:20564:ThinkPad_Extra_Buttons" = {
@@ -121,6 +120,10 @@
         "type:touchpad" = {
           tap = "enabled";
           dwt = "false";
+        };
+        "12815:20571:Evision_RGB_Keyboard" = {
+          xkb_layout = "us";
+          xkb_options = "caps:escape";
         };
       };
 

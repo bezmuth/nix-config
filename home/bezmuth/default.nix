@@ -53,6 +53,10 @@
     enable = true;
     systemd = true;
     settings = {
+      authorized_fingerprints = [
+        "86:8b:df:45:bd:a5:0d:c8:83:69:0a:47:b0:09:2d:6a:5c:ea:cd:1e:4e:30:15:f0:2c:02:c2:7e:3c:03:14:a5"
+        "d1:ef:61:e4:86:91:e4:bb:81:54:44:62:8d:b1:cd:56:36:32:c7:a2:ca:17:f2:d6:76:67:fc:30:71:d7:bd:84"
+      ];
       clients = [
         {
           position = if osConfig.networking.hostName == "Roshar" then "bottom" else "top";
