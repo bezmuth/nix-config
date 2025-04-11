@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  osConfig,
   ...
 }:
 {
@@ -47,4 +48,16 @@
     zellij.enable = true;
   };
   programs.alacritty.enable = true;
+
+  programs.lan-mouse = {
+    enable = true;
+    systemd = true;
+    settings = {
+      clients = {
+        position = if osConfig.networking.hostName == "Roshar" then "bottom" else "top";
+        hostname =  if osConfig.networking.hostName == "Roshar" then "mishim" else "roshar";
+        activate_on_startup = true;
+      };
+    };
+  };
 }
