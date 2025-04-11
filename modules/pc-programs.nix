@@ -76,7 +76,7 @@
     transmission-remote-gtk
     wdisplays
     transmission_4-gtk
-    input-leap
+    lan-mouse
   ];
   fonts.packages =
     with pkgs;
