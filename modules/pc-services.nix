@@ -23,8 +23,14 @@
         xfce.enable = true;
         xterm.enable = false;
       };
-      displayManager.lightdm = {
-        enable = true;
+    };
+    greetd = {
+      package = pkgs.greetd.tuigreet;
+      enable = true;
+      settings = rec {
+        default_session = {
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -r --asterisks --cmd 'sway --unsupported-gpu'";
+        };
       };
     };
     xserver.excludePackages = [ pkgs.xterm ];
