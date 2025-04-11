@@ -40,7 +40,8 @@
     ];
   };
 
-  boot.initrd.luks.devices."luks-3d47ac02-ef03-4823-928c-1d1faa1d58bf".device = "/dev/disk/by-uuid/3d47ac02-ef03-4823-928c-1d1faa1d58bf";
+  boot.initrd.luks.devices."luks-3d47ac02-ef03-4823-928c-1d1faa1d58bf".device =
+    "/dev/disk/by-uuid/3d47ac02-ef03-4823-928c-1d1faa1d58bf";
 
   swapDevices = [
     { device = "/dev/disk/by-uuid/53158c91-d15f-413b-aaff-d20a7cd05698"; }
