@@ -29,6 +29,7 @@
     };
     xwayland.enable = true;
     kdeconnect.enable = true;
+    xfconf.enable = true;
     steam = {
       enable = true;
       extraCompatPackages = [ pkgs.proton-ge-bin ];
