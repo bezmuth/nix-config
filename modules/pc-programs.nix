@@ -76,6 +76,7 @@
     transmission-remote-gtk
     wdisplays
     transmission_4-gtk
+    barrier
   ];
   fonts.packages =
     with pkgs;
