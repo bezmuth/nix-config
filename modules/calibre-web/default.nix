@@ -23,7 +23,9 @@
       virtualHosts."${url}" = {
         useACMEHost = acmeHost;
         extraConfig = ''
-          reverse_proxy http://127.0.0.1:${builtins.toString localPort}
+          reverse_proxy 127.0.0.1:${builtins.toString localPort} {
+              header_up X-Scheme https
+          }
         '';
       };
     };
