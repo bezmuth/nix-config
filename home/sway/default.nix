@@ -85,7 +85,6 @@
           "grave" = "scratchpad show";
           "Shift+grave" = "move scratchpad";
           "${m}+end" = "exec swaylock";
-          "${m}+Shift+Return" = "exec alacritty -e zellij --layout nix-config/dev-layout.kdl";
 
           # function keys
           "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
