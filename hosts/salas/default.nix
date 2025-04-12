@@ -14,7 +14,7 @@ args@{
     (import ../../modules/seedbox args)
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
-    (import ../../modules/kavita (args // { localPort = 10001; }))
+    (import ../../modules/calibre (args // { localPort = 10001; }))
     (import ../../modules/miniflux (args // { localPort = 10002; }))
     (import ../../modules/gotosocial (args // { localPort = 10003; }))
     (import ../../modules/actual (args // { localPort = 10004; }))
@@ -83,7 +83,7 @@ args@{
         "bezmuth.uk"
         "social.bezmuth.uk"
         "miniflux.bezmuth.uk"
-        "kavita.bezmuth.uk"
+        "calibre.bezmuth.uk"
         "rm.bezmuth.uk"
       ];
       apiTokenFile = config.age.secrets.cloudflare-token.path;

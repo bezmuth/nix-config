@@ -1,16 +1,21 @@
 {
   localPort ? 0,
-  url ? "kavita.bezmuth.uk",
+  url ? "calibre.bezmuth.uk",
   acmeHost ? "bezmuth.uk",
   ...
 }:
 {
   services = {
-    kavita = {
+    calibre-web = {
       group = "srv-data";
       enable = true;
-      settings = {
-        Port = localPort;
+      listen = {
+        ip = "127.0.0.1";
+        port = localPort;
+      };
+      options = {
+        enableBookUploading = true;
+        enableBookConversion = true;
       };
     };
     caddy = {
