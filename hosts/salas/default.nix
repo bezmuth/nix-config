@@ -14,7 +14,7 @@ args@{
     (import ../../modules/seedbox args)
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
-    (import ../../modules/calibre-web (args // { localPort = 10001; }))
+    (import ../../modules/kavita (args // { localPort = 10001; }))
     (import ../../modules/miniflux (args // { localPort = 10002; }))
     (import ../../modules/gotosocial (args // { localPort = 10003; }))
     (import ../../modules/actual (args // { localPort = 10004; }))
@@ -58,6 +58,7 @@ args@{
       "bezmuth".openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHVuAgXZTD4uta2/G9CSdJM7cm28PJS2pTGsF9PO6GQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBI2o2Be33TpGgphq7mDo3XKzAnpPXM2pfJ6vgPI/HqC"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqo8BiAIeHSZ/UUoBqODHlSZH2IWvBfzxd5lF/81CQB"
       ];
     };
   };
@@ -82,7 +83,7 @@ args@{
         "bezmuth.uk"
         "social.bezmuth.uk"
         "miniflux.bezmuth.uk"
-        "calibre.bezmuth.uk"
+        "kavita.bezmuth.uk"
         "rm.bezmuth.uk"
       ];
       apiTokenFile = config.age.secrets.cloudflare-token.path;

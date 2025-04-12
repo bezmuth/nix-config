@@ -44,6 +44,7 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     tmp.cleanOnBoot = true;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
   users.defaultUserShell = pkgs.bash;
   users.users.bezmuth = {
