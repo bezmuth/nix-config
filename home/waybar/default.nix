@@ -57,14 +57,6 @@
         background-color: @base;
         color: @text;
       }
-      #custom-spotify-metadata {
-        background-color: @surface0;
-        color: @text;
-      }
-      #custom-spotify-metadata.playing {
-        background-color: @green;
-        color: @base;
-      }
       #clock {
         background-color: @surface0;
         color: @text;
@@ -133,7 +125,6 @@
         modules-center = [ "clock" ];
         modules-left = [ "sway/workspaces" ];
         modules-right = [
-          "custom/spotify-metadata"
           "tray"
           "power-profiles-daemon"
           "pulseaudio"
@@ -231,38 +222,6 @@
         };
         "sway/mode" = {
           format = ''<span style="italic">{}</span>'';
-        };
-        "custom/spotify-metadata" = {
-          format = " {}   ";
-          max-length = 100;
-          interval = 1;
-          return-type = "json";
-          exec = pkgs.writeShellScript "metadata.sh" ''
-            status=$(${pkgs.playerctl}/bin/playerctl -p spotify status)
-            artist=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:artist)
-            title=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:title)
-            album=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata xesam:album)
-            time=$(${pkgs.playerctl}/bin/playerctl -p spotify metadata --format '{{duration(position)}}|{{duration(mpris:length)}}')
-            if [[ -z $status ]]
-            then
-               # spotify is dead, we should die to.
-               exit
-            fi
-            if [[ $status == "Playing" ]]
-            then
-               echo "{\"class\": \"playing\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-               /run/current-system/sw/bin/pkill -RTMIN+5 waybar
-               exit
-            fi
-            if [[ $status == "Paused" ]]
-            then
-               echo "{\"class\": \"paused\", \"text\": \"$time - $artist - $title\", \"tooltip\": \"$artist - $title - $album\"}"
-               /run/current-system/sw/bin/pkill -RTMIN+5 waybar
-               exit
-            fi
-          '';
-          signal = 5;
-          smooth-scrolling-threshold = 1.0;
         };
         temperature = {
           critical-threshold = 80;

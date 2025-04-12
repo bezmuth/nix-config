@@ -28,7 +28,6 @@ args@{
     capacity = 100;
   };
 
-
   # restart cady when it fails
   systemd.services.caddy.serviceConfig = {
     RestartSec = lib.mkForce "20s";
