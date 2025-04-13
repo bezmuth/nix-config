@@ -8,7 +8,44 @@
     ./flatpak.nix
     ./librewolf
   ];
-  environment.sessionVariables.NIXOS_OZONE_WL = "1"; # enable wayland in electron apps (spotify)
+  environment = {
+    sessionVariables.NIXOS_OZONE_WL = "1"; # enable wayland in electron apps (spotify)
+    localBinInPath = true;
+    systemPackages = with pkgs; [
+      (catppuccin-gtk.override {
+        accents = [ "pink" ];
+        size = "compact";
+        variant = "mocha";
+      })
+      file-roller
+      tor-browser
+      temurin-jre-bin-17
+      prismlauncher
+      heroic
+      mpv
+      ispell
+      nextcloud-client
+      webcord-vencord
+      thunderbird
+      protonmail-bridge
+      android-studio
+      proton-pass
+      bleachbit
+      protonvpn-gui
+      gparted
+      anki-bin
+      libreoffice-fresh
+      inputs.remarkable-utility.packages.${system}.default
+      r2modman
+      spotify
+      powertop
+      transmission-remote-gtk
+      wdisplays
+      transmission_4-gtk
+      distrobox
+      boxbuddy
+    ];
+  };
   programs = {
     # both the fish and bash bits are needed for fish to work
     fish.enable = true;
@@ -45,38 +82,6 @@
     gamemode.enableRenice = true;
     virt-manager.enable = true;
   };
-  environment.systemPackages = with pkgs; [
-    (catppuccin-gtk.override {
-      accents = [ "pink" ];
-      size = "compact";
-      variant = "mocha";
-    })
-    file-roller
-    tor-browser
-    temurin-jre-bin-17
-    prismlauncher
-    heroic
-    mpv
-    ispell
-    nextcloud-client
-    webcord-vencord
-    thunderbird
-    protonmail-bridge
-    android-studio
-    proton-pass
-    bleachbit
-    protonvpn-gui
-    gparted
-    anki-bin
-    libreoffice-fresh
-    inputs.remarkable-utility.packages.${system}.default
-    r2modman
-    spotify
-    powertop
-    transmission-remote-gtk
-    wdisplays
-    transmission_4-gtk
-  ];
   fonts.packages =
     with pkgs;
     [
