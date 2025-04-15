@@ -79,9 +79,9 @@
         in
         lib.mkOptionDefault {
           "${m}+t" = "split toggle";
-          "${m}+bracketright" = "exec playerctl next";
-          "${m}+bracketleft" = "exec playerctl play-pause";
-          "${m}+p" = "exec playerctl previous";
+          "${m}+bracketright" = "exec playerctl -p spotify next";
+          "${m}+bracketleft" = "exec playerctl -p spotify play-pause";
+          "${m}+p" = "exec playerctl -p spotify previous";
           "grave" = "scratchpad show";
           "Shift+grave" = "move scratchpad";
           "${m}+end" = "exec swaylock";
