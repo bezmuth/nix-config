@@ -118,7 +118,17 @@
           color: @base;
       }
       #custom-pomodoro {
+          background-color: @base;
+      }
+      #custom-pomodoro.pause {
+          background-color: @base;
+      }
+      #custom-pomodoro.work {
           background-color: @red;
+          color: @base;
+      }
+      #custom-pomodoro.break {
+          background-color: @green;
           color: @base;
       }
     '';
