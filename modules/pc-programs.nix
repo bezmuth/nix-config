@@ -44,6 +44,7 @@
       transmission_4-gtk
       distrobox
       boxbuddy
+      ares
     ];
   };
   programs = {

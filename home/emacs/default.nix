@@ -37,6 +37,8 @@
       aspellDicts.en-computers
       gcc
       w3m
+      # babel
+      go
     ];
     sessionPath = [ "${config.xdg.configHome}/emacs/bin" ];
 

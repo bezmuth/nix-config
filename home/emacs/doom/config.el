@@ -219,3 +219,5 @@
 (setq browse-url-browser-function 'w3m-goto-url-new-session)
 
 (map! :leader "ow" 'w3m-search)
+
+(org-noter-enable-org-roam-integration)
