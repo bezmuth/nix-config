@@ -123,7 +123,7 @@ args@{
       description = "Reboot the system";
       serviceConfig.ExecStart = "/run/current-system/sw/bin/reboot";
     };
-    timers."reboot-daily" = {
+    timers."reboot-weekly" = {
       wantedBy = [ "timers.target" ];
       description = "Reboot the system every week";
       timerConfig = {
