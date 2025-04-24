@@ -119,16 +119,16 @@ args@{
 
   # reboot once a day
   systemd = {
-    services.reboot-daily = {
+    services.reboot-weekly = {
       description = "Reboot the system";
       serviceConfig.ExecStart = "/run/current-system/sw/bin/reboot";
     };
     timers."reboot-daily" = {
       wantedBy = [ "timers.target" ];
-      description = "Reboot the system every day";
+      description = "Reboot the system every week";
       timerConfig = {
-        OnCalendar = "04:00";
-        unit = "reboot-daily";
+        OnCalendar = "weekly";
+        unit = "reboot-weekly";
       };
     };
   };

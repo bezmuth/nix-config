@@ -8,7 +8,7 @@
 {
   imports = [
     ../waybar
-    ../mako
+    ../mako # switch to swaynotificationcenter?
     ../swaylock
   ];
   home = {
