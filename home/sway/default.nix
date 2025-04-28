@@ -38,7 +38,7 @@
     config = rec {
       modifier = "Mod4";
       menu = "wmenu-run";
-      # Use kitty as default terminal
+      # Use alacritty as default terminal
       terminal = "alacritty";
       colors.focused = {
         background = "#f5c2e7";
@@ -51,6 +51,7 @@
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
         }
+        { command = "~/.profile"; }
         { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
