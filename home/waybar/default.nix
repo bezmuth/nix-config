@@ -1,5 +1,10 @@
 { pkgs, ... }:
 {
+  home = {
+    packages = with pkgs; [
+      waybar-module-pomodoro
+    ];
+  };
   programs.waybar = {
     enable = true;
     systemd.enable = true;
@@ -112,6 +117,20 @@
           background-color: @yellow;
           color: @base;
       }
+      #custom-pomodoro {
+          background-color: @base;
+      }
+      #custom-pomodoro.pause {
+          background-color: @base;
+      }
+      #custom-pomodoro.work {
+          background-color: @red;
+          color: @base;
+      }
+      #custom-pomodoro.break {
+          background-color: @green;
+          color: @base;
+      }
     '';
     settings = [
       {
@@ -125,6 +144,7 @@
         modules-center = [ "clock" ];
         modules-left = [ "sway/workspaces" ];
         modules-right = [
+          "custom/pomodoro"
           "tray"
           "power-profiles-daemon"
           "pulseaudio"
@@ -227,6 +247,13 @@
           critical-threshold = 80;
           format = "{temperatureC}°C ";
           format-icons = [ "" ];
+        };
+        "custom/pomodoro" = {
+          format = "{}";
+          return-type = "json";
+          exec = "waybar-module-pomodoro";
+          on-click = "waybar-module-pomodoro toggle";
+          on-click-right = "waybar-module-pomodoro reset";
         };
       }
     ];
