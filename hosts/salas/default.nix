@@ -5,6 +5,7 @@ args@{
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -31,6 +32,18 @@ args@{
   # restart cady when it fails
   systemd.services.caddy.serviceConfig = {
     RestartSec = lib.mkForce "20s";
+  };
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
   };
 
   # Bootloader.
