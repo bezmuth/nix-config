@@ -29,10 +29,8 @@ args@{
     capacity = 100;
   };
 
-  # restart cady when it fails
-  systemd.services.caddy.serviceConfig = {
-    RestartSec = lib.mkForce "20s";
-  };
+  # load caddy after tailscale so it doesn't cry all the time
+  systemd.services.caddy.serviceConfig.After = ["tailscaled.service"];
 
   system.autoUpgrade = {
     enable = true;
