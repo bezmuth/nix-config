@@ -133,7 +133,7 @@
 
       output = {
         "*" = {
-          bg = "${./wallpaper.png} fill #000000";
+          bg = "${./wallpaper.jpg} fill #000000";
         };
         "HDMI-A-1" = {
           scale = "1.5";
