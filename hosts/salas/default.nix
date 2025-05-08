@@ -5,6 +5,7 @@ args@{
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -28,9 +29,19 @@ args@{
     capacity = 100;
   };
 
-  # restart cady when it fails
-  systemd.services.caddy.serviceConfig = {
-    RestartSec = lib.mkForce "20s";
+  # load caddy after tailscale so it doesn't cry all the time
+  systemd.services.caddy.serviceConfig.After = ["tailscaled.service"];
+
+  system.autoUpgrade = {
+    enable = true;
+    flake = inputs.self.outPath;
+    flags = [
+      "--update-input"
+      "nixpkgs"
+      "-L" # print build logs
+    ];
+    dates = "02:00";
+    randomizedDelaySec = "45min";
   };
 
   # Bootloader.

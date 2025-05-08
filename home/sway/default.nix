@@ -83,8 +83,8 @@
           "${m}+bracketright" = "exec playerctl -p spotify next";
           "${m}+bracketleft" = "exec playerctl -p spotify play-pause";
           "${m}+p" = "exec playerctl -p spotify previous";
-          "grave" = "scratchpad show";
-          "Shift+grave" = "move scratchpad";
+          #"grave" = "scratchpad show";
+          #"Shift+grave" = "move scratchpad";
           "${m}+end" = "exec swaylock";
 
           # function keys
