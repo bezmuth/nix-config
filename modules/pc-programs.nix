@@ -45,6 +45,10 @@
       distrobox
       boxbuddy
       ares
+      unciv
+      endless-sky
+      openttd
+      dino
     ];
   };
   programs = {

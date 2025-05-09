@@ -51,7 +51,6 @@
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
         }
-        { command = "~/.profile"; }
         { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
