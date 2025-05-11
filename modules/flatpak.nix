@@ -12,7 +12,6 @@ _: {
       "io.github.martinrotter.rssguard"
       "org.kde.tokodon"
       "com.github.tchx84.Flatseal"
-      "org.azahar_emu.Azahar"
     ];
   };
   environment.sessionVariables.PATH = [
