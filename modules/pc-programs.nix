@@ -49,6 +49,7 @@
       endless-sky
       openttd
       dino
+      cachix
     ];
   };
   programs = {
