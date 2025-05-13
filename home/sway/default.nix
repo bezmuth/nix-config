@@ -24,7 +24,7 @@
       playerctl
       networkmanagerapplet
       blueman
-      xfce.thunar
+      pcmanfm
       light
       autotiling-rs
       brightnessctl
