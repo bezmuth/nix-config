@@ -3,5 +3,4 @@ _: super: {
   # Custom packages
   snore = super.callPackage ./snore { };
   waybar-module-pomodoro = super.callPackage ./waybar-module-pomodoro { };
-  azahar = super.callPackage ./azahar {  };
 }

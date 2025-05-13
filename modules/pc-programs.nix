@@ -49,7 +49,6 @@
       endless-sky
       openttd
       dino
-      azahar
     ];
   };
   programs = {
