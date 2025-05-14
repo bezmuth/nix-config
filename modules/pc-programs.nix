@@ -17,7 +17,8 @@
         size = "compact";
         variant = "mocha";
       })
-      file-roller
+      mate.engrampa
+      mate.eom
       tor-browser
       temurin-jre-bin-17
       prismlauncher
@@ -50,6 +51,7 @@
       openttd
       dino
       cachix
+      proton-pass
     ];
   };
   programs = {
