@@ -124,9 +124,16 @@
 (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
 
 ;; setup feeds
+(defun get-string-from-file (filePath)
+  "Return file content as string."
+  (with-temp-buffer
+    (insert-file-contents filePath)
+    (buffer-string)))
 (setq elfeed-protocol-feeds '(("fever+https://bezmuth@miniflux.bezmuth.uk"
                                :api-url "https://miniflux.bezmuth.uk/fever/"
-                               :password (getenv "MINIFLUX_TOKEN"))))
+                               :password (substring ; remove newline
+                                          (get-string-from-file
+                                           (getenv "MINIFLUX_TOKEN_FILE")) 0 -1))))
 
 ;; enable elfeed-protocol
 (setq elfeed-protocol-enabled-protocols '(fever newsblur owncloud ttrss))

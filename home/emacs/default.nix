@@ -49,7 +49,7 @@
       DOOMLOCALDIR = "$HOME/.local/share/doom";
       DOOMPROFILELOADFILE = "$HOME/.local/share/doom/profiles/load.el";
       # Get the miniflux fever token
-      MINIFLUX_TOKEN = ''$(${pkgs.coreutils}/bin/cat ${config.age.secrets.miniflux-emacs-token.path})'';
+      MINIFLUX_TOKEN_FILE = "${config.age.secrets.miniflux-emacs-token.path}";
     };
   };
 
