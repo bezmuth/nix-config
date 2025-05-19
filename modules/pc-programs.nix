@@ -9,7 +9,10 @@
     ./librewolf
   ];
   environment = {
-    sessionVariables.NIXOS_OZONE_WL = "1"; # enable wayland in electron apps (spotify)
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1"; # enable wayland in electron apps (spotify)
+      ANKI_WAYLAND = "1";
+    };
     localBinInPath = true;
     systemPackages = with pkgs; [
       (catppuccin-gtk.override {
@@ -52,6 +55,8 @@
       dino
       cachix
       proton-pass
+      feather
+      anki-bin
     ];
   };
   programs = {
