@@ -1,7 +1,6 @@
 # common config between "all" (roshar and mishim) devices
 {
   pkgs,
-  config,
   ...
 }:
 {
@@ -31,8 +30,6 @@
       experimental-features = nix-command flakes
     '';
   };
-  nixpkgs.config.allowBroken = true;
-  nixpkgs.config.allowUnfree = true;
 
   hardware.enableRedistributableFirmware = true;
   networking.networkmanager.enable = true;

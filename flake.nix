@@ -7,9 +7,7 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
     devshell.url = "github:numtide/devshell";
-    devshell.inputs.nixpkgs.follows = "nixpkgs";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -31,14 +29,27 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
-      systems,
       ...
     }:
     with inputs;
     let
-      inherit (nixpkgs) lib;
+      system = "x86_64-linux";
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = [
+          devshell.overlays.default
+          devshell.overlays.default
+          nur.overlays.default
+          nix-minecraft.overlay
+          (import ./pkgs)
+        ];
+      };
+      common-modules = [
+        ./modules
+        agenix.nixosModules.default
+      ];
       pc-modules = [
         ./modules/pc-services.nix
         ./modules/pc-programs.nix
@@ -46,43 +57,30 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         catppuccin.nixosModules.catppuccin
-      ];
-
+      ] ++ common-modules;
       server-modules = [
         nix-minecraft.nixosModules.minecraft-servers
-      ];
-      eachSystem = f: nixpkgs.lib.genAttrs (import systems) (system: f nixpkgs.legacyPackages.${system});
-      treefmtEval = eachSystem (pkgs: treefmt-nix.lib.evalModule pkgs ./treefmt.nix);
+      ] ++ common-modules;
+      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      host =
+        modules:
+        nixpkgs.lib.nixosSystem {
+          inherit pkgs modules;
+          specialArgs = { inherit inputs; };
+        };
     in
-    utils.lib.mkFlake {
-      inherit self inputs;
-      channelsConfig.allowUnfree = true;
+    {
+      formatter.${system} = treefmtEval.config.build.wrapper;
 
-      formatter = eachSystem (pkgs: treefmtEval.${pkgs.system}.config.build.wrapper);
-
-      sharedOverlays = [
-        devshell.overlays.default
-        nur.overlays.default
-        nix-minecraft.overlay
-        (import ./pkgs)
-      ];
-
-      hosts = {
-        Mishim.modules = [ ./hosts/mishim ] ++ pc-modules;
-        Roshar.modules = [ ./hosts/roshar ] ++ pc-modules;
-        Salas.modules = [ ./hosts/salas ] ++ server-modules;
+      nixosConfigurations = {
+        Mishim = host ([ ./hosts/mishim ] ++ pc-modules);
+        Roshar = host ([ ./hosts/roshar ] ++ pc-modules);
+        Salas = host ([ ./hosts/salas ] ++ server-modules);
       };
 
-      hostDefaults.modules = [
-        ./modules
-        agenix.nixosModules.default
-      ];
+      devShells.${system}.default = pkgs.devshell.mkShell {
+        imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
+      };
 
-      outputsBuilder =
-        channels: with channels.nixpkgs; {
-          defaultPackage = channels.nixpkgs.devshell.mkShell {
-            imports = [ (channels.nixpkgs.devshell.importTOML ./devshell.toml) ];
-          };
-        };
     };
 }
