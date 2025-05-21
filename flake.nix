@@ -38,6 +38,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        # GPU decode/encode for salas
+        config.packageOverrides = pkgs: {
+          vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+        };
         overlays = [
           devshell.overlays.default
           devshell.overlays.default
