@@ -35,6 +35,7 @@
           notes
           phonetrack
           previewgenerator
+          uppush
           ;
       };
       extraAppsEnable = true;
