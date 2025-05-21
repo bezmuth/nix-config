@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     devshell.url = "github:numtide/devshell";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -44,8 +40,6 @@
         };
         overlays = [
           devshell.overlays.default
-          devshell.overlays.default
-          nur.overlays.default
           nix-minecraft.overlay
           (import ./pkgs)
         ];
