@@ -29,22 +29,22 @@
       };
 
       # Specify the custom minecraft server package
-      package = pkgs.fabricServers.fabric-1_21_4;
+      package = pkgs.fabricServers.fabric-1_21_5;
 
       symlinks = {
         mods = pkgs.linkFarmFromDrvs "mods" (
           builtins.attrValues {
             Fabric-API = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/IXeiAH6H/fabric-api-0.118.5%2B1.21.4.jar";
-              hash = "sha512-Wte5HzB3/dQS0wsIzJPdtiWygcPcObfKJJV5AZMYB2lf2gRcBAmQ4b3XQcW/OE8h+4wTagSrH7maCLONNh+6aw==";
+              url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/YozemL2T/fabric-api-0.127.0%2B1.21.5.jar";
+              hash = "sha256-i3FvHe7M4qbYogp6hlGbXvZ9EdteWBJidbHNb9nlkn4=";
             };
             Distant-Horizons = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/uCdwusMi/versions/DTFSZmMF/DistantHorizons-neoforge-fabric-2.3.0-b-1.21.4.jar";
-              hash = "sha512-czfUhs3j3UP1vtX4EncXDQ2rQlf101Xh3IjVz7VXeoWSo1o9+A014eyBt5nrx7OYw0jOxuc6DTfnlSiD5J0G3Q==";
+              url = "https://cdn.modrinth.com/data/uCdwusMi/versions/Mt9bDAs6/DistantHorizons-neoforge-fabric-2.3.2-b-1.21.5.jar";
+              hash = "sha256-HJixoCVz/Xs9vkd6jha+wUxGiDqT7F0eQkvKAY4+yEs=";
             };
             Tick-Stasis = pkgs.fetchurl {
               url = "https://cdn.modrinth.com/data/t6XBQ2xn/versions/fDbxgNHz/tick-stasis-1.1.1.jar";
-              hash = "sha512-NG+ufg8aYmNlJakzFkOsQ0O3gcJA2275uv4bOildJNEx0rSyDO+O3DODXpBp/K8cLis86c7ZouxuTj2Cdw9Sxg==";
+              hash = "sha256-BYGJG1GOy+WLQhSRmJNMRmlG1QWjUbd7Jyffwhvf5cY=";
             };
           }
         );
