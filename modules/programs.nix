@@ -57,5 +57,6 @@
     veracrypt
     xdg-utils # for openning default programms when clicking links
     htop
+    croc
   ];
 }
