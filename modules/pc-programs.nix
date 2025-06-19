@@ -57,6 +57,7 @@
       proton-pass
       feather
       anki-bin
+      kiwix
     ];
   };
   programs = {
