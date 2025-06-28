@@ -39,10 +39,4 @@
     install_url = "https://addons.mozilla.org/firefox/downloads/file/4424639/sponsorblock-latest.xpi";
     installation_mode = "force_installed";
   };
-  # librewolf seems to be a bit broken https://github.com/NixOS/nixpkgs/issues/344417
-  # Duck Duck go
-  "jid1-ZAdIEUB7XOzOJw@jetpack" = {
-    install_url = "https://addons.mozilla.org/firefox/downloads/latest/duckduckgo-for-firefox/latest.xpi";
-    installation_mode = "force_installed";
-  };
 }
