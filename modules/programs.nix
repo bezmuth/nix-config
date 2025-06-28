@@ -6,7 +6,7 @@
 }:
 {
   programs = {
-    ssh.startAgent = true;
+    #ssh.startAgent = true;
     nh = {
       enable = true;
       clean = {
