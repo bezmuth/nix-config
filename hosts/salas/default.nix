@@ -5,6 +5,7 @@ args@{
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }:
 {
@@ -31,7 +32,13 @@ args@{
   };
 
   # load caddy after tailscale so it doesn't cry all the time
-  systemd.services.caddy.serviceConfig.After = [ "tailscaled.service" ];
+  systemd.services.caddy.serviceConfig = {
+    After = [ "tailscaled.service" ];
+    Restart = lib.mkOverride 0 "on-failure";
+    RestartSec = lib.mkOverride 0 "20s";
+    StartLimitBurst = lib.mkOverride 0 "5";
+    StartLimitIntervalSec= lib.mkOverride 0 "60";
+  };
 
   system.autoUpgrade = {
     enable = true;
