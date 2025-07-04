@@ -36,6 +36,7 @@
           phonetrack
           previewgenerator
           uppush
+          calendar
           ;
       };
       extraAppsEnable = true;
