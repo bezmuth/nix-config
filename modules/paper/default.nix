@@ -47,21 +47,15 @@
             #   url = "https://cdn.modrinth.com/data/t6XBQ2xn/versions/fDbxgNHz/tick-stasis-1.1.1.jar";
             #   hash = "sha256-BYGJG1GOy+WLQhSRmJNMRmlG1QWjUbd7Jyffwhvf5cY=";
             # };
+
+            # Optimises a lot of the same things as lithium and ferrite core, I think it was causing breakage
             Moonrise = pkgs.fetchurl {
               url = "https://cdn.modrinth.com/data/KOHu7RCS/versions/deKWI7rK/Moonrise-Fabric-0.5.0-beta.1%2B90ce197.jar";
               hash = "sha256-0Go7hZOUG9mel0J/dJp21cT8r3fJoTqL4YsaXFA+BWs=";
             };
-            # Ferritecore = pkgs.fetchurl {
-            #   url = "https://cdn.modrinth.com/data/uXXizFIs/versions/CtMpt7Jr/ferritecore-8.0.0-fabric.jar";
-            #   hash = "sha256-K5C/AMKlgIw8U5cSpVaRGR+HFtW/pu76ujXpxMWijuo=";
-            # };
             Krypton = pkgs.fetchurl {
               url = "https://cdn.modrinth.com/data/fQEb0iXm/versions/neW85eWt/krypton-0.2.9.jar";
               hash = "sha256-uGYia+H2DPawZQxBuxk77PMKfsN8GEUZo3F1zZ3MY6o=";
-            };
-            Lithium = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/77EtzYFA/lithium-fabric-0.18.0%2Bmc1.21.7.jar";
-              hash = "sha256-uUwXEFqZaZvikSv2LbfjT+LwJjJH1JguRAzwpmEwJqE=";
             };
           }
         );
