@@ -114,9 +114,39 @@ args@{
       deleteMissing = true;
     };
   };
+  # for minecraft
+  systemd.services."cloudflare-dyndns-mc" = {
+    description = "mc";
+    after = [ "network.target" ];
+    wantedBy = [ "multi-user.target" ];
+    environment = {
+      CLOUDFLARE_DOMAINS = "mc.bezmuth.uk";
+    };
+    serviceConfig = {
+      startAt = "*:0/5";
+      Type = "simple";
+      DynamicUser = true;
+      StateDirectory = "cloudflare-dyndns-mc";
+      Environment = [ "XDG_CACHE_HOME=%S/cloudflare-dyndns-mc/.cache" ];
+      LoadCredential = [
+        "apiToken:${config.age.secrets.cloudflare-token.path}"
+      ];
+    };
+    script =
+      let
+        args =
+          [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
+      in
+        ''
+            export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
+
+            exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
+          '';
+  };
   networking.firewall.allowedTCPPorts = [
     80
     443
+    25565
   ];
 
   hardware.graphics = {
