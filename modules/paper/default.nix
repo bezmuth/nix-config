@@ -30,7 +30,7 @@
       };
 
       # Specify the custom minecraft server package
-      package = pkgs.fabricServers.fabric-1_21_7;
+      package = pkgs.fabricServers.fabric-1_21_8;
 
       symlinks = {
         mods = pkgs.linkFarmFromDrvs "mods" (
