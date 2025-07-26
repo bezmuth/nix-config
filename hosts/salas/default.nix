@@ -176,10 +176,6 @@ args@{
       };
     };
   };
-  nixpkgs.config.permittedInsecurePackages = [
-    "intel-media-sdk-23.2.2"
-  ];
-
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }
