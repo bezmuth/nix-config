@@ -34,6 +34,10 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        config.permittedInsecurePackages = [
+          "intel-media-sdk-23.2.2"
+        ];
+
         # GPU decode/encode for salas
         config.packageOverrides = pkgs: {
           vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
