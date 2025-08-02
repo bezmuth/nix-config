@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     devshell.url = "github:numtide/devshell";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -34,9 +35,6 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        config.permittedInsecurePackages = [
-          "intel-media-sdk-23.2.2"
-        ];
 
         # GPU decode/encode for salas
         config.packageOverrides = pkgs: {
@@ -48,6 +46,7 @@
           (import ./pkgs)
         ];
       };
+      pkgs-master = import nixpkgs-master { inherit system; };
       common-modules = [
         ./modules
         agenix.nixosModules.default
@@ -59,16 +58,18 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         catppuccin.nixosModules.catppuccin
-      ] ++ common-modules;
+      ]
+      ++ common-modules;
       server-modules = [
         nix-minecraft.nixosModules.minecraft-servers
-      ] ++ common-modules;
+      ]
+      ++ common-modules;
       treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
       host =
         modules:
         nixpkgs.lib.nixosSystem {
           inherit pkgs modules;
-          specialArgs = { inherit inputs; };
+          specialArgs = { inherit inputs pkgs-master; };
         };
     in
     {

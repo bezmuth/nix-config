@@ -1,0 +1,4 @@
+{ ... }:
+{
+  imports = [ ./container.nix ];
+}

@@ -38,4 +38,9 @@ in
     mishim
     roshar
   ];
+  "tailscale.age".publicKeys = [
+    salas
+    mishim
+    roshar
+  ];
 }

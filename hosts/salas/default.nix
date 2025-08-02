@@ -15,6 +15,7 @@ args@{
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (import ../../modules/seedbox args)
+    (import ../../modules/ts-exitnode args)
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
     (import ../../modules/calibre-web (args // { localPort = 10001; }))
@@ -25,6 +26,8 @@ args@{
     (import ../../modules/rmfakecloud (args // { localPort = 10006; }))
     ../../modules/paper
   ];
+
+  virtualisation.podman.enable = true;
 
   services.snowflake-proxy = {
     enable = true;
@@ -37,7 +40,7 @@ args@{
     Restart = lib.mkOverride 0 "on-failure";
     RestartSec = lib.mkOverride 0 "20s";
     StartLimitBurst = lib.mkOverride 0 "5";
-    StartLimitIntervalSec= lib.mkOverride 0 "60";
+    StartLimitIntervalSec = lib.mkOverride 0 "60";
   };
 
   system.autoUpgrade = {
@@ -134,14 +137,13 @@ args@{
     };
     script =
       let
-        args =
-          [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
+        args = [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
       in
-        ''
-            export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
+      ''
+        export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
 
-            exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
-          '';
+        exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
+      '';
   };
   networking.firewall.allowedTCPPorts = [
     80
@@ -157,7 +159,7 @@ args@{
       vaapiVdpau
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       vpl-gpu-rt # QSV on 11th gen or newer
-      intel-media-sdk # QSV up to 11th gen
+      podman-compose
     ];
   };
 
@@ -176,7 +178,6 @@ args@{
       };
     };
   };
-
 
   system.stateVersion = "24.11"; # Did you read the comment?
 }

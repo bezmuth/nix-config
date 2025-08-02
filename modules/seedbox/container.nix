@@ -7,14 +7,20 @@
 }:
 {
   age.secrets.openvpn-env.file = ../../secrets/openvpn-env.age;
+
+  networking.firewall.interfaces."podman+".allowedUDPPorts = [ 53 ];
   # Runtime
   virtualisation = {
-    docker = {
+    podman = {
       enable = true;
       autoPrune.enable = true;
+      dockerCompat = true;
+      defaultNetwork.settings = {
+        dns_enabled = true;
+      };
     };
     oci-containers = {
-      backend = "docker";
+      backend = "podman";
       containers."TransmissionVPN" = {
         image = "haugene/transmission-openvpn";
         environmentFiles = [
@@ -37,6 +43,7 @@
           "--device=/dev/net/tun:/dev/net/tun:rwm"
           "--network-alias=transmission-openvpn"
           "--network=seedbox_default"
+          "--privileged"
         ];
       };
     };
@@ -46,10 +53,6 @@
       "docker-TransmissionVPN" = {
         serviceConfig = {
           Restart = lib.mkOverride 90 "on-failure";
-        };
-        startLimitBurst = 2;
-        unitConfig = {
-          StartLimitIntervalSec = lib.mkOverride 90 "infinity";
         };
         after = [
           "docker-network-seedbox_default.service"
@@ -85,14 +88,14 @@
         ];
       };
       "docker-network-seedbox_default" = {
-        path = [ pkgs.docker ];
+        path = [ pkgs.podman ];
         serviceConfig = {
           Type = "oneshot";
           RemainAfterExit = true;
-          ExecStop = "docker network rm -f seedbox_default";
+          ExecStop = "podman network rm -f seedbox_default";
         };
         script = ''
-          docker network inspect seedbox_default || docker network create seedbox_default
+          podman network inspect seedbox_default || podman network create seedbox_default
         '';
         partOf = [ "docker-compose-seedbox-root.target" ];
         wantedBy = [ "docker-compose-seedbox-root.target" ];
