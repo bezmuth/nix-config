@@ -43,10 +43,6 @@
               url = "https://cdn.modrinth.com/data/uCdwusMi/versions/9yaYzpcr/DistantHorizons-2.3.4-b-1.21.8-fabric-neoforge.jar";
               hash = "sha256-rbtFZ1PzCojLTtyiVpb0EJcbvSkl8xAr4Ae2bxuLoY8=";
             };
-            Tick-Stasis = pkgs.fetchurl {
-              url = "https://cdn.modrinth.com/data/t6XBQ2xn/versions/fDbxgNHz/tick-stasis-1.1.1.jar";
-              hash = "sha256-BYGJG1GOy+WLQhSRmJNMRmlG1QWjUbd7Jyffwhvf5cY=";
-            };
             # Optimises a lot of the same things as lithium and ferrite core, I think it was causing breakage
             Moonrise = pkgs.fetchurl {
               url = "https://cdn.modrinth.com/data/KOHu7RCS/versions/70KoSrYl/Moonrise-Fabric-0.6.0-beta.1%2B45edfd7.jar";

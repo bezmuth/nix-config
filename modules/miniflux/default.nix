@@ -1,5 +1,4 @@
 {
-  config,
   localPort ? 0,
   url ? "miniflux.bezmuth.uk",
   acmeHost ? "bezmuth.uk",

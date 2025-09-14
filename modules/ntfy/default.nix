@@ -9,10 +9,10 @@
     ntfy-sh = {
       enable = true;
       settings = {
-        base-url = url;
+        base-url = "https://${builtins.toString url}";
         listen-http = ":${builtins.toString localPort}";
-      }
-    }
+      };
+    };
     caddy = {
       enable = true;
       virtualHosts."${url}" = {

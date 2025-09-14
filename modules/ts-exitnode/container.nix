@@ -32,6 +32,9 @@
     environmentFiles = [
       config.age.secrets.tailscale.path
     ];
+    volumes = [
+      "/home/bezmuth/ts-exitnode/:/var/lib/tailscale/:rw"
+    ];
     log-driver = "journald";
     extraOptions = [
       "--cap-add=NET_ADMIN"

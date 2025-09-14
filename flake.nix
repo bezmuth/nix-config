@@ -35,6 +35,9 @@
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
+        config.permittedInsecurePackages = [
+          "olm-3.2.16"
+        ];
 
         # GPU decode/encode for salas
         config.packageOverrides = pkgs: {

@@ -24,6 +24,8 @@ args@{
     (import ../../modules/actual (args // { localPort = 10004; }))
     (import ../../modules/nextcloud (args // { localPort = 10005; }))
     (import ../../modules/rmfakecloud (args // { localPort = 10006; }))
+    (import ../../modules/matrix (args // { localPort = 10007; }))
+    (import ../../modules/ntfy (args // { localPort = 10008; }))
     ../../modules/paper
   ];
 
@@ -86,6 +88,7 @@ args@{
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHVuAgXZTD4uta2/G9CSdJM7cm28PJS2pTGsF9PO6GQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBI2o2Be33TpGgphq7mDo3XKzAnpPXM2pfJ6vgPI/HqC"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqo8BiAIeHSZ/UUoBqODHlSZH2IWvBfzxd5lF/81CQB"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDgRppXXzym7N0aSD/IwE7oFVq5QjVf+31crFhpWXO7g"
       ];
     };
   };
@@ -115,6 +118,15 @@ args@{
       apiTokenFile = config.age.secrets.cloudflare-token.path;
       proxied = true;
       deleteMissing = true;
+    };
+    caddy = {
+      enable = true;
+      virtualHosts."bezmuth.uk".extraConfig = ''
+        header /.well-known/matrix/* Content-Type application/json
+        header /.well-known/matrix/* Access-Control-Allow-Origin *
+        respond /.well-known/matrix/server `{"m.server": "matrix.bezmuth.uk:443"}`
+        respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.bezmuth.uk"}}`
+      '';
     };
   };
   # for minecraft
