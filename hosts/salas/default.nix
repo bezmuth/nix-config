@@ -67,7 +67,6 @@ args@{
 
   # Bootloader.
 
-
   age = {
     identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
   };

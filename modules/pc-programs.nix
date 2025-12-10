@@ -25,7 +25,6 @@
       tor-browser
       temurin-jre-bin-17
       prismlauncher
-      heroic
       mpv
       ispell
       nextcloud-client
@@ -41,21 +40,15 @@
       libreoffice-fresh
       inputs.remarkable-utility.packages.${system}.default
       r2modman
-      spotify
       powertop
       transmission-remote-gtk
-      wdisplays
       transmission_4-gtk
       distrobox
       boxbuddy
       ares
-      unciv
-      endless-sky
-      openttd
       dino
       cachix
       proton-pass
-      feather
       anki-bin
       kiwix
     ];

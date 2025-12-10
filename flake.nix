@@ -19,9 +19,7 @@
     agenix.url = "github:ryantm/agenix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     catppuccin.url = "github:catppuccin/nix";
-    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    lan-mouse.url = "github:feschber/lan-mouse";
   };
 
   outputs =
