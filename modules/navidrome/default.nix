@@ -1,23 +1,28 @@
 {
   localPort ? 0,
-  url ? "ntfy.bezmuth.uk",
-  acmeHost ? "bezmuth.uk",
+  url ? "navi.bezmuth.uk",
+  lib,
   ...
 }:
 {
+  systemd.services."navidrome".serviceConfig = {
+    ProtectHome = lib.mkForce false;
+  };
   services = {
-    ntfy-sh = {
+    navidrome = {
       enable = true;
+      group = "users";
       settings = {
-        base-url = "https://${builtins.toString url}";
-        listen-http = ":${builtins.toString localPort}";
+        Port = localPort;
+        Address = "0.0.0.0";
+        MusicFolder = "/home/files/music/";
       };
     };
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
-        useACMEHost = acmeHost;
         extraConfig = ''
+          import tls_ts_ca
           reverse_proxy 127.0.0.1:${builtins.toString localPort}
           bind 100.64.0.3
         '';

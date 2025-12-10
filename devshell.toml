@@ -1,9 +1,6 @@
 [devshell]
 name = "nix-config"
 packages = [
-  'libnotify',
-  'vim',
-  'git',
   'statix',
 ]
 [[commands]]
@@ -21,9 +18,7 @@ command = """
   echo "$TARGET rebuilding"
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  ~/.config/emacs/bin/doom sync
   statix check -i hardware-configuration.nix
-  notify-send 'Praise the rebuild' -t 10000
 """
 [[commands]]
 help = "Update and rebuild the nixos system. First arg is the target hostname"
@@ -41,9 +36,7 @@ command = """
   echo "$TARGET rebuilding"
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  ~/.config/emacs/bin/doom sync
   statix check -i hardware-configuration.nix
-  notify-send 'Praise the update' -t 10000
 """
 [[commands]]
 help = "Rebuilds a remote system, with most recent git pull"
@@ -59,5 +52,4 @@ command = """
   git status -s
   echo "$TARGET rebuilding"
   ssh $TARGET -t "cd nix-config/; git reset --hard && git pull && sudo nixos-rebuild switch --flake . --show-trace"
-  notify-send "$TARGET synced" -t 10000
 """

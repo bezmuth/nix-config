@@ -19,16 +19,6 @@ in
     mishim
     roshar
   ];
-  "cloudflare-token.age".publicKeys = [
-    salas
-    mishim
-    roshar
-  ];
-  "dns-token.age".publicKeys = [
-    salas
-    mishim
-    roshar
-  ];
   "miniflux-token.age".publicKeys = [
     salas
     mishim

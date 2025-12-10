@@ -2,7 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 args@{
-  config,
   pkgs,
   inputs,
   lib,
@@ -10,6 +9,10 @@ args@{
 }:
 {
   networking.hostName = "Salas";
+
+  security.pki.certificateFiles = [
+    ./ca.crt
+  ];
 
   imports = [
     # Include the results of the hardware scan.
@@ -24,9 +27,10 @@ args@{
     (import ../../modules/actual (args // { localPort = 10004; }))
     (import ../../modules/nextcloud (args // { localPort = 10005; }))
     (import ../../modules/rmfakecloud (args // { localPort = 10006; }))
-    (import ../../modules/matrix (args // { localPort = 10007; }))
-    (import ../../modules/ntfy (args // { localPort = 10008; }))
-    ../../modules/paper
+    (import ../../modules/conduit (args // { localPort = 10007; }))
+    #(import ../../modules/ntfy (args // { localPort = 10008; }))
+    (import ../../modules/navidrome (args // { localPort = 10009; }))
+    #../../modules/paper
   ];
 
   virtualisation.podman.enable = true;
@@ -63,32 +67,17 @@ args@{
 
   age = {
     identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
-    secrets.cloudflare-token.file = ../../secrets/cloudflare-token.age;
-    secrets.dns-token.file = ../../secrets/dns-token.age;
   };
 
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "benkel97@protonmail.com";
-    certs."bezmuth.uk" = {
-      domain = "bezmuth.uk";
-      extraDomainNames = [ "*.bezmuth.uk" ];
-      dnsProvider = "cloudflare";
-      dnsPropagationCheck = true;
-      credentialFiles = {
-        "CF_DNS_API_TOKEN_FILE" = config.age.secrets.dns-token.path;
-      };
-    };
-  };
   users = {
     groups.srv-data = { };
     users = {
       caddy.extraGroups = [ "acme" ];
       "bezmuth".openssh.authorizedKeys.keys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHHVuAgXZTD4uta2/G9CSdJM7cm28PJS2pTGsF9PO6GQ"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBI2o2Be33TpGgphq7mDo3XKzAnpPXM2pfJ6vgPI/HqC"
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDqo8BiAIeHSZ/UUoBqODHlSZH2IWvBfzxd5lF/81CQB"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDgRppXXzym7N0aSD/IwE7oFVq5QjVf+31crFhpWXO7g"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPc66kwx21svoxK/uckoDA9mI6qHWTo68F9RLuUZSz4b"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFW5wkEv8HFfi0+DEcNPAfUAuIk4fFIN6CWgLEFfv51s"
       ];
     };
   };
@@ -106,61 +95,68 @@ args@{
         PasswordAuthentication = false;
       };
     };
-    cloudflare-dyndns = {
-      enable = true;
-      domains = [
-        "bezmuth.uk"
-        "social.bezmuth.uk"
-        "miniflux.bezmuth.uk"
-        "calibre.bezmuth.uk"
-        "rm.bezmuth.uk"
-      ];
-      apiTokenFile = config.age.secrets.cloudflare-token.path;
-      proxied = true;
-      deleteMissing = true;
-    };
     caddy = {
       enable = true;
+      # see https://waitwhat.sh/blog/custom_ca_caddy/ for the ca setup
+      globalConfig = ''
+              	pki {
+        		      ca ts_ca {
+                  			name ts_ca
+
+        			          root {
+                        				cert /etc/caddy/ts_ca/ca.crt
+                                key /etc/caddy/ts_ca/ca.key
+        			          }
+        		      }
+        	      }
+      '';
+      extraConfig = ''
+              (tls_ts_ca) {
+              	tls {
+                		issuer internal {
+                    			ca ts_ca
+        		        }
+        	      }
+              } 
+      '';
       virtualHosts."bezmuth.uk".extraConfig = ''
-        header /.well-known/matrix/* Content-Type application/json
-        header /.well-known/matrix/* Access-Control-Allow-Origin *
-        respond /.well-known/matrix/server `{"m.server": "matrix.bezmuth.uk:443"}`
-        respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.bezmuth.uk"}}`
+        	import tls_ts_ca
+                header /.well-known/matrix/* Content-Type application/json
+                header /.well-known/matrix/* Access-Control-Allow-Origin *
+                respond /.well-known/matrix/server `{"m.server": "matrix.bezmuth.uk:443"}`
+                respond /.well-known/matrix/client `{"m.homeserver": {"base_url": "https://matrix.bezmuth.uk"}}`
       '';
     };
   };
   # for minecraft
-  systemd.services."cloudflare-dyndns-mc" = {
-    description = "mc";
-    after = [ "network.target" ];
-    wantedBy = [ "multi-user.target" ];
-    environment = {
-      CLOUDFLARE_DOMAINS = "mc.bezmuth.uk";
-    };
-    serviceConfig = {
-      startAt = "*:0/5";
-      Type = "simple";
-      DynamicUser = true;
-      StateDirectory = "cloudflare-dyndns-mc";
-      Environment = [ "XDG_CACHE_HOME=%S/cloudflare-dyndns-mc/.cache" ];
-      LoadCredential = [
-        "apiToken:${config.age.secrets.cloudflare-token.path}"
-      ];
-    };
-    script =
-      let
-        args = [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
-      in
-      ''
-        export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
+  # systemd.services."cloudflare-dyndns-mc" = {
+  #   description = "mc";
+  #   after = [ "network.target" ];
+  #   wantedBy = [ "multi-user.target" ];
+  #   environment = {
+  #     CLOUDFLARE_DOMAINS = "mc.bezmuth.uk";
+  #   };
+  #   serviceConfig = {
+  #     startAt = "*:0/5";
+  #     Type = "simple";
+  #     DynamicUser = true;
+  #     StateDirectory = "cloudflare-dyndns-mc";
+  #     Environment = [ "XDG_CACHE_HOME=%S/cloudflare-dyndns-mc/.cache" ];
+  #     LoadCredential = [
+  #       "apiToken:${config.age.secrets.cloudflare-token.path}"
+  #     ];
+  #   };
+  #   script =
+  #     let
+  #       args = [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
+  #     in
+  #     ''
+  #       export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
 
-        exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
-      '';
-  };
+  #       exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
+  #     '';
+  # };
   networking.firewall.allowedTCPPorts = [
-    80
-    443
-    25565
   ];
 
   hardware.graphics = {
@@ -168,7 +164,7 @@ args@{
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
-      vaapiVdpau
+      libva-vdpau-driver
       intel-compute-runtime # OpenCL filter support (hardware tonemapping and subtitle burn-in)
       vpl-gpu-rt # QSV on 11th gen or newer
       podman-compose

@@ -1,6 +1,5 @@
 {
   url ? "jellyfin.bezmuth.uk",
-  acmeHost ? "bezmuth.uk",
   pkgs,
   ...
 }:
@@ -18,10 +17,10 @@
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
-        useACMEHost = acmeHost;
         extraConfig = ''
+          import tls_ts_ca
           reverse_proxy http://127.0.0.1:8096
-          bind 100.103.106.16
+          bind 100.64.0.3
         '';
       };
     };

@@ -1,7 +1,6 @@
 {
   localPort ? 0,
   url ? "abs.bezmuth.uk",
-  acmeHost ? "bezmuth.uk",
   ...
 }:
 {
@@ -14,10 +13,11 @@
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
-        useACMEHost = acmeHost;
         extraConfig = ''
+          import tls_ts_ca
+          encode gzip zstd
           reverse_proxy http://127.0.0.1:${builtins.toString localPort}
-          bind 100.103.106.16
+          bind 100.64.0.3
         '';
       };
     };

@@ -62,5 +62,6 @@
     htop
     croc
     ripgrep
+    nethogs
   ];
 }

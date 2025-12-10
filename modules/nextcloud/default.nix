@@ -3,7 +3,6 @@
   config,
   localPort ? 0,
   url ? "nextcloud.bezmuth.uk",
-  acmeHost ? "bezmuth.uk",
   ...
 }:
 {
@@ -11,7 +10,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud31;
+      package = pkgs.nextcloud32;
       hostName = url;
       maxUploadSize = "20G";
       config = {
@@ -22,7 +21,7 @@
       settings = {
         trusted_proxies = [
           "127.0.0.1"
-          "100.103.106.16"
+          "100.64.0.3"
         ];
         trusted_domains = [ "nextcloud.bezmuth.uk" ];
         overwriteprotocol = "https";
@@ -37,6 +36,7 @@
           previewgenerator
           uppush
           calendar
+          cookbook
           ;
       };
       extraAppsEnable = true;
@@ -50,8 +50,8 @@
     caddy = {
       enable = true;
       virtualHosts."${url}" = {
-        useACMEHost = "${acmeHost}";
         extraConfig = ''
+          import tls_ts_ca
           redir /.well-known/carddav /remote.php/dav 301
           redir /.well-known/caldav /remote.php/dav 301
           redir /.well-known/webfinger /index.php/.well-known/webfinger 301
@@ -59,7 +59,7 @@
 
           encode gzip
           reverse_proxy 127.0.0.1:${builtins.toString localPort}
-          bind 100.103.106.16
+          bind 100.64.0.3
         '';
       };
     };
