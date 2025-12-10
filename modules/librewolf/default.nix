@@ -23,7 +23,7 @@ in
           pref("extensions.install_origins.enabled", true);
           pref("browser.bookmarks.addedImportButton", false);
 
-          pref("privacy.resistFingerprinting.letterboxing", true);
+          pref("privacy.resistFingerprinting.letterboxing", false);
           pref("middlemouse.paste", false);
           pref("general.autoScroll", true);
         '';
@@ -36,11 +36,11 @@ in
         Cookies = {
           Allow = [
             "https://enafore.social/"
-            "https://ground.news/"
             "https://nextcloud.bezmuth.uk/"
             "https://miniflux.bezmuth.uk/"
             "https://jellyfin.bezmuth.uk/"
             "https://social.bezmuth.uk/"
+            "https://navi.bezmuth.uk/"
             "https://proton.me/"
             "https://github.com/"
           ];

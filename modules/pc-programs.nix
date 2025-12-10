@@ -86,7 +86,7 @@
       extraCompatPackages = [ pkgs.proton-ge-bin ];
       fontPackages = [
         pkgs.corefonts
-        pkgs.vistafonts
+        pkgs.vista-fonts
       ];
       remotePlay.openFirewall = true;
       localNetworkGameTransfers.openFirewall = true;

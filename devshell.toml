@@ -18,7 +18,7 @@ command = """
   echo "$TARGET rebuilding"
   sudo nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  statix check -i hardware-configuration.nix
+  statix check -i hardware-configuration.nix -i container.nix
 """
 [[commands]]
 help = "Update and rebuild the nixos system. First arg is the target hostname"

@@ -16,7 +16,10 @@
   boot.initrd.availableKernelModules = [
     "nvme"
     "ehci_pci"
+    "xhci_pci_renesas"
     "xhci_pci"
+    "usb_storage"
+    "sd_mod"
     "sdhci_pci"
   ];
   boot.initrd.kernelModules = [ ];
@@ -24,15 +27,15 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/disk/by-uuid/9eee24bb-b8d5-4102-a652-e2239602f8e4";
+    device = "/dev/mapper/luks-28c9b798-ce05-4416-a494-91446f1de464";
     fsType = "ext4";
   };
 
-  boot.initrd.luks.devices."luks-6f9837ce-0c39-430f-8978-08463eb95ab5".device =
-    "/dev/disk/by-uuid/6f9837ce-0c39-430f-8978-08463eb95ab5";
+  boot.initrd.luks.devices."luks-28c9b798-ce05-4416-a494-91446f1de464".device =
+    "/dev/disk/by-uuid/28c9b798-ce05-4416-a494-91446f1de464";
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/9EAC-7861";
+    device = "/dev/disk/by-uuid/AF14-93E6";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -40,21 +43,9 @@
     ];
   };
 
-  boot.initrd.luks.devices."luks-3d47ac02-ef03-4823-928c-1d1faa1d58bf".device =
-    "/dev/disk/by-uuid/3d47ac02-ef03-4823-928c-1d1faa1d58bf";
-
   swapDevices = [
-    { device = "/dev/disk/by-uuid/53158c91-d15f-413b-aaff-d20a7cd05698"; }
+    { device = "/dev/mapper/luks-fc959d06-204f-4e17-9735-0bb21e38223e"; }
   ];
-
-  # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
-  # (the default) this is the recommended approach. When using systemd-networkd it's
-  # still possible to use this option, but it's recommended to use it in conjunction
-  # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
-  networking.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp2s0f0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.enp5s0.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp3s0.useDHCP = lib.mkDefault true;
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

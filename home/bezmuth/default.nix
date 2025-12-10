@@ -42,7 +42,6 @@
     accent = "pink";
     swaylock.enable = true;
     thunderbird.enable = true;
-    gtk.enable = true;
     zathura.enable = true;
     alacritty.enable = true;
     zellij.enable = true;

@@ -8,7 +8,11 @@ args@{
   ...
 }:
 {
-  networking.hostName = "Salas";
+  networking = {
+    hostName = "Salas";
+    networkmanager.enable = true;
+    firewall.allowedTCPPorts = [ ];
+  };
 
   security.pki.certificateFiles = [
     ./ca.crt
@@ -63,7 +67,6 @@ args@{
 
   # Bootloader.
 
-  networking.networkmanager.enable = true;
 
   age = {
     identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
@@ -156,8 +159,6 @@ args@{
   #       exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
   #     '';
   # };
-  networking.firewall.allowedTCPPorts = [
-  ];
 
   hardware.graphics = {
     enable = true;

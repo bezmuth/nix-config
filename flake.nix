@@ -34,14 +34,15 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs {
         inherit system;
-        config.allowUnfree = true;
-        config.permittedInsecurePackages = [
-          "olm-3.2.16"
-        ];
-
-        # GPU decode/encode for salas
-        config.packageOverrides = pkgs: {
-          vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "olm-3.2.16"
+          ];
+          # GPU decode/encode for salas
+          packageOverrides = pkgs: {
+            vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+          };
         };
         overlays = [
           devshell.overlays.default

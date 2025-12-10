@@ -33,7 +33,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq catppuccin-flavor 'mocha) ;; or 'latte, 'macchiato, or 'mocha
+(setq catppuccin-flavor 'mocha)
 (setq doom-theme 'catppuccin)
 
 (setq doom-font (font-spec :family "Iosevka" :size 20 :weight 'bold))
@@ -116,30 +116,33 @@
 
 ;; elfeed-protocol
 (after! elfeed
-(setq elfeed-search-filter "-Youtube -podcasts +unread")
+  (setq elfeed-search-filter "-Youtube -Z-Archive -Hose -Bluesky -Podcasts +unread")
 
-;; curl recommend
-(setq elfeed-use-curl t)
-(elfeed-set-timeout 36000)
-(setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
+  ;; curl recommend
+  (setq elfeed-use-curl t)
+  (elfeed-set-timeout 36000)
+  (setq elfeed-curl-extra-arguments '("--insecure")) ;necessary for https without a trust certificate
 
-;; setup feeds
-(defun get-string-from-file (filePath)
-  "Return file content as string."
-  (with-temp-buffer
-    (insert-file-contents filePath)
-    (buffer-string)))
-(setq elfeed-protocol-feeds '(("fever+https://bezmuth@miniflux.bezmuth.uk"
-                               :api-url "https://miniflux.bezmuth.uk/fever/"
-                               :password (substring ; remove newline
-                                          (get-string-from-file
-                                           (getenv "MINIFLUX_TOKEN_FILE")) 0 -1))))
+  ;; setup feeds
+  (defun get-string-from-file (filePath)
+    "Return file content as string."
+    (with-temp-buffer
+      (insert-file-contents filePath)
+      (buffer-string)))
+  ;; (setq elfeed-protocol-feeds '(("fever+https://bezmuth@miniflux.bezmuth.uk"
+  ;;                                :api-url "https://miniflux.bezmuth.uk/fever/"
+  ;;                                :password (substring ; remove newline
+  ;;                                           (get-string-from-file
+  ;;                                            (getenv "MINIFLUX_TOKEN_FILE")) 0 -1))))
 
-;; enable elfeed-protocol
-(setq elfeed-protocol-enabled-protocols '(fever newsblur owncloud ttrss))
-(elfeed-protocol-enable)
+  (setq elfeed-protocol-feeds '(("fever+https://bezmuth@miniflux.bezmuth.uk"
+                                 :api-url "https://miniflux.bezmuth.uk/fever/"
+                                 :password "MzAwMzgzODQ1MTU0NDY0MjQyCg==" )))
+
+  ;; enable elfeed-protocol
+  (setq elfeed-protocol-enabled-protocols '(fever newsblur owncloud ttrss))
+  (elfeed-protocol-enable)
 )
-
 
 (defun capture-post-w3m ()
   (interactive)
@@ -180,6 +183,8 @@
 
 ;; Press u inside a elfeed article to mark it as unread
 (evil-define-key 'normal elfeed-show-mode-map (kbd "u") 'elfeed-show-tag--unread)
+;; define uppercase u as always redo
+(evil-define-key 'normal 'global (kbd "U") 'undo-tree-redo)
 
 (setq mastodon-instance-url "https://social.bezmuth.uk")  ;; Set your instance URL
 (setq mastodon-active-user "bezmuth")  ;; Set your Mastodon username
@@ -239,3 +244,19 @@ background of code to whatever theme I'm using's background"
                 my-pre-bg my-pre-fg))))))
 
 (add-hook 'org-export-before-processing-hook 'my/org-inline-css-hook)
+
+(with-eval-after-load 'lsp-mode
+(add-to-list 'lsp-language-id-configuration '(wgsl-mode . "wgsl"))
+(lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection "/home/bezmuth/.cargo/bin/wgsl-analyzer")
+                                      :activation-fn (lsp-activate-on "wgsl")
+                                      :server-id 'wgsl-analyzer)))
+
+(setq lsp-clients-clangd-args '("-j=16"
+				"--background-index"
+				"--clang-tidy"
+				"--completion-style=detailed"
+				"--header-insertion=never"
+				"--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+
+(add-load-path! "/home/bezmuth/.cargo/bin/")

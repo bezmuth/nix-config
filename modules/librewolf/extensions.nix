@@ -9,11 +9,6 @@
     install_url = "https://addons.mozilla.org/firefox/downloads/file/3617936/defund_wikipedia-latest.xpi";
     installation_mode = "force_installed";
   };
-  # Refined GitHub
-  "{a4c4eda4-fb84-4a84-b4a1-f7c1cbf2a1ad}" = {
-    install_url = "https://addons.mozilla.org/firefox/downloads/file/4317387/refined_github-latest.xpi";
-    installation_mode = "force_installed";
-  };
   # Floccus
   "floccus@handmadeideas.org" = {
     install_url = "https://addons.mozilla.org/firefox/downloads/file/4431645/floccus-latest.xpi";
@@ -34,9 +29,14 @@
     install_url = "https://addons.mozilla.org/firefox/downloads/file/4344731/youtube_high_definition-latest.xpi";
     installation_mode = "force_installed";
   };
-  # Sponsor block
-  "sponsorBlocker@ajay.app" = {
-    install_url = "https://addons.mozilla.org/firefox/downloads/file/4424639/sponsorblock-latest.xpi";
+  # NoSript
+  "{73a6fe31-595d-460b-a920-fcc0f8843232}" = {
+    install_url = "https://addons.mozilla.org/firefox/downloads/file/4633540/noscript-latest.xpi";
+    installation_mode = "force_installed";
+  };
+  # LibRedirect
+  "7esoorv3@alefvanoon.anonaddy.me" = {
+    install_url = "https://addons.mozilla.org/firefox/downloads/file/4522826/libredirect-latest.xpi";
     installation_mode = "force_installed";
   };
 }

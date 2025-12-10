@@ -34,16 +34,13 @@
       };
     };
     greetd = {
-      package = pkgs.greetd.tuigreet;
       enable = true;
       settings = rec {
         initial_session = {
-          command = "sway --unsupported-gpu";
+          command = "${pkgs.sway}/bin/sway";
           user = "bezmuth";
         };
-        default_session = {
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet -r --asterisks --cmd 'sway --unsupported-gpu'";
-        };
+        default_session = initial_session;
       };
     };
     xserver.excludePackages = [ pkgs.xterm ];

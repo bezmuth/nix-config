@@ -54,3 +54,4 @@
 (package! w3m)
 (package! catppuccin-theme)
 (package! wgsl-mode)
+;; (package! solaire-mode :disable t) ;; breaks emacsclient in the terminal
