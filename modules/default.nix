@@ -19,10 +19,12 @@
       substituters = [
         "https://nix-community.cachix.org"
         "https://nixpkgs-wayland.cachix.org"
+        "https://microvm.cachix.org"
       ];
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
         "nixpkgs-wayland.cachix.org-1:3lwxaILxMRkVhehr5StQprHdEo4IrE8sRho9R9HOLYA="
+        "microvm.cachix.org-1:oXnBc6hRE3eX5rSYdRyMYXnfzcCxC7yKPTbZXALsqys="
       ];
     };
     package = pkgs.nixVersions.stable; # or versioned attributes like nixVersions.nix_2_8
