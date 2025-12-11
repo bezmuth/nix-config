@@ -52,6 +52,7 @@
       anki-bin
       kiwix
       azahar
+      koreader
     ];
   };
   programs = {

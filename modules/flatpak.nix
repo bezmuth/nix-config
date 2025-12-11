@@ -6,7 +6,6 @@ _: {
       onCalendar = "weekly"; # Default value
     };
     packages = [
-      "rocks.koreader.KOReader"
       "com.usebottles.bottles"
       "net.lutris.Lutris"
       "io.github.martinrotter.rssguard"
