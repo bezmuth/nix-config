@@ -24,7 +24,7 @@
     bluetooth.powerOnBoot = true;
     cpu.intel.updateMicrocode = true;
     nvidia = {
-      package = config.boot.kernelPackages.nvidiaPackages.latest;
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
       modesetting.enable = true;
       open = true;
     };

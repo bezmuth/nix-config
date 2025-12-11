@@ -2,6 +2,7 @@
 name = "nix-config"
 packages = [
   'statix',
+  'git',
 ]
 [[commands]]
 help = "Rebuilds nixos system. First arg is the target hostname"

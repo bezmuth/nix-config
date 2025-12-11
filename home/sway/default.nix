@@ -141,7 +141,7 @@
         "eDP-1" = {
           pos = "320 1440";
         };
-        "DP-2".scale = "1.5";
+        "DP-1".scale = "1.5";
       };
       defaultWorkspace = "workspace number 1";
 
