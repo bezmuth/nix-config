@@ -64,6 +64,7 @@
   documentation.dev.enable = true;
 
   security = {
+    # use nix-mineral for more hardening?
     polkit.enable = true;
     sudo.enable = false;
     wrappers = {
