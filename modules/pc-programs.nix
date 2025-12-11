@@ -51,6 +51,7 @@
       proton-pass
       anki-bin
       kiwix
+      azahar
     ];
   };
   programs = {
