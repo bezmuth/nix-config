@@ -53,6 +53,7 @@
       kiwix
       azahar
       koreader
+      heroic
     ];
   };
   programs = {
@@ -71,7 +72,7 @@
       enable = true;
       wrapperFeatures.gtk = true;
       extraOptions = [ "--unsupported-gpu" ];
-      extraSessionCommands = "export WLR_RENDERER=vulkan";
+      extraSessionCommands = "export WLR_RENDERER=vulkan PROTON_ENABLE_WAYLAND=1";
     };
     xwayland.enable = true;
     kdeconnect.enable = true;

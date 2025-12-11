@@ -43,9 +43,10 @@
     ];
   };
 
-  #swapDevices = [
-  #  { device = "/dev/mapper/luks-fc959d06-204f-4e17-9735-0bb21e38223e"; }
-  #];
+  boot.initrd.luks.devices."luks-fc959d06-204f-4e17-9735-0bb21e38223e".device = "/dev/disk/by-uuid/fc959d06-204f-4e17-9735-0bb21e38223e";
+  swapDevices = [
+    { device = "/dev/mapper/luks-fc959d06-204f-4e17-9735-0bb21e38223e"; }
+  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
