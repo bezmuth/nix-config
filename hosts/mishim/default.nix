@@ -10,8 +10,15 @@
   services.thermald.enable = true;
   hardware = {
     cpu.amd.updateMicrocode = true;
-    bluetooth.enable = true;
-    bluetooth.powerOnBoot = true;
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+      settings = {
+        General = {
+          Experimental = true;
+        };
+      };
+    };
   };
 
   systemd.services.mouse-reset = {
