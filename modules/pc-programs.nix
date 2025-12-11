@@ -54,6 +54,7 @@
       azahar
       koreader
       heroic
+      dolphin-emu
     ];
   };
   programs = {
