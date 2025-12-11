@@ -285,22 +285,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-master": {
-      "locked": {
-        "lastModified": 1765478327,
-        "narHash": "sha256-cEvIzo41+MrKluVDK9Kc8lZX+PDRD/NGace5z1BmuVA=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
-        "rev": "a87f087fcedf32dfbcc034103378f6668ea60039",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nixos",
-        "ref": "master",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1763966396,
@@ -426,7 +410,6 @@
         "nix-flatpak": "nix-flatpak",
         "nix-minecraft": "nix-minecraft",
         "nixpkgs": "nixpkgs_5",
-        "nixpkgs-master": "nixpkgs-master",
         "remarkable-utility": "remarkable-utility",
         "treefmt-nix": "treefmt-nix"
       }

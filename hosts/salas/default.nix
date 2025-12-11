@@ -185,5 +185,10 @@ args@{
     };
   };
 
+  bzm = {
+    common.enable = true;
+    hardening.enable = true;
+  };
+
   system.stateVersion = "24.11"; # Did you read the comment?
 }

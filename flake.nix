@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:nixos/nixpkgs/master";
     devshell.url = "github:numtide/devshell";
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -29,25 +28,7 @@
     with inputs;
     let
       system = "x86_64-linux";
-      pkgs = import nixpkgs {
-        inherit system;
-        config = {
-          allowUnfree = true;
-          permittedInsecurePackages = [
-            "olm-3.2.16"
-          ];
-          # GPU decode/encode for salas
-          packageOverrides = pkgs: {
-            vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
-          };
-        };
-        overlays = [
-          devshell.overlays.default
-          nix-minecraft.overlay
-          (import ./pkgs)
-        ];
-      };
-      pkgs-master = import nixpkgs-master { inherit system; };
+      pkgs = (import ./config/nixpkgs.nix) { inherit system inputs; };
       common-modules = [
         ./modules
         agenix.nixosModules.default
@@ -59,27 +40,24 @@
         home-manager.nixosModules.default
         nix-flatpak.nixosModules.nix-flatpak
         catppuccin.nixosModules.catppuccin
-      ]
-      ++ common-modules;
+      ];
       server-modules = [
         nix-minecraft.nixosModules.minecraft-servers
-      ]
-      ++ common-modules;
-      treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+      ];
       host =
         modules:
         nixpkgs.lib.nixosSystem {
           inherit pkgs modules;
-          specialArgs = { inherit inputs pkgs-master; };
+          specialArgs = { inherit inputs; };
         };
     in
     {
-      formatter.${system} = treefmtEval.config.build.wrapper;
+      formatter.${system} = (treefmt-nix.lib.evalModule pkgs ./config/treefmt.nix).config.build.wrapper;
 
       nixosConfigurations = {
-        Mishim = host ([ ./hosts/mishim ] ++ pc-modules);
-        Roshar = host ([ ./hosts/roshar ] ++ pc-modules);
-        Salas = host ([ ./hosts/salas ] ++ server-modules);
+        Mishim = host ([ ./hosts/mishim ] ++ pc-modules ++ common-modules);
+        Roshar = host ([ ./hosts/roshar ] ++ pc-modules ++ common-modules);
+        Salas = host ([ ./hosts/salas ] ++ server-modules ++ common-modules);
       };
 
       devShells.${system}.default = pkgs.devshell.mkShell {

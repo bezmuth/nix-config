@@ -1,7 +1,6 @@
 [devshell]
 name = "nix-config"
 packages = [
-  'statix',
   'git',
 ]
 [[commands]]
@@ -19,7 +18,6 @@ command = """
   echo "$TARGET rebuilding"
   run0 nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  statix check -i hardware-configuration.nix container.nix
 """
 [[commands]]
 help = "Update and rebuild the nixos system. First arg is the target hostname"
@@ -37,7 +35,6 @@ command = """
   echo "$TARGET rebuilding"
   run0 nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
-  statix check -i hardware-configuration.nix
 """
 [[commands]]
 help = "Rebuilds a remote system, with most recent git pull"
