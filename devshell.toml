@@ -16,7 +16,7 @@ command = """
   echo "--- Git Status ---"
   git status -s
   echo "$TARGET rebuilding"
-  sudo nixos-rebuild switch --flake .#$TARGET --show-trace
+  run0 nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   statix check -i hardware-configuration.nix container.nix
 """
@@ -34,7 +34,7 @@ command = """
   echo "--- Git Status ---"
   git status -s
   echo "$TARGET rebuilding"
-  sudo nixos-rebuild switch --flake .#$TARGET --show-trace
+  run0 nixos-rebuild switch --flake .#$TARGET --show-trace
   nix fmt
   statix check -i hardware-configuration.nix
 """

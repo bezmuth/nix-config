@@ -64,7 +64,7 @@
 
   security = {
     polkit.enable = true;
-    sudo.enable = true;
+    sudo.enable = false;
     pki.certificates = [
       ''
         -----BEGIN CERTIFICATE-----
