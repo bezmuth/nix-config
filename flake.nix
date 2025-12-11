@@ -11,15 +11,14 @@
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     remarkable-utility.url = "github:404Wolf/remarkable-connection-utility";
-    # doom emacs install repo
-    doom-emacs-src = {
-      url = "github:doomemacs/doomemacs";
-      flake = false;
-    };
     agenix.url = "github:ryantm/agenix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     catppuccin.url = "github:catppuccin/nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
+    nix-doom-emacs-unstraightened = {
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

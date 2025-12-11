@@ -11,6 +11,7 @@
     sharedModules = with inputs; [
       agenix.homeManagerModules.age
       catppuccin.homeModules.catppuccin
+      nix-doom-emacs-unstraightened.homeModule
     ];
     extraSpecialArgs = {
       inherit inputs;
