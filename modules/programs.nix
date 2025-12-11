@@ -52,7 +52,7 @@
     };
   };
   environment.systemPackages = with pkgs; [
-    inputs.agenix.packages.${system}.default
+    inputs.agenix.packages.${stdenv.hostPlatform.system}.default
     vim
     git
     man-pages

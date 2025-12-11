@@ -38,7 +38,7 @@
       gparted
       anki-bin
       libreoffice-fresh
-      inputs.remarkable-utility.packages.${system}.default
+      inputs.remarkable-utility.packages.${stdenv.hostPlatform.system}.default
       r2modman
       powertop
       transmission-remote-gtk
