@@ -56,9 +56,9 @@
         { command = "kdeconnect-indicator"; }
         { command = "autotiling-rs"; }
         { command = "nextcloud"; }
-        { command = "thunderbird"; }
+        # { command = "thunderbird"; }
         { command = "protonmail-bridge --grpc"; }
-        { command = "emacs"; }
+        # { command = "emacs"; }
         # Idle
         { command = "$HOME/.config/sway/idle.sh"; }
       ];
