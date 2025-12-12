@@ -28,9 +28,10 @@
       system = "x86_64-linux";
       pkgs = (import ./config/nixpkgs.nix) { inherit system inputs; };
       host =
-        modules:
+        extraModules:
         nixpkgs.lib.nixosSystem {
-          inherit pkgs modules;
+          inherit pkgs;
+          modules = [ ./modules ] ++ extraModules;
           specialArgs = { inherit inputs; };
         };
     in
@@ -41,15 +42,12 @@
       nixosConfigurations = {
         Mishim = host [
           ./hosts/mishim
-          ./modules
         ];
         Roshar = host [
           ./hosts/roshar
-          ./modules
         ];
         Salas = host [
           ./hosts/salas
-          ./modules
           inputs.nix-minecraft.nixosModules.minecraft-servers
         ];
       };
