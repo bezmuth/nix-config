@@ -9,7 +9,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-flatpak.url = "github:gmodena/nix-flatpak";
-    remarkable-utility.url = "github:404Wolf/remarkable-connection-utility";
     agenix.url = "github:ryantm/agenix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
     catppuccin.url = "github:catppuccin/nix";
@@ -25,25 +24,9 @@
       nixpkgs,
       ...
     }:
-    with inputs;
     let
       system = "x86_64-linux";
       pkgs = (import ./config/nixpkgs.nix) { inherit system inputs; };
-      common-modules = [
-        ./modules
-        agenix.nixosModules.default
-      ];
-      pc-modules = [
-        ./modules/pc-services.nix
-        ./modules/pc-programs.nix
-        ./home
-        home-manager.nixosModules.default
-        nix-flatpak.nixosModules.nix-flatpak
-        catppuccin.nixosModules.catppuccin
-      ];
-      server-modules = [
-        nix-minecraft.nixosModules.minecraft-servers
-      ];
       host =
         modules:
         nixpkgs.lib.nixosSystem {
@@ -52,12 +35,23 @@
         };
     in
     {
-      formatter.${system} = (treefmt-nix.lib.evalModule pkgs ./config/treefmt.nix).config.build.wrapper;
+      formatter.${system} =
+        (inputs.treefmt-nix.lib.evalModule pkgs ./config/treefmt.nix).config.build.wrapper;
 
       nixosConfigurations = {
-        Mishim = host ([ ./hosts/mishim ] ++ pc-modules ++ common-modules);
-        Roshar = host ([ ./hosts/roshar ] ++ pc-modules ++ common-modules);
-        Salas = host ([ ./hosts/salas ] ++ server-modules ++ common-modules);
+        Mishim = host [
+          ./hosts/mishim
+          ./modules
+        ];
+        Roshar = host [
+          ./hosts/roshar
+          ./modules
+        ];
+        Salas = host [
+          ./hosts/salas
+          ./modules
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+        ];
       };
 
       devShells.${system}.default = pkgs.devshell.mkShell {

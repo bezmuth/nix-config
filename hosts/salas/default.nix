@@ -10,13 +10,8 @@ args@{
 {
   networking = {
     hostName = "Salas";
-    networkmanager.enable = true;
     firewall.allowedTCPPorts = [ ];
   };
-
-  security.pki.certificateFiles = [
-    ./ca.crt
-  ];
 
   imports = [
     # Include the results of the hardware scan.
@@ -64,8 +59,6 @@ args@{
     dates = "02:00";
     randomizedDelaySec = "45min";
   };
-
-  # Bootloader.
 
   age = {
     identityPaths = [ "/home/bezmuth/.ssh/id_ed25519" ];
@@ -128,37 +121,8 @@ args@{
       '';
     };
   };
-  # for minecraft
-  # systemd.services."cloudflare-dyndns-mc" = {
-  #   description = "mc";
-  #   after = [ "network.target" ];
-  #   wantedBy = [ "multi-user.target" ];
-  #   environment = {
-  #     CLOUDFLARE_DOMAINS = "mc.bezmuth.uk";
-  #   };
-  #   serviceConfig = {
-  #     startAt = "*:0/5";
-  #     Type = "simple";
-  #     DynamicUser = true;
-  #     StateDirectory = "cloudflare-dyndns-mc";
-  #     Environment = [ "XDG_CACHE_HOME=%S/cloudflare-dyndns-mc/.cache" ];
-  #     LoadCredential = [
-  #       "apiToken:${config.age.secrets.cloudflare-token.path}"
-  #     ];
-  #   };
-  #   script =
-  #     let
-  #       args = [ "--cache-file /var/lib/cloudflare-dyndns-mc/ip.cache" ];
-  #     in
-  #     ''
-  #       export CLOUDFLARE_API_TOKEN_FILE=''${CREDENTIALS_DIRECTORY}/apiToken
-
-  #       exec ${lib.getExe pkgs.cloudflare-dyndns} ${toString args}
-  #     '';
-  # };
 
   hardware.graphics = {
-    enable = true;
     extraPackages = with pkgs; [
       intel-media-driver
       intel-vaapi-driver
@@ -188,6 +152,7 @@ args@{
   bzm = {
     common.enable = true;
     hardening.enable = true;
+    shellconfig.enable = true;
   };
 
   system.stateVersion = "24.11"; # Did you read the comment?

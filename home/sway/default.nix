@@ -1,6 +1,5 @@
 # See https://codeberg.org/annaaurora/home-manager-config/ for an example config
 {
-  pkgs,
   config,
   lib,
   ...
@@ -15,20 +14,6 @@
     file = {
       ".config/sway/idle.sh".source = ./idle.sh;
     };
-    packages = with pkgs; [
-      grim # screenshot functionality
-      slurp # screenshot functionality
-      wl-clipboard # wl-copy and wl-paste for copy/paste from stdin / stdout
-      alacritty
-      wmenu
-      playerctl
-      networkmanagerapplet
-      blueman
-      pcmanfm
-      light
-      autotiling-rs
-      brightnessctl
-    ];
   };
   wayland.windowManager.sway = {
     enable = true;

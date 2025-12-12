@@ -1,19 +1,20 @@
-_: {
-  services.flatpak = {
-    enable = true;
-    update.auto = {
+{ config, lib, ... }:
+{
+  config = lib.mkIf config.bzm.desktop.enable {
+    services.flatpak = {
       enable = true;
-      onCalendar = "weekly"; # Default value
+      update.auto = {
+        enable = true;
+        onCalendar = "weekly"; # Default value
+      };
+      packages = [
+        "com.usebottles.bottles"
+        "net.lutris.Lutris"
+        "com.github.tchx84.Flatseal"
+      ];
     };
-    packages = [
-      "com.usebottles.bottles"
-      "net.lutris.Lutris"
-      "io.github.martinrotter.rssguard"
-      "org.kde.tokodon"
-      "com.github.tchx84.Flatseal"
+    environment.sessionVariables.PATH = [
+      "/var/lib/flatpak/exports/share/applications/"
     ];
   };
-  environment.sessionVariables.PATH = [
-    "/var/lib/flatpak/exports/share/applications/"
-  ];
 }
