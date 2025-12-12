@@ -49,5 +49,5 @@ command = """
   echo "--- Git Status ---"
   git status -s
   echo "$TARGET rebuilding"
-  ssh $TARGET -t "cd nix-config/; git reset --hard && git pull && sudo nixos-rebuild switch --flake . --show-trace"
+  ssh $TARGET -t "cd nix-config/; git reset --hard && git pull && run0 nixos-rebuild switch --flake . --show-trace"
 """
