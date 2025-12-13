@@ -17,7 +17,7 @@ args@{
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (import ../../modules/seedbox args)
-    (import ../../modules/ts-exitnode args)
+    #(import ../../modules/ts-exitnode args)
     (import ../../modules/jellyfin args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
     (import ../../modules/calibre-web (args // { localPort = 10001; }))
