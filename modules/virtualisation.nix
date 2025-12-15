@@ -14,6 +14,7 @@
     environment.systemPackages = with pkgs; [
       distrobox
       boxbuddy
+      virtiofsd
     ];
     programs.virt-manager.enable = true;
     virtualisation = {

@@ -149,6 +149,14 @@ args@{
     };
   };
 
+  security.pki.certificateFiles = [
+    ./ca.crt
+  ];
+
+  environment.systemPackages = with pkgs; [
+    nss # for caddy
+  ];
+
   bzm = {
     common.enable = true;
     hardening.enable = true;
