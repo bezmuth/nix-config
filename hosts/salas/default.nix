@@ -19,6 +19,7 @@ args@{
     (import ../../modules/seedbox args)
     #(import ../../modules/ts-exitnode args)
     (import ../../modules/jellyfin args)
+    (import ../../modules/paper args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
     (import ../../modules/calibre-web (args // { localPort = 10001; }))
     (import ../../modules/miniflux (args // { localPort = 10002; }))

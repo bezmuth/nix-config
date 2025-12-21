@@ -9,7 +9,8 @@
     doomDir = ./doom;
     emacs = pkgs.emacs-pgtk;
     experimentalFetchTree = true;
-    extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
+    # https://github.com/NixOS/nixpkgs/pull/472609
+    #extraPackages = epkgs: [ epkgs.treesit-grammars.with-all-grammars ];
   };
   home = {
     packages = with pkgs; [
