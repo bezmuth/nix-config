@@ -1,8 +1,8 @@
 {
   pkgs,
-  config,
   localPort ? 0,
   url ? "nextcloud.bezmuth.uk",
+  config,
   ...
 }:
 {
@@ -10,7 +10,7 @@
     nextcloud = {
       enable = true;
       configureRedis = true;
-      package = pkgs.nextcloud32;
+      package = pkgs.nextcloud33;
       hostName = url;
       maxUploadSize = "20G";
       config = {
@@ -27,6 +27,7 @@
         overwriteprotocol = "https";
         overwritehost = "nextcloud.bezmuth.uk:443";
       };
+
       extraApps = {
         inherit (config.services.nextcloud.package.packages.apps)
           contacts
@@ -37,6 +38,7 @@
           uppush
           calendar
           cookbook
+          qownnotesapi
           ;
       };
       extraAppsEnable = true;

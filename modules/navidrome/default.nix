@@ -11,11 +11,16 @@
   services = {
     navidrome = {
       enable = true;
-      group = "users";
+      group = "srv-data";
       settings = {
         Port = localPort;
         Address = "0.0.0.0";
         MusicFolder = "/home/files/music/";
+        #Plugins = {
+        #  Enabled = "true";
+        #  Folder = "/srv/navidrome-plugins/";
+        #  AutoReload = "true";
+        #};
       };
     };
     caddy = {

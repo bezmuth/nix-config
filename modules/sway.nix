@@ -12,8 +12,8 @@ with lib;
 
   config = mkIf config.bzm.sway.enable {
     environment.systemPackages = with pkgs; [
-      mate.engrampa
-      mate.eom
+      engrampa
+      eom
       zip
       grim # screenshot functionality
       slurp # screenshot functionality
@@ -22,9 +22,7 @@ with lib;
       wmenu
       playerctl
       networkmanagerapplet
-      blueman
       pcmanfm
-      light
       autotiling-rs
       brightnessctl
     ];

@@ -1,10 +1,36 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  inputs,
+  pkgs,
+  ...
+}:
 with lib;
 {
+  imports = [
+    inputs.nix-mineral.nixosModules.nix-mineral
+  ];
   options.bzm.hardening = {
     enable = mkEnableOption "basic hardening";
   };
   config = mkIf config.bzm.hardening.enable {
+
+    nix.settings.allowed-users = [ "@users" ];
+    #environment.memoryAllocator.provider = "graphene-hardened";
+    environment.systemPackages =
+      #with inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.bwrapped; [
+      #  librewolf
+      #  tor-browser
+      #  thunderbird
+      #  agenix
+      #];
+      # until the allocator is fixed for nixos-switch, skip the above
+      with pkgs; [
+        librewolf
+        tor-browser
+        thunderbird
+        #agenix
+      ];
     security = {
       # use nix-mineral for more hardening?
       polkit.enable = true;
@@ -41,6 +67,30 @@ with lib;
           -----END CERTIFICATE-----
         ''
       ];
+    };
+    nix-mineral = {
+      enable = true;
+      preset = [
+        "compatibility"
+        "performance"
+      ];
+      filesystems.enable = false;
+      kernel-modules = {
+        disable = {
+          bluetooth-related = true;
+          cdrom-related = true;
+          firewire-related = true;
+          secureblue-additional = true;
+          intelme-related = true;
+          thunderbolt-related = true;
+        };
+      };
+      extras = {
+        system = {
+          #lock-root = true;
+          secure-chrony = true;
+        };
+      };
     };
   };
 }

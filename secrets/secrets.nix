@@ -33,4 +33,13 @@ in
     mishim
     roshar
   ];
+  "mollysocket.age".publicKeys = [
+    salas
+  ];
+  "pocketid.age".publicKeys = [
+    salas
+  ];
+  "miniflux-oidc.age".publicKeys = [
+    salas
+  ];
 }

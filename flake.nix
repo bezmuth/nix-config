@@ -2,6 +2,7 @@
   # Ben's Nixos configuration, here be dragons;
 
   inputs = {
+    # https://github.com/NixOS/nixpkgs/issues/535887
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     devshell.url = "github:numtide/devshell";
     home-manager = {
@@ -11,10 +12,10 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak";
     agenix.url = "github:ryantm/agenix";
     nix-minecraft.url = "github:Infinidoge/nix-minecraft";
-    catppuccin.url = "github:catppuccin/nix";
     treefmt-nix.url = "github:numtide/treefmt-nix";
-    nix-doom-emacs-unstraightened = {
-      url = "github:marienz/nix-doom-emacs-unstraightened";
+    nix-mineral.url = "github:cynicsketch/nix-mineral/";
+    nixpak = {
+      url = "github:nixpak/nixpak";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -22,6 +23,7 @@
   outputs =
     inputs@{
       nixpkgs,
+      nixpak,
       ...
     }:
     let
@@ -36,8 +38,6 @@
         };
     in
     {
-      formatter.${system} =
-        (inputs.treefmt-nix.lib.evalModule pkgs ./config/treefmt.nix).config.build.wrapper;
 
       nixosConfigurations = {
         Mishim = host [
@@ -55,6 +55,13 @@
       devShells.${system}.default = pkgs.devshell.mkShell {
         imports = [ (pkgs.devshell.importTOML ./devshell.toml) ];
       };
+
+      packages.x86_64-linux.bwrapped = import ./bwrapped {
+        inherit pkgs nixpak inputs;
+      };
+
+      formatter.${system} =
+        (inputs.treefmt-nix.lib.evalModule pkgs ./config/treefmt.nix).config.build.wrapper;
 
     };
 }

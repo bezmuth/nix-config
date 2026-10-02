@@ -25,11 +25,6 @@ with lib;
       gamemode.enableRenice = true;
     };
     environment.systemPackages = with pkgs; [
-      (catppuccin-gtk.override {
-        accents = [ "pink" ];
-        size = "compact";
-        variant = "mocha";
-      })
       temurin-jre-bin-17
       prismlauncher
       r2modman

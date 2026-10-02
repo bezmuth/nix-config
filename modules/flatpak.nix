@@ -11,6 +11,8 @@
         "com.usebottles.bottles"
         "net.lutris.Lutris"
         "com.github.tchx84.Flatseal"
+        "io.github.ungoogled_software.ungoogled_chromium"
+        "io.gitlab.librewolf-community"
       ];
     };
     environment.sessionVariables.PATH = [

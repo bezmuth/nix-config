@@ -1,7 +1,6 @@
 # Mostly taken from https://github.com/pierrot-lc/librewolf-nix
 {
   pkgs,
-  config,
   lib,
   ...
 }:
@@ -9,7 +8,7 @@ let
   extensions = import ./extensions.nix;
 in
 {
-  config = lib.mkIf config.bzm.desktop.enable {
+  config = lib.mkIf false {
     environment.systemPackages = [
       (pkgs.wrapFirefox pkgs.librewolf-unwrapped {
         inherit (pkgs.librewolf-unwrapped) extraPrefsFiles extraPoliciesFiles;

@@ -1,4 +1,3 @@
-# See https://codeberg.org/annaaurora/home-manager-config/ for an example config
 {
   config,
   lib,
@@ -10,11 +9,6 @@
     ../mako # switch to swaynotificationcenter?
     ../swaylock
   ];
-  home = {
-    file = {
-      ".config/sway/idle.sh".source = ./idle.sh;
-    };
-  };
   wayland.windowManager.sway = {
     enable = true;
     package = null;
@@ -36,16 +30,16 @@
         {
           command = "dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY";
         }
-        { command = "blueman-applet"; }
         { command = "nm-applet --indicator"; }
         { command = "kdeconnect-indicator"; }
         { command = "autotiling-rs"; }
         { command = "nextcloud"; }
-        # { command = "thunderbird"; }
-        { command = "protonmail-bridge --grpc"; }
-        # { command = "emacs"; }
+        { command = "thunderbird"; }
+        { command = "protonmail-bridge"; }
+        { command = "solaar -w hide"; }
         # Idle
-        { command = "$HOME/.config/sway/idle.sh"; }
+        { command = "idle.sh"; }
+        { command = "signal-desktop"; }
       ];
       window.commands = [
         {
@@ -67,8 +61,9 @@
           "${m}+bracketright" = "exec playerctl next";
           "${m}+bracketleft" = "exec playerctl play-pause";
           "${m}+p" = "exec playerctl previous";
-          #"grave" = "scratchpad show";
-          #"Shift+grave" = "move scratchpad";
+          "${m}+y" = "exec mpv --speed=2.0 $(wl-paste)";
+          "${m}+Shift+v" = "exec video.sh";
+          "${m}+Shift+r" = "exec radio.sh";
           "${m}+end" = "exec swaylock";
 
           # function keys
@@ -111,7 +106,7 @@
         };
       };
 
-      seat."*".hide_cursor = "3000";
+      seat."*".hide_cursor = "5000";
 
       focus.wrapping = "force";
 

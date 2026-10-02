@@ -2,6 +2,7 @@
 name = "nix-config"
 packages = [
   'git',
+  'vim',
 ]
 [[commands]]
 help = "Rebuilds nixos system. First arg is the target hostname"
@@ -17,6 +18,22 @@ command = """
   git status -s
   echo "$TARGET rebuilding"
   run0 nixos-rebuild switch --flake .#$TARGET --show-trace
+  nix fmt
+"""
+[[commands]]
+help = "Rebuilds nixos system for next boot. First arg is the target hostname"
+name = "boot"
+command = """
+  #!/usr/bin/env bash
+  if [ "$#" -eq 0 ]; then
+    TARGET="$HOSTNAME"
+  else
+    TARGET="$1"
+  fi
+  echo "--- Git Status ---"
+  git status -s
+  echo "$TARGET rebuilding"
+  run0 nixos-rebuild boot --flake .#$TARGET --show-trace
   nix fmt
 """
 [[commands]]

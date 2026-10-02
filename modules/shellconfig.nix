@@ -15,10 +15,6 @@ with lib;
       fish.shellInit = "set fish_greeting";
       bash = {
         completion.enable = true;
-        shellAliases = {
-          rb = "cd ~/nix-config/ && nix develop --command bash -c 'rebuild'";
-          ub = "cd ~/nix-config/ && nix develop --command bash -c 'upbuild'";
-        };
         interactiveShellInit = ''
           if [[ $(${pkgs.procps}/bin/ps --no-header --pid=$PPID --format=comm) != "fish" && -z ''${BASH_EXECUTION_STRING} ]]
           then

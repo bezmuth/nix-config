@@ -6,6 +6,7 @@ import inputs.nixpkgs {
     allowUnfree = true;
     permittedInsecurePackages = [
       "olm-3.2.16"
+      "pnpm-10.29.2"
     ];
     # GPU decode/encode for salas
     packageOverrides = pkgs: {

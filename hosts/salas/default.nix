@@ -4,7 +4,6 @@
 args@{
   pkgs,
   inputs,
-  lib,
   ...
 }:
 {
@@ -13,23 +12,32 @@ args@{
     firewall.allowedTCPPorts = [ ];
   };
 
+  disabledModules = [ "services/networking/i2pd.nix" ];
+
   imports = [
+    #https://github.com/NixOS/nixpkgs/pull/225601
+    "${inputs.i2pd_override}/nixos/modules/services/networking/i2pd.nix"
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     (import ../../modules/seedbox args)
+    (import ../../modules/i2pd args)
     #(import ../../modules/ts-exitnode args)
     (import ../../modules/jellyfin args)
     (import ../../modules/paper args)
     (import ../../modules/audiobookshelf (args // { localPort = 10000; }))
     (import ../../modules/calibre-web (args // { localPort = 10001; }))
+    (import ../../modules/qbittorrent (args // { localPort = 10011; }))
     (import ../../modules/miniflux (args // { localPort = 10002; }))
     (import ../../modules/gotosocial (args // { localPort = 10003; }))
-    (import ../../modules/actual (args // { localPort = 10004; }))
+    #(import ../../modules/actual (args // { localPort = 10004; }))
     (import ../../modules/nextcloud (args // { localPort = 10005; }))
     (import ../../modules/rmfakecloud (args // { localPort = 10006; }))
-    (import ../../modules/conduit (args // { localPort = 10007; }))
+    #(import ../../modules/conduit (args // { localPort = 10007; }))
     #(import ../../modules/ntfy (args // { localPort = 10008; }))
     (import ../../modules/navidrome (args // { localPort = 10009; }))
+    (import ../../modules/adguardhome (args // { localPort = 10010; }))
+    (import ../../modules/mollysocket (args // { localPort = 10013; }))
+    #(import ../../modules/pocketid (args // { localPort = 10014; }))
     #../../modules/paper
   ];
 
@@ -42,11 +50,14 @@ args@{
 
   # load caddy after tailscale so it doesn't cry all the time
   systemd.services.caddy.serviceConfig = {
+    ExecStartPre = ''
+      	/run/current-system/sw/bin/sh -c 'until /run/current-system/sw/bin/ip addr show dev tailscale0 | /run/current-system/sw/bin/grep -q "100.64.0.3"; do /run/current-system/sw/bin/sleep 1; done'
+    '';
     After = [ "tailscaled.service" ];
-    Restart = lib.mkOverride 0 "on-failure";
-    RestartSec = lib.mkOverride 0 "20s";
-    StartLimitBurst = lib.mkOverride 0 "5";
-    StartLimitIntervalSec = lib.mkOverride 0 "60";
+    #Restart = lib.mkOverride 0 "on-failure";
+    #RestartSec = lib.mkOverride 0 "20s";
+    #StartLimitBurst = lib.mkOverride 0 "5";
+    #StartLimitIntervalSec = lib.mkOverride 0 "60";
   };
 
   system.autoUpgrade = {
@@ -66,12 +77,15 @@ args@{
   };
 
   users = {
-    groups.srv-data = { };
+    groups.srv-data = {
+      members = [ "bezmuth" ];
+    };
     users = {
       caddy.extraGroups = [ "acme" ];
       "bezmuth".openssh.authorizedKeys.keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIO6zoHZ2w6Mo6KOiubft6bjHhOZTCnzRJm2Yp2Xk8YPv"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIC5g+dx2r1aKKfiU8nrSyQdhnF8tVNJxRX44oFZfHRog"
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDgRppXXzym7N0aSD/IwE7oFVq5QjVf+31crFhpWXO7g"
       ];
     };
   };
@@ -136,6 +150,8 @@ args@{
 
   # reboot once a day
   systemd = {
+
+    services.NetworkManager-wait-online.enable = true;
     services.reboot-weekly = {
       description = "Reboot the system";
       serviceConfig.ExecStart = "/run/current-system/sw/bin/reboot";

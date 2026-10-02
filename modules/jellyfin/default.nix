@@ -9,10 +9,12 @@
     pkgs.jellyfin-web
     pkgs.jellyfin-ffmpeg
   ];
+  networking.firewall.allowedUDPPorts = [ 1900 ]; # dlna
   services = {
     jellyfin = {
       enable = true;
       user = "bezmuth";
+      group = "srv-data";
     };
     caddy = {
       enable = true;

@@ -18,6 +18,7 @@
     "ehci_pci"
     "xhci_pci_renesas"
     "xhci_pci"
+    "usbhid"
     "usb_storage"
     "sd_mod"
     "sdhci_pci"
@@ -27,15 +28,27 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" = {
-    device = "/dev/mapper/luks-28c9b798-ce05-4416-a494-91446f1de464";
-    fsType = "ext4";
+    device = "/dev/mapper/luks-16543bd4-277b-4eeb-abaa-3cea8a28752e";
+    fsType = "btrfs";
   };
 
-  boot.initrd.luks.devices."luks-28c9b798-ce05-4416-a494-91446f1de464".device =
-    "/dev/disk/by-uuid/28c9b798-ce05-4416-a494-91446f1de464";
+  boot.initrd.luks.devices."luks-16543bd4-277b-4eeb-abaa-3cea8a28752e".device =
+    "/dev/disk/by-uuid/16543bd4-277b-4eeb-abaa-3cea8a28752e";
+
+  fileSystems."/home" = {
+    device = "/dev/mapper/luks-16543bd4-277b-4eeb-abaa-3cea8a28752e";
+    fsType = "btrfs";
+    options = [ "subvol=home" ];
+  };
+
+  fileSystems."/nix" = {
+    device = "/dev/mapper/luks-16543bd4-277b-4eeb-abaa-3cea8a28752e";
+    fsType = "btrfs";
+    options = [ "subvol=nix" ];
+  };
 
   fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/AF14-93E6";
+    device = "/dev/disk/by-uuid/E7C1-B05B";
     fsType = "vfat";
     options = [
       "fmask=0077"
@@ -43,11 +56,12 @@
     ];
   };
 
-  boot.initrd.luks.devices."luks-fc959d06-204f-4e17-9735-0bb21e38223e".device =
-    "/dev/disk/by-uuid/fc959d06-204f-4e17-9735-0bb21e38223e";
   swapDevices = [
-    { device = "/dev/mapper/luks-fc959d06-204f-4e17-9735-0bb21e38223e"; }
+    { device = "/dev/mapper/luks-680bcfa9-eab9-43f9-a969-3ec08e88c72e"; }
   ];
+
+  boot.initrd.luks.devices."luks-680bcfa9-eab9-43f9-a969-3ec08e88c72e".device =
+    "/dev/disk/by-uuid/680bcfa9-eab9-43f9-a969-3ec08e88c72e";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

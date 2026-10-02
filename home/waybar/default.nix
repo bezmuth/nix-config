@@ -144,7 +144,6 @@
         modules-center = [ "clock" ];
         modules-left = [ "sway/workspaces" ];
         modules-right = [
-          "custom/pomodoro"
           "tray"
           "power-profiles-daemon"
           "pulseaudio"
